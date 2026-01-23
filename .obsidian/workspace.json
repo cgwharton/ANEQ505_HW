@@ -11,10 +11,14 @@
             "id": "395b04a58ea15719",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {},
+              "type": "markdown",
+              "state": {
+                "file": "test test 12345.md",
+                "mode": "source",
+                "source": false
+              },
               "icon": "lucide-file",
-              "title": "New tab"
+              "title": "test test 12345"
             }
           }
         ]
@@ -158,19 +162,9 @@
               "icon": "lucide-list",
               "title": "Outline of GITHUB TOKEN"
             }
-          },
-          {
-            "id": "51ab8826326eb6e3",
-            "type": "leaf",
-            "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
-            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
@@ -189,8 +183,9 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "8cab66115073afc5",
+  "active": "395b04a58ea15719",
   "lastOpenFiles": [
+    "test test 12345.md",
     "test.md",
     "GITHUB TOKEN.md",
     "hkkj.md",

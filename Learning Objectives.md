@@ -357,3 +357,10 @@ Key idea:
 
 > They incorporate **relatedness**, not just presence/absence.
 
+
+
+
+
+- **Focus:** Microbiome studies focus on the genetic potential and interactions of microbial communities within a specific habitat (e.g., gut microbiome). Microbiology covers a broad range of topics, including virology, bacteriology, and immunology, covering both beneficial and harmful microorganisms.
+
+16s rrna mitochondria is considered contamination

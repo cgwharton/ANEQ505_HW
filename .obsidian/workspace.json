@@ -34,9 +34,23 @@
               "icon": "lucide-file",
               "title": "1.30.2026"
             }
+          },
+          {
+            "id": "2b9a2dafb77d5c89",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Learning Objectives.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Learning Objectives"
+            }
           }
         ],
-        "currentTab": 1
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -198,10 +212,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "bb239fd521fd4f7e",
+  "active": "2b9a2dafb77d5c89",
   "lastOpenFiles": [
-    "test test 12345.md",
     "1.30.2026.md",
+    "Learning Objectives.md",
+    "test test 12345.md",
     "Untitled.base",
     "2026-01-30.md",
     "04_extra_credit",

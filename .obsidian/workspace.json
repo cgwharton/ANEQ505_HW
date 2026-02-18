@@ -107,7 +107,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "223c8da97886a9ca",
@@ -214,10 +215,10 @@
   },
   "active": "a515424da819b02c",
   "lastOpenFiles": [
+    "05_notes/2.6.2026.md",
     "homework_1_mac.md",
     "Learning Objectives.md",
     "05_notes/Week 3.md",
-    "05_notes/2.6.2026.md",
     "05_notes/1.30.2026.md",
     "test test 12345.md",
     "05_notes",

@@ -1,4 +1,4 @@
-**ANEQ Homework #1: Practice Importing Data, Demultiplexing Reads, and Denoising**
+met**ANEQ Homework #1: Practice Importing Data, Demultiplexing Reads, and Denoising**
 
 **Due Feb 12th at midnight**
 

@@ -25,12 +25,14 @@
             "id": "a515424da819b02c",
             "type": "leaf",
             "state": {
-              "type": "release-notes",
+              "type": "markdown",
               "state": {
-                "currentVersion": "1.11.7"
+                "file": "homework_1_mac.md",
+                "mode": "source",
+                "source": false
               },
-              "icon": "lucide-book-up",
-              "title": "Release Notes 1.11.7"
+              "icon": "lucide-file",
+              "title": "homework_1_mac"
             }
           },
           {
@@ -212,6 +214,7 @@
   },
   "active": "a515424da819b02c",
   "lastOpenFiles": [
+    "homework_1_mac.md",
     "Learning Objectives.md",
     "05_notes/Week 3.md",
     "05_notes/2.6.2026.md",

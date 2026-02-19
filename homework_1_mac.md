@@ -225,13 +225,16 @@ qiime demux summarize \
 
 Submitting the Job
  ```
+ cd slurm
  sbatch demux.sh
  ```
 
 Denoising
 
 ```
-cd ADD PATH TO DADA2 DIRECTORY
+cd ../
+
+cd dada2
 
 qiime dada2 denoise-paired \
 --i-demultiplexed-seqs ../demux/demux_cow.qza \

@@ -64,7 +64,10 @@ Submitting the Job
 
 
 
-
+## Key Information ##
+1. Representative Sequences
+2. Denoising Stats
+3. Denoised Table
 
 
 ## Questions ##

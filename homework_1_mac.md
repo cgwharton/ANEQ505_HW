@@ -160,8 +160,8 @@ Briefly **describe** the key information from each denoising output file:
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
-	Pre-denoising: Mean reads per sample are 15163.394558
-	Post-denoising: Mean frequency per sample
+	Pre-denoising: Mean reads per sample was 15,163.394558
+	Post-denoising: Mean frequency per sample was 11,115.7
 
 2. How long are the reads?
 	 251 bp

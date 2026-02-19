@@ -160,7 +160,8 @@ Briefly **describe** the key information from each denoising output file:
 	Mean reads for both forward and reverse are 15163.394558
 
 2. How long are the reads?
-	
+	 Read length ranged from 112 to 43963
+	 250 bp
 
 3. What is the maximum length of all your sequences?
 	 The maximum length was 43963

@@ -164,13 +164,13 @@ Briefly **describe** the key information from each denoising output file:
 	Post-denoising: Mean frequency per sample was 11,115.7
 
 2. How long are the reads?
-	 251 bp
+	 251
 
 3. What is the maximum length of all your sequences?
 	 The maximum length was 427
 
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
-	The sample that lost the most reads was 2019.3.14.cow.oral.20
+	The sample that lost the most reads was 2019.3.14.cow.oral.20, it only had 8.76% of the original input. 
 
 5. Why did you choose to trim or truncate where you did?
 	I chose to trim off the 251st base and keep 0-250 because the reverse read median quality score for 251 was 13, falling under the benchmark of 30.

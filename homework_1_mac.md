@@ -157,9 +157,16 @@ Briefly **describe** the key information from each denoising output file:
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
+	Mean reads for both forward and reverse are 15163.394558
+
 2. How long are the reads?
+	
+
 3. What is the maximum length of all your sequences?
+	 The maximum length was 43963
+
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
+
 5. Why did you chose to trim or truncate where you did?
 
 **To submit your homework from this document:**
@@ -255,9 +262,9 @@ qiime metadata tabulate \
 qiime feature-table summarize \
 --i-table cow_table_dada2.qza \
 --m-sample-metadata-file ../metadata/cow_metadata.txt \
---o-visualization YOUR_OUTPUT_FILENAME_HERE.qzv
+--o-visualization cow_table.qzv
 
 qiime feature-table tabulate-seqs \
 --i-data cow_seqs_dada2.qza \
---o-visualization YOUR_OUTPUT_FILENAME_HERE.qzv
+--o-visualization cow_seqs.qzv
 ```

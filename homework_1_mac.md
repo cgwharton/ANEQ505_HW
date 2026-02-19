@@ -152,15 +152,18 @@ qiime feature-table tabulate-seqs \
 	
 Briefly **describe** the key information from each denoising output file:
 1. Representative Sequences
+	 The sequences file contains the unique denoised sequences (ASVs) after error correction and filtering. These are later used for visualization and further analysis. 
 2. Denoising Stats
+	 The stats file provides us with the initial number of reads per sample and then summarizes how many reads were kept or removed at each step of denoising. This is useful for checking data quality and troubleshooting read loss. 
 3. Denoised Table
+	The table file lays out how many times each ASV appears in ea
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
 	Mean reads per sample are 15163.394558
 
 2. How long are the reads?
-	 251 nts
+	 251 bp
 
 3. What is the maximum length of all your sequences?
 	 The maximum length was 427
@@ -168,7 +171,8 @@ Briefly **describe** the key information from each denoising output file:
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
 	The sample that lost the most reads was 2019.3.14.cow.oral.20
 
-5. Why did you chose to trim or truncate where you did?
+5. Why did you choose to trim or truncate where you did?
+	I chose to trim off the 251st base and keep 0-250 because the reverse read median quality score for 251 was 13, falling under the benchmark of 30.
 
 **To submit your homework from this document:**
 write all of your commands here, then use command+P (for mac) or control+P (for windows) and search Git: commit. click it. then search for Git: Push and click it. go to your github online to check that it pushed correctly. we will check your github for homework credit. 

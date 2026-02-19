@@ -163,9 +163,10 @@ Briefly **describe** the key information from each denoising output file:
 	 251 nts
 
 3. What is the maximum length of all your sequences?
-	 The maximum length was 43963
+	 The maximum length was 427
 
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
+	The sample that lost the most reads was 2019.3.14.cow.oral.20
 
 5. Why did you chose to trim or truncate where you did?
 
@@ -239,9 +240,7 @@ Submitting the Job
 Denoising
 
 ```
-cd ../
-
-cd dada2
+cd ../dada2
 
 qiime dada2 denoise-paired \
 --i-demultiplexed-seqs ../demux/demux_cow.qza \

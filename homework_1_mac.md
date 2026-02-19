@@ -156,7 +156,7 @@ Briefly **describe** the key information from each denoising output file:
 2. Denoising Stats
 	 The stats file provides us with the initial number of reads per sample and then summarizes how many reads were kept or removed at each step of denoising. This is useful for checking data quality and troubleshooting read loss. 
 3. Denoised Table
-	The table file lays out how many times each ASV appears in ea
+	The table file provides summary statistics on ASVs in the dataset- total feature frequency, along with frequency per sample and frequency per feature. You can also look at sampling depth and see how many samples would be included/excluded at a certain depth. 
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?

@@ -2,7 +2,7 @@ met**ANEQ Homework #1: Practice Importing Data, Demultiplexing Reads, and Denois
 
 **Due Feb 12th at midnight**
 
-**Name:**
+**Name:** Catie Wharton
 
 **For complete credit for this assignment, you must answer all questions and include all commands in your obsidian upload.**
 
@@ -160,14 +160,13 @@ Briefly **describe** the key information from each denoising output file:
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
-	Pre-denoising: Mean reads per sample was 15,163.394558
-	Post-denoising: Mean frequency per sample was 11,115.7
+	Pre-denoising: Mean reads per sample was 15,163.394558.
 
 2. How long are the reads?
 	 251
 
 3. What is the maximum length of all your sequences?
-	 The maximum length was 427
+	 The maximum length was 427.
 
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
 	The sample that lost the most reads was 2019.3.14.cow.oral.20, it only had 8.76% of the original input. 

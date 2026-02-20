@@ -86,10 +86,11 @@ And tell the classifier, if you see a sequence like this, you should be returnin
 
 **8.  use our representative reads to classify taxonomy, which will give us our taxonomy.qza output. This will take ~2 minutes.**
 
-qiime feature-classifier classify-sklearn \  
---i-reads ../dada2/seqs.qza \  
---i-classifier 2024.09.backbone.v4.nb.qza \  
---o-classification taxonomy_gg2.qza
+`qiime feature-classifier classify-sklearn \`  
+`--i-reads ../dada2/seqs.qza \`  
+`--i-classifier 2024.09.backbone.v4.nb.qza \`  # from greeengenes
+`--o-classification taxonomy_gg2.qza`
+
 
 **9. Let's make our taxonomy into a visualization, transfer to our local computers, and look at it in QIIME2 View.**
 

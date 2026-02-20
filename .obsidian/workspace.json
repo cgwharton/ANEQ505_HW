@@ -82,7 +82,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "tree",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -103,7 +103,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -214,14 +215,14 @@
   },
   "active": "04972dc869787c6f",
   "lastOpenFiles": [
-    "05_notes/Week 5.md",
-    "05_notes/2.6.2026.md",
     "05_notes/Week 3.md",
     "05_notes/Week 4.md",
+    "05_notes/Week 5.md",
+    "Learning Objectives.md",
+    "05_notes/2.6.2026.md",
     "05_notes/1.30.2026.md",
     "01_homework/homework_1.md",
     "test test 12345.md",
-    "Learning Objectives.md",
     "CWharton Homework 1.md",
     "05_notes",
     "Untitled.base",

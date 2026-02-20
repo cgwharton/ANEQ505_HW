@@ -16,30 +16,30 @@
 
 - ## Describe two forces shaping the mammalian gut microbiome
 
-## Describe the major bacterial and microbial eukaryotic taxa in the mammalian gut
+- ## Describe the major bacterial and microbial eukaryotic taxa in the mammalian gut
 
-## Describe what would happen if you didn’t demultiplex your sequencing run
+- ## Describe what would happen if you didn’t demultiplex your sequencing run
 
-## Understand the difference between clustering and denoising
+- ## Understand the difference between clustering and denoising
 
-## Understand the difference between ASVs and OTUs
+- ## Understand the difference between ASVs and OTUs
 
-## Describe the file types you have after denoising
+- ## Describe the file types you have after denoising
 
-## Describe how taxonomy is useful
+- ## Describe how taxonomy is useful
 
-## Understand how taxonomy is assigned to microbiome sequence data
+- ## Understand how taxonomy is assigned to microbiome sequence data
 
-## Give an example of how taxonomy can be used for quality control of data
+- ## Give an example of how taxonomy can be used for quality control of data
 
-## Understand the basics of phylogenetic trees, and why they are useful
-## Understand common confounders in microbiome studies
+- ## Understand the basics of phylogenetic trees, and why they are useful
+- ## Understand common confounders in microbiome studies
 	- Batch effects: Different extraction kits, operators, PCR runs, sequencing lanes, or reagent lots create systematic differences unrelated to biology; they can dominate multivariate structure if not blocked or adjusted.
 	- Sample handling: Variable storage time, freeze–thaw cycles, and temperature during transport alter community composition, especially in low‑biomass or oxygen‑sensitive communities.
 	- Host/background DNA: High host:microbe DNA ratios (e.g., blood, tissue, placenta) cause mis‑annotation of host reads and stochastic detection of rare taxa.
 	- Low biomass and stochasticity: In low‑biomass sites, tiny absolute differences in contamination or sampling depth create large relative changes, reducing power and inflating apparent between‑sample differences.
 	- Bioinformatic choices: Truncation lengths, chimera removal, clustering vs ASVs, and reference database all influence which taxa appear and their relative abundance, affecting both alpha and beta diversity.
-## Understand common contamination types and sources
+- ## Understand common contamination types and sources
 	For typical 16S/shotgun workflows, contamination often comes from:
 	- Reagents and kits: DNA extraction kits, PCR master mixes, and water carry characteristic “kitome” taxa (e.g., skin and environmental bacteria).
 	- Environment and handling: Airborne microbes, dust, lab surfaces, and operator skin introduce low‑level contaminants during extraction and PCR setup.
@@ -47,87 +47,84 @@
 	- Carry‑over from previous runs: Residual amplicons or libraries on instruments or in pipettes can appear in new runs.
 	Conceptually, contaminant profiles are often: (1) similar across negative controls; (2) relatively constant in absolute abundance; and thus (3) relatively more prominent in low‑biomass samples than in high‑biomass ones.
 
-## Understand the use of negative and positive controls in sequencing and how to utilize them
-Negative controls
-- Typical negative controls include extraction blanks and PCR no‑template controls.
-- Use them to:
-	- Characterize lab‑specific contaminant signatures: Taxa consistently enriched in blanks indicate reagent/environmental contaminants for that batch.
-	- Guide contaminant removal: Approaches include removing ASVs/OTUs that are significantly associated with low total DNA, that are enriched in negatives vs true samples, or that track batch but not biology.
-	- Assess batch‑specific issues: If some batches show many reads or unexpected taxa in blanks, treat that batch with extra caution or exclude it.
-	Limitations: Negative controls alone miss contaminants that only appear when real DNA is present, or that occur stochastically in a subset of samples. This is why relying solely on public contaminant lists is discouraged relative to using internal controls.
+- ## Understand the use of negative and positive controls in sequencing and how to utilize them
+	- Negative controls
+		- Typical negative controls include extraction blanks and PCR no‑template controls.
+		- Use them to:
+			- Characterize lab‑specific contaminant signatures: Taxa consistently enriched in blanks indicate reagent/environmental contaminants for that batch.
+			- Guide contaminant removal: Approaches include removing ASVs/OTUs that are significantly associated with low total DNA, that are enriched in negatives vs true samples, or that track batch but not biology.
+			- Assess batch‑specific issues: If some batches show many reads or unexpected taxa in blanks, treat that batch with extra caution or exclude it.
+			- Limitations: Negative controls alone miss contaminants that only appear when real DNA is present, or that occur stochastically in a subset of samples. This is why relying solely on public contaminant lists is discouraged relative to using internal controls.
+	- Positive controls (mock communities, spike‑ins)
+		- Positive controls include defined mock communities and dilution series.
+		- Use them to:
+			- Check taxonomic accuracy and bias: Compare observed vs expected composition to assess extraction bias (e.g., gram‑positive under‑representation), primer bias, and pipeline performance.
+			- Monitor sensitivity and dynamic range: Dilution series indicate where low biomass begins to converge toward contaminant profiles and where diversity metrics become unreliable.
+			- Validate contaminant‑removal strategies: After applying contaminant filtering, the mock community should become more similar to its expected profile (improved recovery, fewer spurious taxa).
+		- In practice, ideal sequencing runs include: sample‑matched extraction blanks, PCR negatives, at least one mock community, and, if you care about limits of detection, a mock dilution series.
 
-Positive controls (mock communities, spike‑ins)
-- Positive controls include defined mock communities and dilution series.
-- Use them to:
-	- Check taxonomic accuracy and bias: Compare observed vs expected composition to assess extraction bias (e.g., gram‑positive under‑representation), primer bias, and pipeline performance.
-	- Monitor sensitivity and dynamic range: Dilution series indicate where low biomass begins to converge toward contaminant profiles and where diversity metrics become unreliable.
-	- Validate contaminant‑removal strategies: After applying contaminant filtering, the mock community should become more similar to its expected profile (improved recovery, fewer spurious taxa).
-	In practice, ideal sequencing runs include: sample‑matched extraction blanks, PCR negatives, at least one mock community, and, if you care about limits of detection, a mock dilution series.
-
-## Describe the difference between alpha and beta diversity
-Alpha and beta diversity capture different aspects of community structure.
-
-Alpha diversity: Within‑sample complexity—how many taxa (richness) and how evenly they are distributed (evenness) in a single sample.
-
-Examples: Observed richness, Chao1 (richness estimate), Shannon index (richness + evenness), Simpson index (dominance/evenness).
-
-Beta diversity: Between‑sample differences—how similar or dissimilar community composition is across samples or groups.
-
-Applied example: Alpha diversity can assess whether treatment reduces within‑host richness, while beta diversity tests whether the overall community composition shifts between treatment and control.
+- ## Describe the difference between alpha and beta diversity
+	- Alpha and beta diversity capture different aspects of community structure.
+	
+	- Alpha diversity: Within‑sample complexity—how many taxa (richness) and how evenly they are distributed (evenness) in a single sample.
+	
+	- Examples: Observed richness, Chao1 (richness estimate), Shannon index (richness + evenness), Simpson index (dominance/evenness).
+	
+	- Beta diversity: Between‑sample differences—how similar or dissimilar community composition is across samples or groups.
+	
+	- Applied example: Alpha diversity can assess whether treatment reduces within‑host richness, while beta diversity tests whether the overall community composition shifts between treatment and control.
 
 
-## Understand the different beta diversity metrics and how they are useful
-Beta diversity is computed as a distance or dissimilarity matrix; different metrics emphasize different features.
+- ## Understand the different beta diversity metrics and how they are useful
+	- Beta diversity is computed as a distance or dissimilarity matrix; different metrics emphasize different features.
+	
+	- Common metrics:
+	
+		- Jaccard (presence/absence): Compares which taxa are present, ignoring abundances; useful when absolute quantitation is unreliable or when rare taxa are of primary interest.
+		
+		- Bray–Curtis (abundance‑weighted): Uses counts or relative abundances; sensitive to dominant taxa and compositional differences in abundant members.
+		
+		- UniFrac (phylogenetic): Measures the fraction of branch length unique to each sample on a phylogenetic tree.
+		
+		- Unweighted UniFrac: Presence/absence along the tree, sensitive to rare, phylogenetically distinct taxa.
+		
+		- Weighted UniFrac: Abundance‑weighted, dominated by common lineages; can show low dissimilarity if communities share abundant, closely related taxa even with many rare differences.
+		
+		- Aitchison distance: Euclidean distance in centered log‑ratio (CLR) space, designed for compositional data; often preferred for methods that directly model relative abundances.​
+	
+	- How to choose:
+	
+		- Presence/absence focus or heterogeneous sequencing depth → Jaccard or unweighted UniFrac.
+		
+		- Abundance changes in dominant taxa (e.g., probiotics, dysbiosis) → Bray–Curtis or weighted UniFrac.
+		
+		- Strong phylogenetic signal or interest in evolutionary relationships → UniFrac variants.
+		
+		- Compositional modeling and integration with multivariate methods → Aitchison (CLR)‑based distances.
 
-Common metrics:
-
-Jaccard (presence/absence): Compares which taxa are present, ignoring abundances; useful when absolute quantitation is unreliable or when rare taxa are of primary interest.
-
-Bray–Curtis (abundance‑weighted): Uses counts or relative abundances; sensitive to dominant taxa and compositional differences in abundant members.
-
-UniFrac (phylogenetic): Measures the fraction of branch length unique to each sample on a phylogenetic tree.
-
-Unweighted UniFrac: Presence/absence along the tree, sensitive to rare, phylogenetically distinct taxa.
-
-Weighted UniFrac: Abundance‑weighted, dominated by common lineages; can show low dissimilarity if communities share abundant, closely related taxa even with many rare differences.
-
-Aitchison distance: Euclidean distance in centered log‑ratio (CLR) space, designed for compositional data; often preferred for methods that directly model relative abundances.
-​
-
-How to choose:
-
-Presence/absence focus or heterogeneous sequencing depth → Jaccard or unweighted UniFrac.
-
-Abundance changes in dominant taxa (e.g., probiotics, dysbiosis) → Bray–Curtis or weighted UniFrac.
-
-Strong phylogenetic signal or interest in evolutionary relationships → UniFrac variants.
-
-Compositional modeling and integration with multivariate methods → Aitchison (CLR)‑based distances.
-## Understand different beta diversity statistical test options
-Tests operate on the distance matrix to assess group differences or covariate effects.
-
-PERMANOVA (e.g., vegan::adonis)
-Non‑parametric ANOVA‑like test on distances; evaluates whether group centroids in multivariate space differ.
-
-Supports complex designs (multiple covariates, interactions, stratified permutations).
-
-Common for testing treatment, time, or exposure effects on overall microbiome composition.
-​
-
-Sensitive to differences in dispersion: if group variances differ, you can get significant results driven by dispersion rather than location, so pair with dispersion tests (e.g., PERMDISP).
-
-ANOSIM
-Ranks distances and compares within‑ vs between‑group similarity, outputting an R statistic (0 = no separation, 1 = complete separation).
-
-Conceptually simpler but often less robust and more sensitive to dispersion and unbalanced designs than PERMANOVA.
-
-Additional multivariate options
-Distance‑based redundancy analysis (db‑RDA) and constrained ordination: Partition variance in beta diversity explained by environmental/clinical covariates.
-
-Methods like FFMANOVA and ASCA: Treat the full abundance matrix in a multivariate ANOVA framework, sometimes offering better power in certain “few taxa vs many taxa” scenarios.
-​
-
-In practice, a typical workflow is: compute one or more ecologically appropriate beta‑diversity metrics; visualize with ordination (PCoA, NMDS); test group effects with PERMANOVA (with stratified permutations if blocking); check homogeneity of dispersion; and interpret in light of controls and potential confounders.
+- ## Understand different beta diversity statistical test options
+	- Tests operate on the distance matrix to assess group differences or covariate effects.
+	
+	- PERMANOVA (e.g., vegan::adonis)
+		- Non‑parametric ANOVA‑like test on distances; evaluates whether group centroids in multivariate space differ.
+		
+		- Supports complex designs (multiple covariates, interactions, stratified permutations).
+		
+		- Common for testing treatment, time, or exposure effects on overall microbiome composition.​
+		
+		- Sensitive to differences in dispersion: if group variances differ, you can get significant results driven by dispersion rather than location, so pair with dispersion tests (e.g., PERMDISP).
+	
+	- ANOSIM
+		- Ranks distances and compares within‑ vs between‑group similarity, outputting an R statistic (0 = no separation, 1 = complete separation).
+		
+		- Conceptually simpler but often less robust and more sensitive to dispersion and unbalanced designs than PERMANOVA.
+	
+	- Additional multivariate options
+		- Distance‑based redundancy analysis (db‑RDA) and constrained ordination: Partition variance in beta diversity explained by environmental/clinical covariates.
+		
+		- Methods like FFMANOVA and ASCA: Treat the full abundance matrix in a multivariate ANOVA framework, sometimes offering better power in certain “few taxa vs many taxa” scenarios.​
+		
+		- In practice, a typical workflow is: compute one or more ecologically appropriate beta‑diversity metrics; visualize with ordination (PCoA, NMDS); test group effects with PERMANOVA (with stratified permutations if blocking); check homogeneity of dispersion; and interpret in light of controls and potential confounders.
 
 ---
 

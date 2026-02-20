@@ -118,13 +118,14 @@ qiime feature-table group \
 - Things we often want to remove are plant-derived DNA or eukaryotically-derived DNA, but you can remove other contaminates too here by adding that taxonomy to the --p-exclude line. 
 - The reason these show up in our data is due to the endosymbiotic theory, that mitochondria & chloroplasts, likely originating as bacteria, became symbionts in cytoplasm of eukaryotic cells. 
 - note that sp004296775 is another chloroplast, it MUST also be removed. see this forum [post.Links to an external site.](https://forum.qiime2.org/t/silva-vs-greengenes2-2024-9-yield-different-taxonomic-classifications-of-chloroplast/31889/7 "(opens in a new window)")
-
+```
 qiime taxa filter-table \  
 --i-table ../dada2/table_type_days.qza \  
 --i-taxonomy taxonomy_gg2.qza \  
 --p-exclude mitochondria,chloroplast,sp004296775 \  
---o-filtered-table ../dada2/table_type_days_nomitochloro.qza
-
+--p-include c__ \  
+--o-filtered-table ../dada2/table_type_days_nomitochloro_include.qza
+```
 ### **Taxa Barplots**
 
 Now that we have ASVs classified taxonomically, let's generate a taxa barplot to visualize it, transfer it to our local computers, and look at it in QIIME2 View.

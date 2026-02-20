@@ -13,12 +13,22 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01_homework/homework_1 answers.md",
+                "file": "05_notes/Week 5.md",
                 "mode": "source",
-                "source": false
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "icon": "lucide-file",
-              "title": "homework_1 answers"
+              "title": "Week 5"
             }
           }
         ]
@@ -78,7 +88,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "223c8da97886a9ca",
@@ -185,11 +196,11 @@
   },
   "active": "04972dc869787c6f",
   "lastOpenFiles": [
-    "01_homework/homework_1.md",
+    "Learning Objectives.md",
     "01_homework/homework_1 answers.md",
+    "01_homework/homework_1.md",
     "05_notes/Week 5.md",
     "05_notes/Week 3.md",
-    "Learning Objectives.md",
     "05_notes/Week 4.md",
     "05_notes/2.6.2026.md",
     "05_notes/1.30.2026.md",

@@ -1,8 +1,9 @@
-met**ANEQ Homework #1: Practice Importing Data, Demultiplexing Reads, and Denoising**
+**ANEQ Homework #1: Practice Importing Data, Demultiplexing Reads, and Denoising**
 
-**Due Feb 12th at midnight**
+**Due Feb 19th at midnight**
 
 **Name:** Catie Wharton
+*note: I logged my commands at the end of this page. For the next HW I will just write it in the code given (as shown in class on 2-20)!*
 
 **For complete credit for this assignment, you must answer all questions and include all commands in your obsidian upload.**
 
@@ -160,7 +161,7 @@ Briefly **describe** the key information from each denoising output file:
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
-	Pre-denoising: Mean reads per sample was 15,163.394558
+	Pre-denoising: 15,163.394558
 	Post-denoising: 11,115.7
 
 2. How long are the reads?

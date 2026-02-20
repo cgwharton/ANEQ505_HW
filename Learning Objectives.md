@@ -33,12 +33,18 @@
 - ## Give an example of how taxonomy can be used for quality control of data
 
 - ## Understand the basics of phylogenetic trees, and why they are useful
+
 - ## Understand common confounders in microbiome studies
 	- Batch effects: Different extraction kits, operators, PCR runs, sequencing lanes, or reagent lots create systematic differences unrelated to biology; they can dominate multivariate structure if not blocked or adjusted.
+	
 	- Sample handling: Variable storage time, freeze–thaw cycles, and temperature during transport alter community composition, especially in low‑biomass or oxygen‑sensitive communities.
+	
 	- Host/background DNA: High host:microbe DNA ratios (e.g., blood, tissue, placenta) cause mis‑annotation of host reads and stochastic detection of rare taxa.
+	
 	- Low biomass and stochasticity: In low‑biomass sites, tiny absolute differences in contamination or sampling depth create large relative changes, reducing power and inflating apparent between‑sample differences.
+	
 	- Bioinformatic choices: Truncation lengths, chimera removal, clustering vs ASVs, and reference database all influence which taxa appear and their relative abundance, affecting both alpha and beta diversity.
+
 - ## Understand common contamination types and sources
 	For typical 16S/shotgun workflows, contamination often comes from:
 	- Reagents and kits: DNA extraction kits, PCR master mixes, and water carry characteristic “kitome” taxa (e.g., skin and environmental bacteria).
@@ -64,22 +70,18 @@
 		- In practice, ideal sequencing runs include: sample‑matched extraction blanks, PCR negatives, at least one mock community, and, if you care about limits of detection, a mock dilution series.
 
 - ## Describe the difference between alpha and beta diversity
-	- Alpha and beta diversity capture different aspects of community structure.
-	
 	- Alpha diversity: Within‑sample complexity—how many taxa (richness) and how evenly they are distributed (evenness) in a single sample.
 	
-	- Examples: Observed richness, Chao1 (richness estimate), Shannon index (richness + evenness), Simpson index (dominance/evenness).
+		- Examples: Observed richness, Chao1 (richness estimate), Shannon index (richness + evenness), Simpson index (dominance/evenness).
 	
 	- Beta diversity: Between‑sample differences—how similar or dissimilar community composition is across samples or groups.
 	
 	- Applied example: Alpha diversity can assess whether treatment reduces within‑host richness, while beta diversity tests whether the overall community composition shifts between treatment and control.
 
-
 - ## Understand the different beta diversity metrics and how they are useful
 	- Beta diversity is computed as a distance or dissimilarity matrix; different metrics emphasize different features.
 	
 	- Common metrics:
-	
 		- Jaccard (presence/absence): Compares which taxa are present, ignoring abundances; useful when absolute quantitation is unreliable or when rare taxa are of primary interest.
 		
 		- Bray–Curtis (abundance‑weighted): Uses counts or relative abundances; sensitive to dominant taxa and compositional differences in abundant members.
@@ -93,7 +95,6 @@
 		- Aitchison distance: Euclidean distance in centered log‑ratio (CLR) space, designed for compositional data; often preferred for methods that directly model relative abundances.​
 	
 	- How to choose:
-	
 		- Presence/absence focus or heterogeneous sequencing depth → Jaccard or unweighted UniFrac.
 		
 		- Abundance changes in dominant taxa (e.g., probiotics, dysbiosis) → Bray–Curtis or weighted UniFrac.

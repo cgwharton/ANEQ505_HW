@@ -8,7 +8,8 @@ Briefly **describe** the key information from each denoising output file:
 		 
 3. Denoised Table
 	The table file provides summary statistics on ASVs in the dataset- total feature frequency, along with frequency per sample and frequency per feature. You can also look at sampling depth and see how many samples would be included/excluded at a certain depth. 
-		
+
+==*We didnt go over these ^ but they are described pretty well in class materials so its fine
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
@@ -26,17 +27,18 @@ Briefly **describe** the key information from each denoising output file:
 3. What is the maximum length of all your sequences?
 	 The maximum length was 427.
 	 
-	 *CORRECT*
-	 *note: the 427 was an error*
+	 ==*CORRECT*==
+	 ==*note: seeing 427 is a sign of an error and contamination*==
 
 4. Which sample (not including extraction controls starting with EC) lost the highest % of reads?
 	The sample that lost the most reads was 2019.3.14.cow.oral.20, it only had 8.76% of the original input. 
 	
-	hhh
-
+	==*CORRECT
 
 5. Why did you choose to trim or truncate where you did?
 	I chose to trim off the 251st base and keep 0-250 because the reverse read median quality score for 251 was 13, falling under the benchmark of 30.
+	
+	==*CORRECT
 
 **To submit your homework from this document:**
 write all of your commands here, then use command+P (for mac) or control+P (for windows) and search Git: commit. click it. then search for Git: Push and click it. go to your github online to check that it pushed correctly. we will check your github for homework credit. 

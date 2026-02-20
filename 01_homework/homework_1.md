@@ -160,10 +160,11 @@ Briefly **describe** the key information from each denoising output file:
 
 **Answer the following questions:**  
 1. What is the mean reads per sample?
-	Pre-denoising: Mean reads per sample was 15,163.394558.
+	Pre-denoising: Mean reads per sample was 15,163.394558
+	Post-denoising: 11,115.7
 
 2. How long are the reads?
-	 251
+	 ~251
 
 3. What is the maximum length of all your sequences?
 	 The maximum length was 427.

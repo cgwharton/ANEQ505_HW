@@ -170,11 +170,14 @@ qiime taxa barplot \
 Why do we check controls?
 
 - Contamination
+	- always mild contam anytimne you prep these samples. sometimes reagaents. good to check to see ahts going on
 - Workflow validation
+	- PCR can be biased so good to know the way you do workflow is appropriate for samples you look at
 
 Why include positive controls?
 
 - Positive controls contain known combinations and quantities of microbiomes. This allows you to confirm whether your DNA extraction and library preparation protocol was successful and is suitable for identifying a variety of different organisms.
+	- falls under workflow validation
 
 ![Screenshot 2026-02-18 at 3.02.21 PM.png](https://colostate.instructure.com/courses/220471/files/39092121/preview)
 
@@ -189,7 +192,9 @@ You've just done your first taxonomic analysis, congratulations!
 **Questions:**
 
 1. Do you see any differences in taxa between sample type? What about facility? 
+	1. 
 2. What taxa did you notice in the extraction controls?
+	1. 
 
 **Pro tips/extra info:**
 

@@ -45,7 +45,8 @@
               "title": "Week 6- 2.27.26"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -207,12 +208,12 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "04972dc869787c6f",
+  "active": "4447114352bca618",
   "lastOpenFiles": [
+    "05_notes/Week 5- 2.20.26.md",
     "05_notes/Week 6- 2.27.26.md",
     "05_notes/Week 3- 2.6.26.md",
     "05_notes/Week 4- 2.13.26.md",
-    "05_notes/Week 5- 2.20.26.md",
     "05_notes/2.6.2026.md",
     "Learning Objectives.md",
     "Untitled.md",

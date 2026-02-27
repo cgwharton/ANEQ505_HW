@@ -455,3 +455,15 @@ Key idea:
 - **Focus:** Microbiome studies focus on the genetic potential and interactions of microbial communities within a specific habitat (e.g., gut microbiome). Microbiology covers a broad range of topics, including virology, bacteriology, and immunology, covering both beneficial and harmful microorganisms.
 
 16s rrna mitochondria is considered contamination
+
+
+
+## RANDOM NOTES FROM GOING OVER STUFF
+Manifest file needed when you receive data that has been demultiplexed
+
+When you merge sequence data they have to overlap bc if they dont you will get completely diff ASVs for 1 run vs the other 
+
+Doesn't always matter if you trim but always matters when you truncate:  
+- trim is decreasing forward (5' to 3')
+- trunc is decreasing reverse (3' to 5')
+- trim//trunc happens at the 3' end

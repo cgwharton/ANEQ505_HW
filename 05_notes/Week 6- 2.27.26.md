@@ -178,23 +178,34 @@ First we’ll look for **general patterns in alpha diversity across samples** 
 
 To start with, we’ll examine **‘observed features’:**
 
-qiime diversity alpha-group-significance \--i-alpha-diversity core-metrics-results/observed_features_vector.qza \--m-metadata-file metadata/metadata.txt \--o-visualization core-metrics-results/observed_features_statistics.qzv
+```
+qiime diversity alpha-group-significance \--i-alpha-diversity core-metrics-results/observed_features_vector.qza \--m-metadata-file metadata/metadata.txt \--o-visualization core-metrics-results/observed_features_statistics.qzv 
+```
 
 **Is there a significant difference in the number of observed features between any of the categorical data?** 
+- 
 
 We'll go ahead and try using the alpha-group-significance visualizer with the **Shannon** index (looks at richness and evenness) and the **Faith's Phylogenetic Diversity** index (looks at richness while incorporating phylogeny). 
 
+```
 qiime diversity alpha-group-significance \--i-alpha-diversity core-metrics-results/shannon_vector.qza \--m-metadata-file metadata/metadata.txt \--o-visualization core-metrics-results/shannon_statistics.qzv  
   
 qiime diversity alpha-group-significance \--i-alpha-diversity core-metrics-results/faith_pd_vector.qza \--m-metadata-file metadata/metadata.txt \--o-visualization core-metrics-results/faiths_pd_statistics.qzv
+```
 
 **When we consider richness and evenness (Shannon's Diversity), is there a significant difference between sample type? What about the facility?**
+	 sample type- yes
+	 facility- yes btwn ARF and FIRS
 
 **Is there a difference in phylogenetic diversity (so Faith's PD) between sample type? facility?**
+	sample- yes
+	facility- no
 
 For continuous covariates that we think could be associated with alpha diversity, we can use the alpha-correlation visualizer. In this study, a couple of variables we could look at include add_0c and days since placement.
 
+```
 qiime diversity alpha-correlation \--i-alpha-diversity core-metrics-results/faith_pd_vector.qza \--m-metadata-file metadata/metadata.txt \--o-visualization core-metrics-results/faith_pd_correlation_statistics.qzv
+```
 
 Since most of our experiments are slightly more complex than just comparing across one categorical or continuous variable, there is the [QIIME2 longitudinal plugin.    Links to an external site..](https://docs.qiime2.org/2021.11/plugins/available/longitudinal/ "(opens in a new window)") We will explore longitudinal analysis of alpha diversity metrics more in-depth during the longitudinal tutorial.
 

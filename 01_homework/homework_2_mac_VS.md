@@ -85,10 +85,10 @@ qiime metadata tabulate \
 - Filter mitochondria and chloroplast out to generate a filtered feature table, keep only ASVs with a class or lower taxonomy. fill in the blank (--p-exclude) to exclude these DNA. Fill in the blank to include only class level or below classifications. (~={red}1point)=~
 ```
 qiime taxa filter-table \
---i-table ../dada2/<YourDenoisedTable.qza> \
---i-taxonomy taxonomy_gg2.qza \
---p-exclude WHAT TO EXCLUDE HERE \
---p-include WHAT TO INCLUDE HERE \
+--i-table ../dada2/cow_table_dada2_filtered300.qza \
+--i-taxonomy taxonomy_gg2_filtered.qza \
+--p-exclude mitochondria,chloroplast,sp004296775 \
+--p-include c__ \
 --o-filtered-table ../dada2/table_nomitochloro_gg2_filtered300.qza
 ```
 

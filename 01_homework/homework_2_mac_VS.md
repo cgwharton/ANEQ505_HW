@@ -70,7 +70,7 @@ Classify taxonomy using GreenGenes2 classify the ASVs (takes about 5 mins). ~={r
 ```
 qiime feature-classifier classify-sklearn \
 --i-reads ../dada2/cow_seqs_dada2_filtered300.qza \
---i-classifier classifier-V4.qza \
+--i-classifier 2024.09.backbone.v4.nb.qza \
 --o-classification taxonomy_gg2_filtered.qza
 ```
 

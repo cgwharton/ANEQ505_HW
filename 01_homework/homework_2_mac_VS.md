@@ -18,6 +18,8 @@ Load qiime2 in a terminal session after you go into the taxonomy folder
 
 ```
 # Insert the two commands to activate qiime2
+
+ainteractive --ntasks=6 --time=02:00:00
 module purge
 module load qiime2/2024.10_amplicon
 
@@ -69,7 +71,7 @@ Classify taxonomy using GreenGenes2 classify the ASVs (takes about 5 mins). ~={r
 ```
 qiime feature-classifier classify-sklearn \
 --i-reads ../dada2/cow_seqs_dada2_filtered300.qza \
---i-classifier NAME OF CLASSIFIER HERE.qza \
+--i-classifier classifier.qza \
 --o-classification taxonomy_gg2_filtered.qza
 ```
 

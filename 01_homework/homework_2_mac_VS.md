@@ -71,14 +71,14 @@ Classify taxonomy using GreenGenes2 classify the ASVs (takes about 5 mins). ~={r
 ```
 qiime feature-classifier classify-sklearn \
 --i-reads ../dada2/cow_seqs_dada2_filtered300.qza \
---i-classifier classifier.qza \
+--i-classifier classifier-V4.qza \
 --o-classification taxonomy_gg2_filtered.qza
 ```
 
 Visualize the taxonomy of your ASVs: ~={red}(1point)=~
 ```
 qiime metadata tabulate \
---m-input-file NAME OF TAXONOMY FILE.qza \
+--m-input-file taxonomy_gg2_filtered.qza \
 --o-visualization taxonomy_gg2_filtered.qzv
 ```
 

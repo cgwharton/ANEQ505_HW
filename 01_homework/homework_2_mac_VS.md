@@ -18,7 +18,6 @@ Load qiime2 in a terminal session after you go into the taxonomy folder
 
 ```
 # Insert the two commands to activate qiime2
-
 ainteractive --ntasks=6 --time=02:00:00
 module purge
 module load qiime2/2024.10_amplicon
@@ -140,14 +139,16 @@ nano <YourJobName.sh>
 #SBATCH --nodes=1
 #SBATCH --ntasks=8
 #SBATCH --partition=amilan
-#SBATCH --time=04:00:00
+#SBATCH --time=20:00:00
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=YOUR_EMAIL_HERE@colostate.edu
+#SBATCH --mail-user=cwharton@colostate.edu
 #SBATCH --output=slurm-%j.out
 #SBATCH --qos=normal
 
 #Activate qiime
 #Insert the two commands you need to load qiime2
+module purge
+module load qiime2/2024.10_amplicon
 
 
 #Get reference
@@ -156,7 +157,7 @@ wget --no-check-certificate -P ../tree https://ftp.microbio.me/greengenes_releas
 
 #Command
 qiime fragment-insertion sepp \
---i-representative-sequences ../dada2/Your_FILTERED_RepresentativeSequencesFile.qza \
+--i-representative-sequences ../dada2/cow_seqs_dada2_filtered300.qza \
 --i-reference-database ../tree/2022.10.backbone.sepp-reference.qza \
 --o-tree ../tree/tree_gg2.qza \
 --o-placements ../tree/tree_placements_gg2.qza

@@ -104,7 +104,7 @@ qiime taxa barplot \
 
 **Question 1**: Attach a picture of your taxa bar plot, organized by cow sampling location (body_site) at the level 7 taxonomic level. What general trends do you notice? 
 ![[level-7-bars.svg]]
-I notice
+It seems the nasal samples have the least 
 
 **_Question 2**: What are the top 2 most abundant bacterial **classes** in the fecal samples? 
 

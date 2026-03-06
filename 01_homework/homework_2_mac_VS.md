@@ -112,11 +112,11 @@ qiime taxa barplot \
 
 **_Question 3**: What highly abundant ASV is shared between both the udder and skin samples?
 
-- d__Bacteria;p__Bacillota_A_368345;c__Clostridia_258483;o__Oscillospirales;f__Oscillospiraceae_88309;g__Faecousia;s__Faecousia sp000434635
+- d__Bacteria;p__Bacillota_A_368345;c__Clostridia_258483;o__Oscillospirales;f__Oscillospiraceae_88309;g__Faecousia;s__Faecousia sp000434635 
 
 **_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
 
-- Skin
+- Skin has the highest, fecal, and udder are up there, too.
 
 **Question 5**: do all samples contain archaea as well?
 
@@ -150,7 +150,7 @@ Create a job script to run the phylogenetic tree building. Remember you must sta
 
 Go to OnDemand and create a new text file for your job script
 ```
-nano <YourJobName.sh>
+nano <tree.sh>
 ```
 
 ```
@@ -186,7 +186,7 @@ qiime fragment-insertion sepp \
 - submit the job from the terminal
 ```
 #submit the job
-sbatch YourJobName.sh
+sbatch tree.sh
 ```
 We will use this file in the next homework!
 

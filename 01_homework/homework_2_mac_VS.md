@@ -108,23 +108,41 @@ I notice
 
 **_Question 2**: What are the top 2 most abundant bacterial **classes** in the fecal samples? 
 
+Clostridia_258483 and Bacteroidia
+
 **_Question 3**: What highly abundant ASV is shared between both the udder and skin samples?
+
+d__Bacteria;p__Bacillota_A_368345;c__Clostridia_258483;o__Oscillospirales;f__Oscillospiraceae_88309;g__Faecousia;s__Faecousia sp000434635
 
 **_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
 
+
+
 **Question 5**: do all samples contain archaea as well?
 
+
+
 **Question 6**: why do we filter out sp004296775?
+
+
 
 **Question 7**: what is the difference between these two flags? 
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
 
+
+
 **Question 8**: do the positive controls look the same as each other? Yes or No?
+
+
 
 **Question 9**: Do the negative/extraction controls (Samples labeled as EC), look like the positive controls? Yes or no? 
 
+
+
 **Question 10**: do the negative/extraction controls (Samples labeled as EC), look like the real samples? Yes or no?
+
+
 
 ## Phylogenetic tree ~={red}(1point)=~
 

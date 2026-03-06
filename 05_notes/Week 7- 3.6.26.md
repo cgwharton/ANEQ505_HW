@@ -238,7 +238,7 @@ qiime longitudinal volatility \
 ```
 
 **Looking at this plot, does one soil type change more over time than the other? What about by facility?**
-- 
+- something happening in first 150 days (visible slope)
 
 **Note:** this analysis can also be performed on alpha diversity metrics like Shannon and observed features. From the command above, replace from_first_unifrac.qza file with an alpha diversity file (shannon.qza) and replace the "Distance" metric with "shannon".
 
@@ -256,14 +256,21 @@ qiime longitudinal linear-mixed-effects \
 --p-formula "Distance ~ add_0c + facility + sample_type" \  
 --o-visualization from_first_wunifrac_lme_formula.qzv
 ```
+- CANNOT do an interaction model in qiime
+- Individ ID = random effect 
+- 
+
 
 There is a new line here, --p-group-columns. While our main question centers around whether accumulated degree day and facility affects the longitudinal change in the microbial community, we also know that sample type plays a large role in shaping the microbial community as well. By including this line, we can account for **all** of these things "**to test whether microbial communities diverge from baseline over accumulated degree days, while controlling for variation due to facility and sample type."**
 
-Let's look at this output in q2view now. **Here, is there a significant association between the sample type and temporal change? What about facility?**  If you need a review from a statistics class to understand what the model outputs mean, the table below may help, but [this videoLinks to an external site.](https://www.youtube.com/watch?v=NIGbYdGErLw&list=PLbVDKwGpb3XmvnTrU40zHRT7NZWWVNUpt&index=23 "(opens in a new window)") may also help (play from about 14 min to 20 min):
+Let's look at this output in q2view now. **Here, is there a significant association between the sample type and temporal change? What about facility?**  
+
+If you need a review from a statistics class to understand what the model outputs mean, the table below may help, but [this videoLinks to an external site.](https://www.youtube.com/watch?v=NIGbYdGErLw&list=PLbVDKwGpb3XmvnTrU40zHRT7NZWWVNUpt&index=23 "(opens in a new window)") may also help (play from about 14 min to 20 min):
 
 ![Screen Shot 2022-03-08 at 2.37.10 PM.png](https://colostate.instructure.com/courses/220471/files/38493055/preview)
 
 **When is it time to move your longitudinal analysis outside of Qiime2?**
+BEFORE LME Models
 
 Here are some R packages that are useful for downstream longitudinal analysis. 
 

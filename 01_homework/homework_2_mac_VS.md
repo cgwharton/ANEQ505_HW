@@ -116,11 +116,11 @@ d__Bacteria;p__Bacillota_A_368345;c__Clostridia_258483;o__Oscillospirales;f__Osc
 
 **_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
 
-
+Skin
 
 **Question 5**: do all samples contain archaea as well?
 
-
+No
 
 **Question 6**: why do we filter out sp004296775?
 

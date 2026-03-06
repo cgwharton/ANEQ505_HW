@@ -104,7 +104,7 @@ qiime taxa barplot \
 
 **Question 1**: Attach a picture of your taxa bar plot, organized by cow sampling location (body_site) at the level 7 taxonomic level. What general trends do you notice? 
 ![[level-7-bars.svg]]
-- It seems the nasal samples have the least 
+- The microbial communities appear to differ clearly by cow sampling location, suggesting body site influences taxonomic composition. Samples from the same body site tend to look more similar to one another than to samples from other sites. There is variability among individual samples, but the overall body-site patterns are still visible.
 
 **_Question 2**: What are the top 2 most abundant bacterial **classes** in the fecal samples? 
 

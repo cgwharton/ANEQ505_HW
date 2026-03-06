@@ -104,7 +104,7 @@ qiime taxa barplot \
 
 **Question 1**: Attach a picture of your taxa bar plot, organized by cow sampling location (body_site) at the level 7 taxonomic level. What general trends do you notice? 
 ![[level-7-bars.svg]]
-- The microbial communities appear to differ clearly by cow sampling location, suggesting body site influences taxonomic composition. Samples from the same body site tend to look more similar to one another than to samples from other sites. There is variability among individual samples, but the overall body-site patterns are still visible.
+- The microbial communities appear to differ clearly by cow sampling location, suggesting body site influences taxonomic composition. Samples from the same body site tend to look more similar to one another than to samples from other sites. There is variability among individual samples, but the overall body-site patterns are still visible. Skin samples appear to have the most diversity, whereas nasal samples appear to have the least diversity. 
 
 **_Question 2**: What are the top 2 most abundant bacterial **classes** in the fecal samples? 
 
@@ -113,15 +113,6 @@ qiime taxa barplot \
 **_Question 3**: What highly abundant ASV is shared between both the udder and skin samples?
 
 - d__Bacteria;p__Bacillota_A_368345;c__Clostridia_258483;o__Oscillospirales;f__Oscillospiraceae_88309;g__Faecousia;s__Faecousia sp000434635
-
-0bc9e594a83b2497bae10c06a44b7034 - 10K 
-4387bd5692ca858160494544375494d7 - 4K
-46cc33a921500356cbe65c50fe8cf72f - 1K
-604c34e84dd6e28735ad7ba408778084 - 14K
-7da25e99ed98db8d449f7500ac31081c - 1K
-83b4ab5a4bc528b287085bf6ea56452b - 10K
-8a5f323f8c9e911e44db524958f8bfcd - 3K
-9253a4863cac514c6004b26d70920768 - 5K
 
 **_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
 
@@ -133,13 +124,13 @@ qiime taxa barplot \
 
 **Question 6**: why do we filter out sp004296775?
 
-- 
+- It's an unwanted chloroplast-like / misclassified taxon, not part of the target bacterial community, similar to why mitochondria and chloroplast reads are removed.
 
 **Question 7**: what is the difference between these two flags? 
---p-exclude mitochondria,chloroplast,sp004296775 \
---p-include c__ \
+`--p-exclude mitochondria,chloroplast,sp004296775 \
+`--p-include c__ \`
 
-- 
+- The `--p-exclude` flag removes specific taxa from the dataset, while the `--p-include` flag keeps only taxa that match a chosen taxonomic pattern. In this case, `--p-include c__` retains only features classified at least to the class level.
 
 **Question 8**: do the positive controls look the same as each other? Yes or No?
 

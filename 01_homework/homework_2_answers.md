@@ -206,7 +206,7 @@ CPU Efficiency: 12.38% of 1-01:35:44 core-walltime
 Job Wall-clock time: 03:11:58  
 Memory Utilized: 7.45 GiB  
 Memory Efficiency: 24.84% of 30.00 GiB (3.75 GiB/core)
-
+- ==the memory you used, so you could lower this next time==
 
 
 

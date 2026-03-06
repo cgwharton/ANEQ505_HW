@@ -153,8 +153,6 @@ Let's explore these plots in QIIME2 View.
 
 We are looking at what's called a "distance plot", and they can be kind of confusing. If you remember how beta diversity works, we are measuring a distance between two points (remember all of those metrics we made you calculate? That's where these numbers come from). When we make beta diversity box plots, we are plotting the distribution of distances between two things,  and the n is the number of distances in the box plot (not the number of samples you have for that category). 
 
-Now that we understand these distance plots, let's try to interpret them.
-
 **Does body site contribute to a significant difference in beta diversity?**
 	 Yes
 **After reviewing the PCoA plots again, which other metadata variable would you test with beta group significance (PERMANOVA)?**
@@ -183,13 +181,13 @@ We want to look at **how samples from an individual donor change along principa
 This command is a little different than those we've used before because the parameters we are naming can actually be changed in the visualization. That's why they are called the "defaults". Also, note that we are using the output of the core metrics for this analysis.
 
 # make a longitudinal directory  
-  
+  ```
 mkdir longitudinal  
   
 cd longitudinal  
-  
+  ```
 # construct a volatility plot  
-  
+```
 qiime longitudinal volatility \  
 --m-metadata-file ../metadata/metadata.txt \  
 --m-metadata-file ../core-metrics-results/weighted_unifrac_pcoa_results.qza \  
@@ -198,6 +196,9 @@ qiime longitudinal volatility \
 --p-default-group-column 'sample_type' \  
 --p-default-metric 'Axis 2' \  
 --o-visualization pc_vol_sample_type.qzv
+```
+- Individual column rlly important, how it accounts for each subject (repeated measures)
+- Looked at PCoA and chose Axis 2 to look at 
 
 Let's explore this output in q2view. Using the control bars to the right, look at variation in sample_type and facility along PCs 1, 2, and 3. **What kind of patterns do you see with time along each axis?**
 
@@ -212,7 +213,7 @@ Another method is to do a **distance-based analysis using the first-distances m
 The `state` column (`add_0c`) represents accumulated degree days (time), and the `individual-id-column` (`host_subject_id_sample_type`) links repeated measures from the same sample type (soil or skin, facility) across time. If the baseline parameter were omitted, the analysis would instead evaluate change between successive time points (i.e., rate of change rather than deviation from the initial state).
 
 # evaluate using first distances  
-  
+```
 qiime longitudinal first-distances \  
 --i-distance-matrix ../core-metrics-results/weighted_unifrac_distance_matrix.qza \  
 --m-metadata-file ../metadata/metadata.txt \  
@@ -220,11 +221,12 @@ qiime longitudinal first-distances \
 --p-individual-id-column host_subject_id_sample_type \  
 --p-baseline 0 \  
 --o-first-distances from_first_wunifrac.qza
+```
 
 We can again use a volatility analysis to visualize the change in beta diversity based on distance.
 
 # visualize volatility  
-  
+```
 qiime longitudinal volatility \  
 --m-metadata-file ../metadata/metadata.txt \  
 --m-metadata-file from_first_wunifrac.qza \  
@@ -233,8 +235,10 @@ qiime longitudinal volatility \
 --p-default-metric Distance \  
 --p-default-group-column 'sample_type' \  
 --o-visualization from_first_wunifrac_vol.qzv
+```
 
 **Looking at this plot, does one soil type change more over time than the other? What about by facility?**
+- 
 
 **Note:** this analysis can also be performed on alpha diversity metrics like Shannon and observed features. From the command above, replace from_first_unifrac.qza file with an alpha diversity file (shannon.qza) and replace the "Distance" metric with "shannon".
 
@@ -243,7 +247,7 @@ Next, we can do a statistical test with a Linear Mixed Effects model. This will 
 Since we are interested in the change in distance from the initial time point, we use Distance for --p-metric. 
 
 # run LME   
-  
+```
 qiime longitudinal linear-mixed-effects \  
 --m-metadata-file ../metadata/metadata.txt \  
 --m-metadata-file from_first_wunifrac.qza \  
@@ -251,6 +255,7 @@ qiime longitudinal linear-mixed-effects \
 --p-individual-id-column host_subject_id \  
 --p-formula "Distance ~ add_0c + facility + sample_type" \  
 --o-visualization from_first_wunifrac_lme_formula.qzv
+```
 
 There is a new line here, --p-group-columns. While our main question centers around whether accumulated degree day and facility affects the longitudinal change in the microbial community, we also know that sample type plays a large role in shaping the microbial community as well. By including this line, we can account for **all** of these things "**to test whether microbial communities diverge from baseline over accumulated degree days, while controlling for variation due to facility and sample type."**
 

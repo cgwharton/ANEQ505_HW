@@ -116,34 +116,38 @@ PERMANOVA assumes independence of samples. In longitudinal microbiome data, that
 ### **Beta diversity stats (part 1)**
 
 **Alpine On-Demand: [ondemand-rmacc.rc.colorado.edu](http://ondemand-rmacc.rc.colorado.edu/ "(opens in a new window)")**
-
+```
 sinteractive --reservation=aneq505 --time=02:00:00 --partition=amilan --nodes=1 --ntasks=6 --qos=normal
 
-  
-module purge  
+module purge
 module load qiime2/2024.10_amplicon  
+```
+
 
 **Running a PERMANOVA via the beta group significance test command in qiime2**
 
 Here, we are specifying **"body_site"** to determine whether it is associated with significant differences in unweighted UniFrac distance & bray curtis. 
 
 # unweighted unifrac significance  
-  
+  ```
 qiime diversity beta-group-significance \
 --i-distance-matrix core-metrics-results/unweighted_unifrac_distance_matrix.qza \
 --m-metadata-file metadata/metadata.txt \
 --m-metadata-column body_site \
---o-visualization core-metrics-results/unweighted_unifrac_distance_matrix.qzv  
-  
+--o-visualization core-metrics-results/unweighted_unifrac_distance_matrix.qzv 
+  ```
 
 # bray curtis significance  
   
+
+```
 qiime diversity beta-group-significance \  
 --i-distance-matrix core-metrics-results/bray_curtis_distance_matrix.qza \  
 --m-metadata-file metadata/metadata.txt \  
 --m-metadata-column body_site \  
---o-visualization core-metrics-results/bray_curtis_distance_matrix.qzv  
-  
+--o-visualization core-metrics-results/bray_curtis_distance_matrix.qzv```
+```
+
 
 Let's explore these plots in QIIME2 View.
 
@@ -152,8 +156,10 @@ We are looking at what's called a "distance plot", and they can be kind of confu
 Now that we understand these distance plots, let's try to interpret them.
 
 **Does body site contribute to a significant difference in beta diversity?**
-
+	 Yes
 **After reviewing the PCoA plots again, which other metadata variable would you test with beta group significance (PERMANOVA)?**
+	Scavenging activity
+	Facility
 
 ---
 
@@ -161,7 +167,10 @@ Now that we understand these distance plots, let's try to interpret them.
 
 There's a lot you can do:
 
+
 ![Screenshot 2024-02-29 at 6.51.08 PM.png](https://colostate.instructure.com/courses/220471/files/38493072/preview)
+
+==VOLATILITY NOT A STAT PLOT==
 
 Here, we will analyze the time-series data associated with this experiment. To use the **longitudinal** plugin, you need a repeated measures sample in which the same site or individual is sampled over time. In the decomp tutorial, **samples from each donor were collected over accumulated degree days**, so we can use this tool to **understand how the microbiome changed during these periods.** Much of these analyses can be done with alpha or beta diversity. For the sake of time, we will focus on just beta diversity. 
 

@@ -103,6 +103,8 @@ qiime taxa barplot \
 ## Filtered Taxa Bar Plot Questions ~={red}(10 points)=~
 
 **Question 1**: Attach a picture of your taxa bar plot, organized by cow sampling location (body_site) at the level 7 taxonomic level. What general trends do you notice? 
+![[level-7-bars.svg]]
+I notice
 
 **_Question 2**: What are the top 2 most abundant bacterial **classes** in the fecal samples? 
 
@@ -171,6 +173,24 @@ sbatch YourJobName.sh
 We will use this file in the next homework!
 
 ### Once this job finishes, copy and paste what the slurm email says here ~={red}(1 point)=~: 
+
+  
+Job ID: 24482077  
+Cluster: alpine  
+User/Group: cwharton@colostate.edu/cwhartonpgrp@colostate.edu  
+State: COMPLETED (exit code 0)  
+Nodes: 1  
+Cores per node: 8  
+  
+-------- CPU Metrics --------  
+CPU Utilized: 03:10:04  
+CPU Efficiency: 12.38% of 1-01:35:44 core-walltime  
+Job Wall-clock time: 03:11:58  
+Memory Utilized: 7.45 GiB  
+Memory Efficiency: 24.84% of 30.00 GiB (3.75 GiB/core)
+
+
+
 
 #### for example: 
 Job ID: 24289371  

@@ -114,6 +114,9 @@ qiime taxa barplot \
 
 - d__Bacteria;p__Bacillota_A_368345;c__Clostridia_258483;o__Oscillospirales;f__Oscillospiraceae_88309;g__Faecousia;s__Faecousia sp000434635
 
+0bc9e594a83b2497bae10c06a44b7034
+
+
 **_Question 4**: Which samples (still sorted by body_site) have higher alpha diversity in terms of observed features?
 
 - Skin

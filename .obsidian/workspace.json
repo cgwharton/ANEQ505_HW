@@ -65,16 +65,28 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01_homework/homework_2_mac_VS.md",
+                "file": "05_notes/Week 6- 2.27.26.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "homework_2_mac_VS"
+              "title": "Week 6- 2.27.26"
+            }
+          },
+          {
+            "id": "1b0eb751edd48263",
+            "type": "leaf",
+            "state": {
+              "type": "image",
+              "state": {
+                "file": "level-7-bars.svg"
+              },
+              "icon": "lucide-image",
+              "title": "level-7-bars"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -131,8 +143,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "223c8da97886a9ca",
@@ -238,22 +249,24 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "4447114352bca618",
+  "active": "1b0eb751edd48263",
   "lastOpenFiles": [
-    "Learning Objectives.md",
-    "Untitled.md",
     "test test 12345.md",
+    "Untitled.md",
+    "01_homework/homework_2.md",
+    "01_homework/homework_1 answers.md",
+    "01_homework/homework_2_answers.md",
+    "05_notes/Week 7- 3.6.26.md",
     "05_notes/Week 6- 2.27.26.md",
+    "Learning Objectives.md",
     "level-7-bars.svg",
     "05_notes/1.30.2026.md",
     "sequences.fasta",
-    "01_homework/homework_2_mac_VS.md",
     "01_homework/homework_1.md",
     "05_notes/Week 5- 2.20.26.md",
     "05_notes/Week 4- 2.13.26.md",
     "05_notes/Week 3- 2.6.26.md",
     "05_notes/2.6.2026.md",
-    "01_homework/homework_1 answers.md",
     "CWharton Homework 1.md",
     "05_notes",
     "Untitled.base",

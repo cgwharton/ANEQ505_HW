@@ -25,7 +25,6 @@ Load qiime2 in a terminal session after you go into the **cow** folder
 # Insert the two commands to activate qiime2
 module purge
 module load qiime2/2024.10_amplicon
-
 ```
 
 ### Alpha Rarefaction Plot ~={red}(1 point)=~
@@ -39,7 +38,7 @@ qiime diversity alpha-rarefaction \
 --m-metadata-file metadata/cow_metadata.txt \
 --o-visualization alpha_rarefaction_curves_16S.qzv \
 --p-min-depth 10 \
---p-max-depth ADD MAX RAREFACTION DEPTH
+--p-max-depth 11000
 ```
 
 

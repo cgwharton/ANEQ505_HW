@@ -23,7 +23,8 @@ Load qiime2 in a terminal session after you go into the **cow** folder
 
 ```
 # Insert the two commands to activate qiime2
-
+module purge
+module load qiime2/2024.10_amplicon
 
 ```
 

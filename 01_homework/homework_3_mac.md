@@ -83,7 +83,7 @@ qiime diversity alpha-group-significance \
 	 - 1500 because that is where the alpha rarefaction curve started to plateau
 	 
 3. Which cow body location had more observed features? Which has the lowest?
-	 - Fecal had the highest and nasal had the lowest
+	 - Fecal had the highest, and nasal had the lowest
 	 
 4. What is the main difference between Faiths PD and Shannons alpha diversity metrics?  
 	- Faiths PD uses phylogeny and richness, whereas Shannon's uses richness and evenness
@@ -95,17 +95,22 @@ qiime diversity alpha-group-significance \
 	-  Skin and fecal samples had the two highest **average** Faith's PD alpha diversity. The groups are significantly different. 
 	
 7. Does it seem like there are any groupings in the beta diversity? What are the groupings? 
-	- 
+	-  Some groupings appear when coloring by body_site. Fecal is tightly clustered, skin and udder are tightly clustered together, and
+	
 8. Why do you think these samples are grouping together? 
 	- 
 9. What test can you run to determine if the groups are significantly different?
-	- 
+	- PERMANOVA
+	
 10. What command would you use to run that test?
-	- 
 
 ```
 #insert command for running the test you suggest from question 7
 
-
+qiime diversity beta-group-significance \  
+--i-distance-matrix core_metrics_results/bray_curtis_distance_matrix.qza \  
+--m-metadata-file metadata/cow_metadata.txt \  
+--m-metadata-column body_site \  
+--o-visualization core_metrics_results/bray_curtis_distance_matrix.qzv
 
 ```

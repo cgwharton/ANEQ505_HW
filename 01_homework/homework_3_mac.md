@@ -95,10 +95,11 @@ qiime diversity alpha-group-significance \
 	-  Skin and fecal samples had the two highest **average** Faith's PD alpha diversity. The groups are significantly different. 
 	
 7. Does it seem like there are any groupings in the beta diversity? What are the groupings? 
-	-  Some groupings appear when coloring by body_site. Fecal is tightly clustered, skin and udder are tightly clustered together, and
+	-  Some groupings appear when coloring by body_site. Fecal is tightly clustered, skin and udder are tightly clustered together, and nasal and oral are loosely clustered but clearly in a seperate grouping than the other two groups. 
 	
 8. Why do you think these samples are grouping together? 
-	- 
+	- Skin and udder because the udder has skin cells so similar microbiota would exist there. Fecal completely on its own because this is after digestion and absorption of nutrients. I think nasal and oral are closer together because both are wet environments that may have similar microbes, in addition to the fact that both the mouth and nose are used for respiration. 
+	
 9. What test can you run to determine if the groups are significantly different?
 	- PERMANOVA
 	

@@ -100,7 +100,7 @@ qiime diversity alpha-group-significance \
 	-  Some groupings appear when coloring by body_site. Fecal is tightly clustered and very distinct, skin and udder are clustered together and overlap substantially, and nasal and oral are loosely clustered but clearly in a separate grouping from the other two groups. 
 	
 8. Why do you think these samples are grouping together? 
-	- These samples are likely grouping together because body sites with similar physical and biological conditions tend to host similar microbial communities. Skin and udder, because the udder has skin cells, so both sites likely share similar microbiota. Feces are completely on their own because the GI tract is a very different environment from the external body sites, so it contains a distinct microbial community. I think nasal and oral are closer together because both are wet environments that may have similar microbes, in addition to the fact that both the mouth and nose are used for respiration. 
+	- These samples are likely grouping together because body sites with similar physical and biological conditions tend to host similar microbial communities. Skin and udder, because the udder has skin cells, so both sites likely share similar microbiota. Feces are completely on their own because the GI tract is a very different environment from the external body sites, so it contains a distinct microbial community. Nasal and oral are closer together because both are mucosal surfaces exposed to the external environment and may have similar microbes, especially in a moist environment. 
 	
 9. What test can you run to determine if the groups are significantly different?
 	- PERMANOVA

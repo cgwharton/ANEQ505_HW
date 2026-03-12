@@ -90,15 +90,17 @@ qiime diversity alpha-group-significance \
 	
 5. Which diversity metrics produced by the core-metrics pipeline require phylogenetic information?
 	- Faiths PD
+	- Unweighted UniFrac
+	- Weighted UniFrac
 	
 6. Which two body sites have the highest Faiths PD alpha diversity?  Are the groups significantly different?
 	-  Skin and fecal samples had the two highest **average** Faith's PD alpha diversity. The groups are significantly different. 
 	
 7. Does it seem like there are any groupings in the beta diversity? What are the groupings? 
-	-  Some groupings appear when coloring by body_site. Fecal is tightly clustered, skin and udder are tightly clustered together, and nasal and oral are loosely clustered but clearly in a seperate grouping than the other two groups. 
+	-  Some groupings appear when coloring by body_site. Fecal is tightly clustered and very distinct, skin and udder are clustered together and overlap substantially, and nasal and oral are loosely clustered but clearly in a separate grouping from the other two groups. 
 	
 8. Why do you think these samples are grouping together? 
-	- Skin and udder because the udder has skin cells so similar microbiota would exist there. Fecal completely on its own because this is after digestion and absorption of nutrients. I think nasal and oral are closer together because both are wet environments that may have similar microbes, in addition to the fact that both the mouth and nose are used for respiration. 
+	- These samples are likely grouping together because body sites with similar physical and biological conditions tend to host similar microbial communities. Skin and udder, because the udder has skin cells, so both sites likely share similar microbiota. Feces are completely on their own because the GI tract is a very different environment from the external body sites, so it contains a distinct microbial community. I think nasal and oral are closer together because both are wet environments that may have similar microbes, in addition to the fact that both the mouth and nose are used for respiration. 
 	
 9. What test can you run to determine if the groups are significantly different?
 	- PERMANOVA

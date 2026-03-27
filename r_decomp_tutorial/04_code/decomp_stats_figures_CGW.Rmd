@@ -148,7 +148,7 @@ Model: model_add0_shannon <- lmer(shannon_entropy ~ add_0c + (1|host_subject_id)
 
 1. plot(model_add0_shannon) Purpose: Checks for non-linearity and heteroscedasticity (unequal variance).
   - What to look for:Residuals should be roughly randomly scattered around 0.No obvious patterns, trends, or funnels.
-  - Red flag:Curved or fan-shaped pattern, the model may not fit well, or variance may not be constant. You may need to consider a different model for your data. 
+  - Red flag: Curved or fan-shaped pattern, the model may not fit well, or variance may not be constant. You may need to consider a different model for your data. 
 
 2. summary(model_add0_shannon)
   - This tells us how Shannon diversity changes with add_0c, while accounting for differences between individual hosts. The fixed effects tell us the average effect across all hosts, and the random effects tell us how much subjects differ from each other.

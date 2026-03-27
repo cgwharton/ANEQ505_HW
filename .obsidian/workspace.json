@@ -4,91 +4,24 @@
     "type": "split",
     "children": [
       {
-        "id": "ea0bf68bb04bc27a",
+        "id": "4c8917d41fccdb80",
         "type": "tabs",
         "children": [
           {
-            "id": "04972dc869787c6f",
+            "id": "658842ab49ef14fc",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05_notes/Week 5- 2.20.26.md",
-                "mode": "source",
-                "source": false,
-                "backlinks": true,
-                "backlinkOpts": {
-                  "collapseAll": false,
-                  "extraContext": false,
-                  "sortOrder": "alphabetical",
-                  "showSearch": false,
-                  "searchQuery": "",
-                  "backlinkCollapsed": false,
-                  "unlinkedCollapsed": true
-                }
-              },
-              "icon": "lucide-file",
-              "title": "Week 5- 2.20.26"
-            }
-          },
-          {
-            "id": "69caa31d22c02401",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_notes/Week 7- 3.6.26.md",
+                "file": "05_notes/Learning Objectives.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Week 7- 3.6.26"
-            }
-          },
-          {
-            "id": "e81610846c8a721a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01_homework/homework_3_answers.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "homework_3_answers"
-            }
-          },
-          {
-            "id": "07ba307b90daca18",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_notes/Week 9- 3.27.26.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Week 9- 3.27.26"
-            }
-          },
-          {
-            "id": "77bbf5913d44b4c3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01_homework/homework_2_answers.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "homework_2_answers"
+              "title": "Learning Objectives"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -108,7 +41,7 @@
               "type": "file-explorer",
               "state": {
                 "sortOrder": "alphabetical",
-                "autoReveal": false
+                "autoReveal": true
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -229,9 +162,19 @@
               "icon": "lucide-list",
               "title": "Outline of GITHUB TOKEN"
             }
+          },
+          {
+            "id": "947b5a0295369899",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
         ],
-        "currentTab": 4
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
@@ -251,26 +194,28 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "07ba307b90daca18",
+  "active": "8cab66115073afc5",
   "lastOpenFiles": [
-    "r_decomp_tutorial/04_code/tabulated_results.tsv",
-    "r_decomp_tutorial/04_code/beta_div.zip",
-    "r_decomp_tutorial/04_code/alpha_div.zip",
-    "01_homework/homework_2_answers.md",
-    "r_decomp_tutorial/05_figures",
-    "r_decomp_tutorial/04_code",
-    "r_decomp_tutorial/untitled folder",
-    "r_decomp_tutorial/03_metadata",
-    "r_decomp_tutorial/04_",
-    "r_decomp_tutorial/03_",
-    "r_decomp_tutorial/02_data",
-    "r_decomp_tutorial/01_notes",
+    "05_notes/Week 9- 3.27.26.md",
     "01_homework/homework_3_answers.md",
+    "2026-03-27.md",
+    "Untitled.md",
+    "Untitled.base",
+    "Untitled.canvas",
+    "Untitled 1.base",
+    "05_notes/week4_Mon_Alpha_lecture.pdf",
+    "r_decomp_tutorial/04_code/alpha_div 2",
+    "01_homework/homework_2_answers.md",
+    "r_decomp_tutorial/04_code/taxonomy/tabulated_results.tsv",
+    "r_decomp_tutorial/04_code/taxonomy/untitled folder",
+    "r_decomp_tutorial/04_code/taxonomy",
+    "r_decomp_tutorial/04_code/untitled folder",
+    "r_decomp_tutorial/03_metadata/metadata.txt",
+    "r_decomp_tutorial/04_code/decomp_stats_figures.Rmd",
     "05_notes/Week 5- 2.20.26.md",
     "05_notes/Week 4- 2.13.26.md",
     "05_notes/Week 6- 2.27.26.md",
     "05_notes/Week 7- 3.6.26.md",
-    "05_notes/Week 9- 3.27.26.md",
     "01_homework/homework_1 answers.md",
     "01_homework/homework_3.md",
     "05_notes/Learning Objectives.md",
@@ -287,9 +232,6 @@
     "test.md",
     "GITHUB TOKEN.md",
     "hkkj.md",
-    "Untitled.canvas",
-    "2026-01-23.md",
-    "HI.md",
-    "Welcome.md"
+    "2026-01-23.md"
   ]
 }

@@ -1,0 +1,1381 @@
+---
+title: "decomp_stats_figures"
+output: pdf_document
+date: "2026-03-10"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# This script is a general guide for making publication-quality visualizations using QIIME2-generated outputs
+
+################################################################################
+# Research Questions
+1. Does microbial community composition change over accumulated degree days?
+2. Does facility influence microbial diversity or community composition?
+3. Do soil and skin samples differ in their microbial diversity and community composition?
+
+- Your research question doesn’t need to be included in your R Markdown, but you should have a data analysis plan. It’s easy to go down rabbit holes if you don’t stick to analyses that directly address your questions.
+################################################################################
+
+
+################################################################################
+# Installing and loading packages
+################################################################################
+
+# Install packages
+- If you have already installed the packages then you don't need to rerun this. 
+```{r}
+# Each of the packages we will use are CRAN packages
+packages_to_install <- c("tidyverse", "ggplot2","readr","ggpubr","vegan","scales","lme4", "lmerTest","pbkrtest","emmeans", "rstatix", "forcats", "scales")
+
+install.packages(packages_to_install)
+```
+
+# Load packages
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(readr)
+library(ggpubr)
+library(vegan)
+library(scales)
+library(lme4)
+library(lmerTest)
+library(pbkrtest)
+library(emmeans)
+library(rstatix)
+library(forcats)
+library(scales) 
+```
+################################################################################
+# Metadata
+################################################################################
+
+# Import and clean metadata if needed
+```{r}
+metadata <- read_tsv("../03_metadata/metadata.txt")
+```
+
+
+################################################################################
+# Alpha diversity
+################################################################################
+
+# Import alpha diversity data from QIIME2 output
+```{r}
+# Alpha diversity metrics
+shannon <- read_tsv("alpha_div/shannon.tsv")
+evenness <- read_tsv("alpha_div/evenness.tsv")
+observed_features <- read_tsv("alpha_div/observed_features.tsv")
+faiths_pd <- read_tsv("alpha_div/faith_pd.tsv")
+```
+# Tidy metrics and add to metadata
+```{r}
+# Shannon 
+shannon <- shannon %>%
+  rename(sample_name = 1)  #rename 1st column to to match metadata
+
+# Evenness
+evenness <- evenness %>% 
+  rename(sample_name = 1)  #rename 1st column to to match metadata
+
+# Observed Features
+observed_features <- observed_features %>% 
+  rename(sample_name = 1)  #rename 1st column to to match metadata
+
+# Faiths PD
+faiths_pd <- faiths_pd %>% 
+  rename(sample_name = 1)  #rename 1st column to to match metadata
+
+# Add to metadata
+metadata <- metadata %>%
+  left_join(shannon, by = "sample_name") %>% 
+  left_join(evenness, by = "sample_name") %>% 
+  left_join(observed_features, by = "sample_name") %>% 
+  left_join(faiths_pd, by = "sample_name")
+  
+
+```
+
+* If you look at your metadata you will see that 4 columns (variables) were added this is the metrics from the alpha diversity added as columns to the end of your metadata. 
+
+* You'll also notice there are some samples that have NA's for the metrics, these samples could have been filtered out during our Qiime2 analysis and thus did not generate an alpha diversity metrics during the core-metrics command (because rarefaction will filter out samples less than the read depth you give it!). 
+
+It is good practice to check these NA's to make sure you aren't missing data. Then you can filter the NAs out. 
+
+# Tidy metadata with metrics 
+```{r}
+metadata <- metadata %>% 
+  drop_na(shannon_entropy, pielou_evenness, observed_features, faith_pd)
+```
+
+* Now you'll notice that we lost some columns, but there are no NA's in our metrics columns, now we are ready to do statistical analysis. 
+
+# Linear Mixed Effects Models
+* When building linear mixed-effects models, it’s best to start with the simplest model that adequately fits your data. I usually begin by including the variable that I expect to have the largest effect—or the one that might obscure the treatment signal—so we can account for it before testing our main hypothesis. In this case we will start with add_0 since it is our time factor. 
+
+
+## Body Site (body_site) (question x)
+
+## Time (add_0c) (question 1)
+
+Shannon
+```{r}
+# Build model
+model_add0_shannon <- lmer(shannon_entropy ~ add_0c + (1|host_subject_id), data = metadata) # I name all my models with the variable I am testing and the metric I am testing. 
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_shannon)
+# look at estimated variance components
+summary(model_add0_shannon)
+# residual diagnostic plot, check assumptions
+anova(model_add0_shannon)
+# pairwise comparisons, there are a lot of time points for this data set so this line doesn't work yet, I'll show you how to use it a little later
+#emmeans(model_add0_shannon, pairwise ~ add_0c)
+```
+For this first metric we are going to walk through each command, what they do, and what you should look for. 
+
+Model: model_add0_shannon <- lmer(shannon_entropy ~ add_0c + (1|host_subject_id), data = metadata)
+  - Model type: We are fitting a linear mixed-effects model using the lmer() function from the lme4 package. Mixed-effects models are useful when data points are not independent, such as repeated measurements from the same subject.
+  - Response variable: shannon_entropy — the dependent variable we want to explain (Shannon diversity in this case).
+  - Fixed effect: add_0c — the predictor we are testing, treated as a fixed effect. The model estimates how changes in add_0c influence Shannon diversity across all subjects.
+  - Random effect:
+(1|host_subject_id) — a random intercept for each subject. This accounts for repeated measurements between subjects.
+  - Data: data = metadata
+
+1. plot(model_add0_shannon) Purpose: Checks for non-linearity and heteroscedasticity (unequal variance).
+  - What to look for:Residuals should be roughly randomly scattered around 0.No obvious patterns, trends, or funnels.
+  - Red flag:Curved or fan-shaped pattern, the model may not fit well, or variance may not be constant. You may need to consider a different model for your data. 
+
+2. summary(model_add0_shannon)
+  - This tells us how Shannon diversity changes with add_0c, while accounting for differences between individual hosts. The fixed effects tell us the average effect across all hosts, and the random effects tell us how much subjects differ from each other.
+  - Look for: Fixed effect estimates make sense (sign, magnitude), standard errors are reasonable, and random effects show meaningful variation between subjects.
+  - Red flags: Very large or tiny standard errors, fixed effect estimates that don’t align with expectations, random effects variance near zero, or unusually high residual variance suggesting poor model fit.
+
+3. anova(model_add0_shannon)
+  - Performs a Type III or sequential ANOVA on the model, testing the significance of fixed effects (e.g., add_0c) in explaining the response.
+  - Look for: F-values and p-values indicate whether each fixed effect contributes significantly to explaining variation in shannon_entropy.
+  - Red flags: Very high or very low F-values with inconsistent p-values, or effects that don’t match biological expectations; may indicate model misspecification, collinearity, or insufficient data.
+
+Evenness
+```{r}
+# Build model
+model_add0_evenness <- lmer(pielou_evenness ~ add_0c + (1|host_subject_id), data = metadata) # I name all my models with the variable I am testing and the metric I am testing. 
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_evenness)
+# look at estimated variance components
+summary(model_add0_evenness)
+# residual diagnostic plot, check assumptions
+anova(model_add0_evenness)
+# pairwise comparisons, there are a lot of time points for this data set so this line doesn't work yet, I'll show you how to use it a little later
+#emmeans(model_add0_shannon, pairwise ~ add_0c)
+```
+
+
+Observed Features
+```{r}
+# Build model
+model_add0_obfeatures <- lmer(observed_features ~ add_0c + (1|host_subject_id), data = metadata) # I name all my models with the variable I am testing and the metric I am testing. 
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_obfeatures)
+# look at estimated variance components
+summary(model_add0_obfeatures)
+# residual diagnostic plot, check assumptions
+anova(model_add0_obfeatures)
+# pairwise comparisons, there are a lot of time points for this data set so this line doesn't work yet, I'll show you how to use it a little later
+#emmeans(model_add0_shannon, pairwise ~ add_0c)
+```
+
+
+Faiths PD
+```{r}
+# Build model
+model_add0_faithpd <- lmer(faith_pd ~ add_0c + (1|host_subject_id), data = metadata) # I name all my models with the variable I am testing and the metric I am testing. 
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_faithpd)
+# look at estimated variance components
+summary(model_add0_faithpd)
+# residual diagnostic plot, check assumptions
+anova(model_add0_faithpd)
+# pairwise comparisons, there are a lot of time points for this data set so this line doesn't work yet, I'll show you how to use it a little later
+#emmeans(model_add0_shannon, pairwise ~ add_0c)
+```
+
+* If you remember when we were looking at our qiime2 outputs we could see that something was going at at the begining of the study vs the end of the study so lets add a metadata column that splits the metadata into 3 sections. When looking at the metadata we can see the highest add_0c was 450. (This is just to see what is going on, once you take a look then you can decided based on your data a more appropriate way to look at time)
+
+## add_0c split into 3
+
+Shannon 
+```{r}
+# Add metadata column 
+metadata <- metadata %>%
+  mutate(add0c_split = cut(
+    add_0c,
+    breaks = 3,
+    labels = c("0-150", "150-300", "300-450"),
+    include.lowest = TRUE
+  ))
+
+# Stats 
+# Build model
+model_add0split_shannon <- lmer(shannon_entropy ~ add0c_split + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0split_shannon)
+# look at estimated variance components
+summary(model_add0split_shannon)
+# residual diagnostic plot, check assumptions
+anova(model_add0split_shannon)
+# pairwise comparisons
+emmeans(model_add0split_shannon, pairwise ~ add0c_split)
+```
+* From our emmeans we aren't seeing anything in shannon diversity specifically. 
+
+On your own you can try splitting add_0c in two groups. 
+```{r}
+metadata <- metadata %>%
+  mutate(add0c_split2 = cut(
+    add_0c,
+    breaks = 2,
+    labels = c("0-225", "225-425"),
+    include.lowest = TRUE
+  ))
+
+# Stats shannon
+# Build model
+model_add0split2_shannon <- lmer(shannon_entropy ~ add0c_split2 + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0split2_shannon)
+# look at estimated variance components
+summary(model_add0split2_shannon)
+# residual diagnostic plot, check assumptions
+anova(model_add0split2_shannon)
+# pairwise comparisons
+emmeans(model_add0split2_shannon, pairwise ~ add0c_split2)
+```
+
+# add_0c figure (voltility plot)
+
+```{r}
+# Shannon
+add0c_shannon <- ggplot(metadata, aes(x = add_0c, y = shannon_entropy, linetype = sample_type)) +
+  geom_line(linewidth = 0.7, alpha = 0.8) +
+  theme_bw(base_size = 14) +
+  labs(
+    x = "Accumulated Degree Days (ADD)",
+    y = "Shannon Entropy",
+    linetype = "Sample Type",
+    title = "Shannon"
+  ) +
+  theme(
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(color = "black"),
+    legend.title = element_text(face = "bold"),
+    legend.position = "bottom",
+    legend.background = element_rect(fill = "transparent"),
+    plot.title = element_text(face = "bold")
+  )
+
+add0c_shannon
+
+# Evennes
+add0c_evenness <- ggplot(metadata, aes(x = add_0c, y = pielou_evenness, linetype = sample_type)) +
+  geom_line(size = 0.7, alpha = 0.8) +
+  theme_bw(base_size = 14) +
+  labs(
+    x = "Accumulated Degree Days (ADD)",
+    y = "Pielou's Evenness",
+    linetype = "Sample Type",
+    title = "Evenness"
+  ) +
+  theme(
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(color = "black"),
+    legend.title = element_text(face = "bold"),
+    legend.position = "bottom",
+    legend.background = element_rect(fill = "transparent"),
+    plot.title = element_text(face = "bold")
+  )
+
+add0c_evenness
+
+# Observed Features
+add0c_obfeatures <- ggplot(metadata, aes(x = add_0c, y = observed_features, linetype = sample_type)) +
+  geom_line(size = 0.7, alpha = 0.8) +
+  theme_bw(base_size = 14) +
+  labs(
+    x = "Accumulated Degree Days (ADD)",
+    y = "Observed Features",
+    linetype = "Sample Type",
+    title = "Observed Features"
+  ) +
+  theme(
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(color = "black"),
+    legend.title = element_text(face = "bold"),
+    legend.position = "bottom",
+    legend.background = element_rect(fill = "transparent"),
+    plot.title = element_text(face = "bold")
+  )
+
+add0c_obfeatures
+
+# Faith's PD
+add0c_faithpd <- ggplot(metadata, aes(x = add_0c, y = faith_pd, linetype = sample_type)) +
+  geom_line(size = 0.7, alpha = 0.8) +
+  theme_bw(base_size = 14) +
+  labs(
+    x = "Accumulated Degree Days (ADD)",
+    y = "Faith's PD",
+    linetype = "Sample Type",
+    title = "Faith's PD"
+  ) +
+  theme(
+    axis.title = element_text(face = "bold"),
+    axis.text = element_text(color = "black"),
+    legend.title = element_text(face = "bold"),
+    legend.position = "bottom",
+    legend.background = element_rect(fill = "transparent"),
+    plot.title = element_text(face = "bold")
+  )
+
+add0c_faithpd
+
+# Combine the plots
+alpha_div_addOc <- ggarrange(add0c_shannon, add0c_evenness,
+                                  add0c_obfeatures, add0c_faithpd,
+                                  ncol = 2, nrow = 2,
+                                  labels = c("A","B","C","D"),
+                                  common.legend = TRUE,
+                                  legend = "bottom")
+alpha_div_addOc
+
+# Save the figure
+ggsave(alpha_div_addOc, filename = "../05_figures/alpha_div_addOc.jpeg", device = "jpeg", dpi = 300, width = 12, height = 9)
+
+```
+
+
+
+# add_0c 3 group figure
+
+```{r}
+model_add0split_shannon <- lmer(shannon_entropy ~ add0c_split + (1|host_subject_id), data = metadata)
+
+pvals <- pairs(emmeans(model_add0split_shannon, ~ add0c_split)) |> as.data.frame()
+
+# make table for stat_pvalue_manual with rounded p-values
+pvals_table <- data.frame(
+  group1 = c("0-150","0-150","150-300"),
+  group2 = c("150-300","300-450","300-450"),
+  p = round(pvals$p.value, 3),           # round to 3 decimals
+  y.position = max(metadata$shannon_entropy) + c(0.1,0.3,0.5)
+)
+
+# plot
+add_split_shannon <- ggplot(metadata, aes(x = add0c_split, y = shannon_entropy)) +
+  geom_boxplot() +
+  stat_pvalue_manual(pvals_table, label = "p") +
+  theme_bw() +
+  theme(
+    axis.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold"))+
+  labs(x = "Accumulated Degree Day 3 Groups",
+       y = "Shannon Entropy",
+       title = "Shannon Diversity for ADD Split into 3 Groups")
+
+add_split_shannon
+
+# Save the figure
+ggsave(add_split_shannon, filename = "../05_figures/add_split_shannon.jpeg", device = "jpeg", dpi = 300, width = 8, height = 9)
+```
+
+
+
+## add0c + facility (question 2)
+To make it easier to demonstrate time I am going to continue the analysis with the 3 group add_0c split. 
+In this section, we will test whether microbial community composition changes differently across facilities over accumulated degree days (add_0c). To do this, we included facility as an interaction with add_0c in the model. This allows us to evaluate whether the trajectory of microbial community change over time differs between facilities, rather than simply testing for overall differences between facilities. By modeling the interaction, we can determine whether microbial communities diverge from their baseline at different rates depending on the facility where the samples were collected.
+Shannon
+```{r}
+# Build model
+model_add0_facility_shannon <- lmer(shannon_entropy ~ facility*add0c_split + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_shannon)
+# look at estimated variance components
+summary(model_add0_facility_shannon)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_shannon)
+# pairwise comparisons
+emmeans(model_add0_facility_shannon, pairwise ~ facility|add0c_split)
+```
+Really quick lets just look when we don't split add_0c
+```{r}
+# Build model
+model_add0_facility_shannon2 <- lmer(shannon_entropy ~ facility*add_0c + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_shannon2)
+# look at estimated variance components
+summary(model_add0_facility_shannon2)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_shannon2)
+# pairwise comparisons
+emmeans(model_add0_facility_shannon2, pairwise ~ facility)
+```
+
+Evenness
+```{r}
+# Build model
+model_add0_facility_evenness <- lmer(pielou_evenness ~ facility*add0c_split + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_evenness)
+# look at estimated variance components
+summary(model_add0_facility_evenness)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_evenness)
+# pairwise comparisons
+emmeans(model_add0_facility_evenness, pairwise ~ facility|add0c_split)
+```
+
+Observed Features
+```{r}
+# Build model
+model_add0_facility_obfeatures <- lmer(observed_features ~ facility*add0c_split + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_obfeatures)
+# look at estimated variance components
+summary(model_add0_facility_obfeatures)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_obfeatures)
+# pairwise comparisons
+emmeans(model_add0_facility_obfeatures, pairwise ~ facility|add0c_split)
+```
+
+Faith's PD
+```{r}
+# Build model
+model_add0_facility_faithpd <- lmer(faith_pd ~ facility*add0c_split + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_faithpd)
+# look at estimated variance components
+summary(model_add0_facility_faithpd)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_faithpd)
+# pairwise comparisons
+emmeans(model_add0_facility_faithpd, pairwise ~ facility|add0c_split)
+```
+- We can see that facility is significant at earlier timepoints so when we look at sample_type we will include it in our model. 
+
+# Facilty figure ajusted for time (box plot) (3 timepoint box plot)
+```{r}
+model_add0_facility_faithpd <- lmer(faith_pd ~ facility*add0c_split + (1|host_subject_id), data = metadata)  
+pvals <- pairs(
+  emmeans(model_add0_facility_faithpd, ~ facility | add0c_split)
+) |> as.data.frame()
+pvals_table <- pvals %>%
+  separate(contrast, into = c("group1","group2"), sep = " - ") %>%
+  dplyr::mutate(
+    p = round(p.value, 4),
+    y.position = max(metadata$faith_pd) + 0.1
+  )
+pvals_table
+
+#only plot the significant associations
+pvals_table_significant <- pvals %>%
+  separate(contrast, into = c("group1","group2"), sep = " - ") %>%
+  filter(p.value < 0.05) %>%                     
+  mutate(p = round(p.value, 4))
+pvals_table_significant
+
+# fix overlapping significance bars
+pvals_table_significant <- pvals_table_significant %>%
+  add_y_position(
+    data = metadata,
+    formula = faith_pd ~ facility,
+    fun = "max",
+    step.increase = 0.12
+  )
+pvals_table_significant
+
+
+# Plot Faiths PD per facility by the grouped ADDs, add only significant comparisons
+add_split_faithpd_facility <- ggplot(metadata,
+       aes(x = facility, y = faith_pd, fill = facility)) +
+  geom_boxplot() +
+  facet_wrap(~ add0c_split) +
+  stat_pvalue_manual(
+    pvals_table_significant,
+    xmin = "group1",
+    xmax = "group2",
+    label = "p",
+    tip.length = 0.01,
+    size = 3, 
+    inherit.aes = FALSE
+  ) +
+  scale_fill_manual(values = c(
+    "FIRS" = "#ff9896",
+    "STAFS" = "#8c6d31",
+    "ARF"  = "#7b4173"
+  )) +
+  theme_bw() +
+  theme(
+    axis.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold"), 
+    legend.position = "none"
+  ) +
+  labs(
+    x = "Facility",
+    y = "Faith's Phylogenetic Diversity",
+    title = "Faith PD Across Facilities Within ADD Time Groups",
+    fill = "Facility"
+  )
+
+
+add_split_faithpd_facility
+ggsave(add_split_faithpd_facility, filename = "../05_figures/add_split_faiths_facility.jpeg", device = "jpeg", dpi = 300, width = 8, height = 9)
+
+```
+
+
+## add_0c + facility + sample_type (question 3)
+We know that facility varies across accumulated degree days (add_0c), but it is not the primary variable addressing our research question in this section. Therefore, we include facility in the model as an additive term rather than as an interaction term. Instead, we include sample_type as an interaction with add_0c, because we want to test whether microbial communities from soil and skin change differently over time. We previously examined the effect of facility in an earlier section, so here it is included only as a covariate to account for background variation. Specifically, we are testing whether the time trajectories differ between soil and skin samples. If we instead wanted to compare soil versus skin while simply accounting for time, rather than testing different time trajectories, add_0c would be included as an additive term rather than in an interaction.
+
+Shannon 
+```{r}
+# Build model
+model_add0_facility_sampletype_shannon <- lmer(shannon_entropy ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_shannon)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_shannon)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_shannon)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_shannon, pairwise ~ sample_type|add0c_split)
+```
+
+Evenness
+```{r}
+# Build model
+model_add0_facility_sampletype_evenness <- lmer(pielou_evenness ~ add0c_split*sample_type + facility + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_evenness)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_evenness)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_evenness)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_evenness, pairwise ~ sample_type|add0c_split)
+```
+
+Observed features
+```{r}
+# Build model
+model_add0_facility_sampletype_obfeatures <- lmer(observed_features ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_obfeatures)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_obfeatures)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_obfeatures)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_obfeatures, pairwise ~ sample_type|add0c_split)
+```
+
+Faith's PD
+```{r}
+# Build model
+model_add0_facility_sampletype_faithpd <- lmer(faith_pd ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata)  
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_faithpd)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_faithpd)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_faithpd)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_faithpd, pairwise ~ sample_type|add0c_split)
+```
+
+## Sample type figure
+```{r}
+model_add0_facility_sampletype_obfeatures <- lmer(observed_features ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata)  
+
+pvals <- pairs(
+  emmeans(model_add0_facility_sampletype_obfeatures, ~ sample_type | add0c_split)
+) |> as.data.frame()
+
+
+pvals_table <- pvals %>%
+  separate(contrast, into = c("group1","group2"), sep = " - ") %>%
+  dplyr::mutate(
+    p = round(p.value, 4),
+    y.position = max(metadata$observed_features) + 0.1
+  )
+pvals_table
+
+#only plot the significant associations
+pvals_table_significant <- pvals %>%
+  separate(contrast, into = c("group1","group2"), sep = " - ") %>%
+  filter(p.value < 0.05) %>%                     
+  mutate(p = round(p.value, 10))
+pvals_table_significant
+
+# fix overlapping significance bars
+pvals_table_significant <- pvals_table_significant %>%
+  add_y_position(
+    data = metadata,
+    formula = observed_features ~ sample_type,
+    fun = "max",
+    step.increase = 0.12
+  )
+pvals_table_significant
+
+
+# Plot Observed features from skin versus soils add only significant comparisons
+add_split_obsFeats_sampleType <- ggplot(metadata,
+       aes(x = sample_type, y = observed_features, fill = sample_type)) +
+  geom_boxplot() +
+  facet_wrap(~ add0c_split) +
+  stat_pvalue_manual(
+    pvals_table_significant,
+    xmin = "group1",
+    xmax = "group2",
+    label = "p",
+    tip.length = 0.01,
+    size = 3
+  ) +
+  scale_fill_manual(values = c(
+    "skin" = "#9e003f",
+    "soil" = "#b15928")) +
+  theme_bw() +
+  theme(
+    axis.title = element_text(face = "bold"),
+    plot.title = element_text(face = "bold"), 
+    legend.position = "none"
+  ) +
+  labs(
+    x = "Sample Type",
+    y = "Observed Features",
+    title = "Observed Features Within ADD Time Groups",
+    fill = "Sample Type"
+  )
+
+
+add_split_obsFeats_sampleType
+ggsave(add_split_obsFeats_sampleType, filename = "../05_figures/add_split_obsFeats_sampleType.jpeg", device = "jpeg", dpi = 300, width = 8, height = 9)
+```
+
+
+
+
+################################################################################
+# Beta diversity
+################################################################################
+
+# Load in beta diversity metrics and tidy to add to metadata
+(remember this is already our PCOA results so this is already our ordinations). I make separate metadata's for each beta diversity metric, another option would be to rename each PC ex. PC1J for jaccard and add PC1-PC3 for each metric to the metadata. I find it easier to keep everything separate when the metrics have different metadata. The variances extracted from the unzipped PCoA files will not match what you see in the Emperor plot, because Emperor adjusts the variance for plotting. To obtain variances that match the Emperor plot, you need to use qiime2R.
+```{r}
+# Read in beta div metrics 
+bray_curtis <- read_tsv("beta_div/bray_curtis.txt")
+jaccard <- read_tsv("beta_div/jaccard.txt")
+uw_unifrac <- read_tsv("beta_div/unweighted_unifrac.txt")
+w_unifrac <- read_tsv("beta_div/weighted_unifrac.txt")
+
+# Clean metrics
+# bray curtis
+# get variance
+bray_curtis_var <- bray_curtis %>%
+  slice(3) %>%   # row 3 contains the numeric proportion explained values
+  separate(`324`, into = paste0("PC", 1:10), sep = "\t") %>%  # split tab-separated values
+  mutate(across(starts_with("PC"), ~ as.numeric(.x) * 100)) %>%  # convert to percent
+  select(PC1, PC2, PC3) 
+
+# clean ordination
+bray_curtis <- bray_curtis %>%
+  slice(6:n()) %>%
+  filter(!Eigvals %in% c("Biplot", "Site constraints")) %>%
+  separate(`324`, into = paste0("PC", 1:10), sep = "\t") %>%
+  rename(sample_name = Eigvals) #change eigenvals to match the sampleid, sample_name etc in your metadata
+
+metadata_bc <- bray_curtis %>%
+  select(sample_name, PC1, PC2, PC3) %>%
+  left_join(metadata) %>% 
+  mutate(across(c(PC1, PC2, PC3), as.numeric))
+
+
+# Jaccard
+# get variance
+jaccard_var <- jaccard %>%
+  slice(3) %>%   # row 3 contains the numeric proportion explained values
+  separate(`324`, into = paste0("PC", 1:10), sep = "\t") %>%  # split tab-separated values
+  mutate(across(starts_with("PC"), ~ as.numeric(.x) * 100)) %>%  # convert to percent
+  select(PC1, PC2, PC3) 
+
+# Clean ordinace
+jaccard <- jaccard %>%
+  slice(6:n()) %>%
+  filter(!Eigvals %in% c("Biplot", "Site constraints")) %>%
+  separate(`324`, into = paste0("PC", 1:10), sep = "\t") %>%
+  rename(sample_name = Eigvals) #change eigenvals to match the sampleid, sample_name etc in your metadata
+
+metadata_jaccard <- jaccard %>%
+  select(sample_name, PC1, PC2, PC3) %>%
+  left_join(metadata) %>% 
+  mutate(across(c(PC1, PC2, PC3), as.numeric))
+
+# Unweighted Unifrac
+# Get variance
+uw_var <- uw_unifrac %>%
+  slice(3) %>%   # row 3 contains the numeric proportion explained values
+  separate(`324`, into = paste0("PC", 1:10), sep = "\t") %>%  # split tab-separated values
+  mutate(across(starts_with("PC"), ~ as.numeric(.x) * 100)) %>%  # convert to percent
+  select(PC1, PC2, PC3) 
+
+# Clean ordinance
+uw_unifrac <- uw_unifrac %>%
+  slice(6:n()) %>%
+  filter(!Eigvals %in% c("Biplot", "Site constraints")) %>%
+  separate(`324`, into = paste0("PC", 1:10), sep = "\t") %>%
+  rename(sample_name = Eigvals) #change eigenvals to match the sampleid, sample_name etc in your metadata
+
+metadata_uwunifrac <- uw_unifrac %>%
+  select(sample_name, PC1, PC2, PC3) %>%
+  left_join(metadata) %>% 
+  mutate(across(c(PC1, PC2, PC3), as.numeric))
+
+# Weighted Unifrac
+# get variance
+wunifrac_var <- w_unifrac %>%
+  slice(3) %>%   # row 3 contains the numeric proportion explained values
+  separate(`324`, into = paste0("PC", 1:10), sep = "\t") %>%  # split tab-separated values
+  mutate(across(starts_with("PC"), ~ as.numeric(.x) * 100)) %>%  # convert to percent
+  select(PC1, PC2, PC3) 
+
+# Tidy ordinace
+w_unifrac <- w_unifrac %>%
+  slice(6:n()) %>%
+  filter(!Eigvals %in% c("Biplot", "Site constraints")) %>%
+  separate(`324`, into = paste0("PC", 1:10), sep = "\t") %>%
+  rename(sample_name = Eigvals) #change eigenvals to match the sampleid, sample_name etc in your metadata
+
+metadata_wunifrac <- w_unifrac %>%
+  select(sample_name, PC1, PC2, PC3) %>%
+  left_join(metadata) %>% 
+  mutate(across(c(PC1, PC2, PC3), as.numeric))
+
+```
+- Now that we've done some data tidying we can finally get to stats for beta diversity, I am going to keep using the add0c split for demonstration purposes. 
+
+- There are two common approaches for performing statistical analyses on beta diversity. One approach is first distances, which we discussed last week. If you want to run a linear mixed-effects model (LME) in R using the first-distances output, you can unzip the first-distances.qza artifact and extract the data file. After importing this file into R, you can use it in your model. In this case, instead of using a PCoA axis (e.g., PC1) as the dependent variable, you would use Distance as the dependent variable in the LME.
+
+-  For the sake of time, we will skip ahead to question 3 and build a model examining sample type. In this model, we account for facility as a covariate and evaluate how beta diversity changes over time. Specifically, we include an interaction between accumulated degree days (add_0c) and sample type to test whether the trajectory of beta diversity over time differs between soil and skin samples. 
+## add0c_split + facility + sample_type (question 3)
+- If you think back to the PCoA plots we visualized in Emperor, we saw three axes: PC1, PC2, and PC3. We will test each of these axes to determine whether the variance along that axis is explained by our variables. In many microbiome datasets, time often explains a large portion of the variance on PC1, although this is not always the case. 
+
+# Bray Curtis
+
+#PC1
+```{r}
+# Build model
+model_add0_facility_sampletype_bc1 <- lmer(PC1 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_bc)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_bc1)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_bc1)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_bc1)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_bc1, pairwise ~ sample_type|add0c_split)
+```
+
+#PC2
+```{r}
+# Build model
+model_add0_facility_sampletype_bc2 <- lmer(PC2 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_bc)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_bc2)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_bc2)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_bc2)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_bc2, pairwise ~ sample_type|add0c_split)
+```
+
+
+#PC3
+```{r}
+# Build model
+model_add0_facility_sampletype_bc3 <- lmer(PC3 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_bc)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_bc3)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_bc3)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_bc3)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_bc3, pairwise ~ sample_type|add0c_split)
+```
+
+# Jaccard
+
+PC1
+```{r}
+# Build model
+model_add0_facility_sampletype_j1 <- lmer(PC1 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_jaccard)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_j1)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_j1)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_j1)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_j1, pairwise ~ sample_type|add0c_split)
+```
+
+
+PC2
+```{r}
+# Build model
+model_add0_facility_sampletype_j2 <- lmer(PC2 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_jaccard)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_j2)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_j2)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_j2)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_j2, pairwise ~ sample_type|add0c_split)
+```
+
+
+PC3
+```{r}
+# Build model
+model_add0_facility_sampletype_j3 <- lmer(PC3 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_jaccard)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_j3)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_j3)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_j3)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_j3, pairwise ~ sample_type|add0c_split)
+```
+# Unweighted Unifrac
+
+PC1
+```{r}
+# Build model
+model_add0_facility_sampletype_uwunifrac1 <- lmer(PC1 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_uwunifrac)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_uwunifrac1)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_uwunifrac1)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_uwunifrac1)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_uwunifrac1, pairwise ~ sample_type|add0c_split)
+```
+PC2
+```{r}
+# Build model
+model_add0_facility_sampletype_uwunifrac2 <- lmer(PC2 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_uwunifrac)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_uwunifrac2)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_uwunifrac2)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_uwunifrac2)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_uwunifrac2, pairwise ~ sample_type|add0c_split)
+```
+PC3
+```{r}
+# Build model
+model_add0_facility_sampletype_uwunifrac3 <- lmer(PC3 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_uwunifrac)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_uwunifrac3)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_uwunifrac3)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_uwunifrac3)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_uwunifrac3, pairwise ~ sample_type|add0c_split)
+```
+# Weighted Unifrac
+
+PC1
+```{r}
+# Build model
+model_add0_facility_sampletype_wunifrac1 <- lmer(PC1 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_wunifrac)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_wunifrac1)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_wunifrac1)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_wunifrac1)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_wunifrac1, pairwise ~ sample_type|add0c_split)
+```
+PC2
+```{r}
+# Build model
+model_add0_facility_sampletype_wunifrac2 <- lmer(PC2 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_wunifrac)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_wunifrac2)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_wunifrac2)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_wunifrac2)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_wunifrac2, pairwise ~ sample_type|add0c_split)
+```
+PC3
+```{r}
+# Build model
+model_add0_facility_sampletype_wunifrac3 <- lmer(PC3 ~ sample_type*add0c_split + facility + (1|host_subject_id), data = metadata_wunifrac)  
+# I always add which PC I am testing into the model name
+
+# Residual diagnostic plot, check assumptions
+plot(model_add0_facility_sampletype_wunifrac3)
+# look at estimated variance components
+summary(model_add0_facility_sampletype_wunifrac3)
+# residual diagnostic plot, check assumptions
+anova(model_add0_facility_sampletype_wunifrac3)
+# pairwise comparisons
+emmeans(model_add0_facility_sampletype_wunifrac3, pairwise ~ sample_type|add0c_split)
+```
+
+# Figure
+
+```{r}
+# Bray Curtis
+
+# Get min values for placing the p-value label in bottom-left
+x_min <- min(metadata_bc$PC1, na.rm = TRUE)
+y_min <- min(metadata_bc$PC2, na.rm = TRUE)
+
+# PCoA plot with sample_type coloring, ellipses, and p-value in bottom-left
+sampletype_bray_curtis <- ggplot(metadata_bc, aes(x = PC1, y = PC2, color = sample_type)) + 
+  geom_point(size = 3) +
+  stat_ellipse(type = "t", level = 0.95) +
+  xlab(paste0("PC1 (", round(bray_curtis_var[1], 1), "%)")) +
+  ylab(paste0("PC2 (", round(bray_curtis_var[2], 1), "%)")) +
+  scale_color_manual(
+    values = c("skin" = "#9e003f", "soil" = "#b15928"),
+    name = "Sample Type"
+  ) +
+  labs(title = "Bray-Curtis PCoA") +
+  annotate(
+    "text",
+    x = x_min * 1.15,             
+    y = y_min * 1.15,             
+    label = "LME; p = 6.618e-12",      # your model p-value, take this from the anova(model_add0_facility_sampletype_bc1) table
+    hjust = 0,                     
+    vjust = 0,                     
+    size = 4,
+    fontface = "italic"
+  ) +
+  coord_cartesian(clip = "off") +
+  theme_bw() +
+  theme(axis.title = element_text(face = "bold")
+  )
+
+sampletype_bray_curtis
+
+# Jaccard
+sampletype_jaccard <- ggplot(metadata_jaccard, aes(x = PC1, y = PC2, color = sample_type)) + 
+  geom_point(size = 3) +
+  theme_bw() + 
+  stat_ellipse(type = "t", level = 0.95) +
+  xlab(paste0("PC1 (", round(jaccard_var[1], 1), "%)")) + 
+  ylab(paste0("PC2 (", round(jaccard_var[2], 1), "%)")) +
+  scale_color_manual(
+    values = c("skin" = "#9e003f", "soil" = "#b15928"),
+    name = "Sample Type"
+  ) +
+  labs(title = "Jaccard PCoA") 
+# uncomment this section do add a p-value you calculated from your lme
+  # annotate("text",
+#            x = x_max * 1.2,
+#            y = y_max * 1.2,
+#            label = "p = 0.0078",
+#            hjust = 1, vjust = 1,
+#            size = 5, fontface = "italic") +
+#   coord_cartesian(clip = "off")
+
+sampletype_jaccard
+
+# Unweighted Unifrac
+sampletype_uwunifrac <- ggplot(metadata_uwunifrac, aes(x = PC1, y = PC2, color = sample_type)) + 
+  geom_point(size = 3) +
+  theme_bw() + 
+  stat_ellipse(type = "t", level = 0.95) +
+  xlab(paste0("PC1 (", round(uw_var[1], 1), "%)")) + 
+  ylab(paste0("PC2 (", round(uw_var[2], 1), "%)")) +
+  scale_color_manual(
+    values = c("skin" = "#9e003f", "soil" = "#b15928"),
+    name = "Sample Type"
+  ) +
+  labs(title = "Unweighted Unifrac PCoA") 
+# uncomment this section do add a p-value you calculated from your lme
+  # annotate("text",
+#            x = x_max * 1.2,
+#            y = y_max * 1.2,
+#            label = "p = 0.0078",
+#            hjust = 1, vjust = 1,
+#            size = 5, fontface = "italic") +
+#   coord_cartesian(clip = "off")
+
+sampletype_uwunifrac
+
+# Weighted Unifrac 
+sampletype_wunifrac <- ggplot(metadata_wunifrac, aes(x = PC1, y = PC2, color = sample_type)) + 
+  geom_point(size = 3) +
+  theme_bw() + 
+  stat_ellipse(type = "t", level = 0.95) +
+  xlab(paste0("PC1 (", round(wunifrac_var[1], 1), "%)")) + 
+  ylab(paste0("PC2 (", round(wunifrac_var[2], 1), "%)")) +
+  scale_color_manual(
+    values = c("skin" = "#9e003f", "soil" = "#b15928"),
+    name = "Sample Type"
+  ) +
+  labs(title = "Weighted Unifrac PCoA") 
+# uncomment this section do add a p-value you calculated from your lme
+  # annotate("text",
+#            x = x_max * 1.2,
+#            y = y_max * 1.2,
+#            label = "p = 0.0078",
+#            hjust = 1, vjust = 1,
+#            size = 5, fontface = "italic") +
+#   coord_cartesian(clip = "off")
+
+sampletype_wunifrac
+
+
+# Combine metrics plots
+beta_div_sample_type <- ggarrange(sampletype_bray_curtis, sampletype_jaccard,
+                                  sampletype_uwunifrac, sampletype_wunifrac,
+                                  ncol = 2, nrow = 2,
+                                  labels = c("A","B","C","D"),
+                                  common.legend = TRUE,
+                                  legend = "bottom")
+beta_div_sample_type
+
+# Save the figure
+ggsave(beta_div_sample_type, filename = "../05_figures/beta_div_sample_type.jpeg", device = "jpeg", dpi = 300, width = 10, height = 9)
+```
+
+################################################################################
+# Taxa bar plots
+################################################################################
+
+# Import feature table and taxonomy data from QIIME2 output
+```{r}
+tabulated_results <- read_tsv("taxonomy/tabulated_results.tsv")
+```
+
+# Format, convert taxonomy to relative abundance, and group at taxonomic levels
+```{r}
+# format data for making a taxa plot
+# get rid of #q2:types row
+tabulated_results <- tabulated_results[2:nrow(tabulated_results),]
+
+# remove non-numeric columns
+# we will filter out Taxon for now so we can calculate relative abundances, but will add it back later
+tabulated_results_filt <- tabulated_results %>% 
+  select(-all_of(c("Sequence","Confidence","Taxon")))
+# we keep id and make it as the row name
+tabulated_results_filt <- column_to_rownames(tabulated_results_filt, var = "id")
+
+# calculate relative abundances
+tabulated_results_filt[] <- lapply(tabulated_results_filt, function(x) as.numeric(as.character(x)))
+rel_abundance <- apply(tabulated_results_filt, 2, function(x) x / sum(x))
+
+# check that each column adds up to 1
+colSums(rel_abundance)
+
+# re-add taxonomy to relative abundance table
+rel_abundance <- data.frame(rel_abundance, check.names = FALSE)
+rel_abundance$id <- rownames(rel_abundance)
+
+tabulated_results_merge <- tabulated_results %>% # create a tabulated results for merging
+  select(all_of(c("id","Taxon")))
+
+rel_abundance_taxa <- merge(rel_abundance, tabulated_results_merge, by = "id", all.x = TRUE)
+
+# we now have a table with the per-sample relative abundances of each ASV (along with their taxonomic assignments)
+
+# Taxon column data is messy - let's split the data up into taxonomic ranks
+rel_abundance_taxa_split <- rel_abundance_taxa %>% 
+  separate(Taxon, 
+           into = c("Domain", "Phylum", "Class", "Order", "Family", "Genus", "Species"),
+           sep = ";\\s*",  # splits on semicolon and optional space
+           fill = "right", # fills missing columns with NA if some rows are shorter
+           remove = TRUE) # remove original "Taxon" column too
+
+# some ranks have a value even though they are unidentified (e.g., g__, s__)
+# let's change those to NAs
+rel_abundance_taxa_split[rel_abundance_taxa_split == "d__"] <- NA
+rel_abundance_taxa_split[rel_abundance_taxa_split == "p__"] <- NA
+rel_abundance_taxa_split[rel_abundance_taxa_split == "c__"] <- NA
+rel_abundance_taxa_split[rel_abundance_taxa_split == "o__"] <- NA
+rel_abundance_taxa_split[rel_abundance_taxa_split == "f__"] <- NA
+rel_abundance_taxa_split[rel_abundance_taxa_split == "g__"] <- NA
+rel_abundance_taxa_split[rel_abundance_taxa_split == "s__"] <- NA
+
+# create a column with the lowest identified taxonomic level for all ASVs
+rel_abundance_taxa_lowest <- rel_abundance_taxa_split %>% 
+  rowwise() %>%
+  mutate(LowestTaxLevel = {
+    tax_levels <- c(Domain, Phylum, Class, Order, Family, Genus, Species)
+    last_non_na <- tail(na.omit(tax_levels), 1)
+    ifelse(length(last_non_na) > 0, last_non_na, NA)
+  }) %>%
+  ungroup()
+
+# group by the lowest taxonomic level
+rel_abundance_taxa_lowest <- rel_abundance_taxa_lowest %>%
+  mutate(LowestTaxLevel = ifelse(is.na(LowestTaxLevel), "Unassigned", LowestTaxLevel)) %>% # convert NAs to "Unassigned"
+  group_by(LowestTaxLevel) %>%
+  summarise(across(where(is.numeric), sum, na.rm = TRUE))
+
+# save the file
+saveRDS(rel_abundance_taxa_lowest, "taxonomy/rel_abundance_taxa_lowest.RDS")
+
+# group at level 5/Family level
+rel_abundance_taxa_family <- rel_abundance_taxa_split %>%
+  mutate(Family = ifelse(is.na(Family), "Unassigned", Family)) %>% # convert NAs to "Unassigned"
+  group_by(Family) %>%
+  summarise(across(where(is.numeric), sum, na.rm = TRUE))
+
+# save the file
+saveRDS(rel_abundance_taxa_family, "taxonomy/rel_abundance_taxa_family.RDS")
+
+# this allows you to have either the lowest-identified level or collapsed taxonomic tables 
+# however, these are massive and have >400 samples for this dataset
+# because this isn't very conducive to nice taxa bar plots, in the next chunk, we are going to filter to one facility only and make a simple taxa bar plot
+```
+
+# Taxa bar plot for STAFS samples
+```{r}
+# graph at the family level for STAFS samples
+# convert to long format
+rel_abundance_taxa_family_long <- rel_abundance_taxa_family %>%
+  pivot_longer(cols = -Family, names_to = "sample_name", values_to = "relative_abundance")
+
+# assign rare taxa (less than .2 rel abund to other)
+rel_abundance_taxa_family_long <- rel_abundance_taxa_family_long %>%
+  mutate(rare_taxa = if_else(relative_abundance < 0.2, "Other", Family))
+
+# associate metadata with taxa
+metadata <- read_tsv("../03_metadata/metadata.txt")
+metadata_filt <- metadata[, which((names(metadata) %in% c("sample_name","sample_type","facility", "add_0c"))==TRUE)]
+
+rel_abundance_taxa_family_long <- rel_abundance_taxa_family_long %>% 
+  left_join(metadata_filt, by = "sample_name")
+
+# filter out control samples
+rel_abundance_taxa_family_long <- rel_abundance_taxa_family_long[rel_abundance_taxa_family_long$sample_type != "control",]
+
+# filter to just one facility (STAFS)
+rel_abundance_taxa_family_long_STAFS <- rel_abundance_taxa_family_long[rel_abundance_taxa_family_long$facility == "STAFS",]
+
+base_colors <- c(
+  "#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E",
+  "#C06C84", "#A6761D", "#666666", "#7f3b6c", "#355c7d",
+  "#b15928", "#9e003f", "#ff7f00", "#8dd3c7", "#bebada",
+  "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5",
+  "#d9d9d9", "#bc80bd", "#ccebc5", "#ffed6f", "#a6cee3"
+)
+
+# Get unique taxa categories
+categories <- unique(rel_abundance_taxa_family_long_STAFS$rare_taxa)
+
+# special colors for 'Other' and 'Unassigned'
+special_colors <- c("Other" = "gray", "Unassigned" = "black")
+remaining <- setdiff(categories, names(special_colors))
+
+# Assign base colors to remaining taxa
+if(length(remaining) > length(base_colors)){
+  warning("More taxa than base colors, some colors will be recycled")
+}
+assigned_colors <- base_colors[seq_along(remaining)]
+names(assigned_colors) <- remaining
+
+# Combine special and base colors
+colors <- c(special_colors, assigned_colors)
+
+#taxa bar plot, plotted at the Family taxonomic level for STAFS samples
+taxa_family_add <- ggplot(rel_abundance_taxa_family_long_STAFS, 
+                          aes(x = reorder(sample_name, add_0c), 
+                              y = relative_abundance, 
+                              fill = rare_taxa)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = colors) +
+  theme(axis.text.x = element_blank(),
+        legend.position = "bottom",
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold")) +
+  labs(x = "Sample, sorted by increasing ADD", 
+       y = "Relative Abundance", 
+       fill = "Family")
+
+taxa_family_add
+ggsave(taxa_family_add, filename = "../05_figures/taxa_family_add.jpeg", device = "jpeg", dpi = 300, width = 12, height = 8)
+
+# graph taxa by sample type at the family level for STAFS samples only
+rel_abundance_taxa_family_long_STAFS_ordered <- rel_abundance_taxa_family_long_STAFS %>%
+  mutate(sample_type = fct_relevel(sample_type, "skin","soil")) %>% 
+  arrange(sample_type)
+
+taxa_family_sample_type <- ggplot(rel_abundance_taxa_family_long_STAFS, aes(x = sample_name, y = relative_abundance, fill = rare_taxa)) +
+  facet_wrap(~sample_type, scales = "free_x") +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = colors) +
+  theme(legend.position = "bottom",
+        axis.text.x = element_blank()) +
+  labs(x = "Sample", y = "Relative Abundance", fill = "Family")
+taxa_family_sample_type
+
+ggsave(taxa_family_sample_type, filename = "../05_figures/taxa_family_sample_type.jpeg", device = "jpeg", dpi = 300, width = 12, height = 8)
+```
+
+
+# Taxa bar plot for ARF samples at Genus level
+```{r}
+# group at level 6/Genus level
+rel_abundance_taxa_genus <- rel_abundance_taxa_split %>%
+  mutate(Genus = ifelse(is.na(Family), "Unassigned", Genus)) %>% # convert NAs to "Unassigned"
+  group_by(Genus) %>%
+  summarise(across(where(is.numeric), sum, na.rm = TRUE))
+
+# save the file
+saveRDS(rel_abundance_taxa_genus, "taxonomy/rel_abundance_taxa_genus.RDS")
+
+# graph at the genus level for ARF samples
+# convert to long format
+rel_abundance_taxa_genus_long <- rel_abundance_taxa_genus %>%
+  pivot_longer(cols = -Genus, names_to = "sample_name", values_to = "relative_abundance")
+
+# assign rare taxa (less than .2 rel abund to other)
+rel_abundance_taxa_genus_long <- rel_abundance_taxa_genus_long %>%
+  mutate(rare_taxa = if_else(relative_abundance < 0.2, "Other", Genus))
+
+# associate metadata with taxa
+metadata <- read_tsv("../03_metadata/metadata.txt")
+metadata_filt <- metadata[, which((names(metadata) %in% c("sample_name","sample_type","facility", "add_0c"))==TRUE)]
+
+rel_abundance_taxa_genus_long <- rel_abundance_taxa_genus_long %>% 
+  left_join(metadata_filt, by = "sample_name")
+
+# filter out control samples
+rel_abundance_taxa_genus_long <- rel_abundance_taxa_genus_long[rel_abundance_taxa_genus_long$sample_type != "control",]
+
+# filter to just one facility (STAFS)
+rel_abundance_taxa_genus_long_ARF <- rel_abundance_taxa_genus_long[rel_abundance_taxa_genus_long$facility == "ARF",]
+
+base_colors <- c(
+  "#1B9E77", "#D95F02", "#7570B3", "#E7298A", "#66A61E",
+  "#C06C84", "#A6761D", "#666666", "#7f3b6c", "#355c7d",
+  "#b15928", "#9e003f", "#ff7f00", "#8dd3c7", "#bebada",
+  "#fb8072", "#80b1d3", "#fdb462", "#b3de69", "#fccde5",
+  "#d9d9d9", "#bc80bd", "#ccebc5", "#ffed6f", "#a6cee3"
+)
+
+# Get unique taxa categories
+categories <- unique(rel_abundance_taxa_genus_long_ARF$rare_taxa)
+
+# special colors for 'Other' and 'Unassigned'
+special_colors <- c("Other" = "gray", "Unassigned" = "black")
+remaining <- setdiff(categories, names(special_colors))
+
+# Assign base colors to remaining taxa
+if(length(remaining) > length(base_colors)){
+  warning("More taxa than base colors, some colors will be recycled")
+}
+assigned_colors <- base_colors[seq_along(remaining)]
+names(assigned_colors) <- remaining
+
+# Combine special and base colors
+colors <- c(special_colors, assigned_colors)
+
+#taxa bar plot, plotted at the Family taxonomic level for STAFS samples
+taxa_genus_add_arf <- ggplot(rel_abundance_taxa_genus_long_ARF, 
+                          aes(x = reorder(sample_name, add_0c), 
+                              y = relative_abundance, 
+                              fill = rare_taxa)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = colors) +
+  theme(axis.text.x = element_blank(),
+        legend.position = "bottom",
+        axis.title = element_text(face = "bold"),
+        legend.title = element_text(face = "bold")) +
+  labs(x = "Sample, sorted by increasing ADD", 
+       y = "Relative Abundance", 
+       fill = "Genus")
+
+taxa_genus_add_arf
+ggsave(taxa_genus_add_arf, filename = "../05_figures/taxa_genus_add.jpeg", device = "jpeg", dpi = 300, width = 12, height = 8)
+
+# graph taxa by sample type at the family level for STAFS samples only
+rel_abundance_taxa_genus_long_ARF_ordered <- rel_abundance_taxa_genus_long_ARF %>%
+  mutate(sample_type = fct_relevel(sample_type, "skin","soil")) %>% 
+  arrange(sample_type)
+
+taxa_genus_sample_type_arf <- ggplot(rel_abundance_taxa_genus_long_ARF, aes(x = sample_name, y = relative_abundance, fill = rare_taxa)) +
+  facet_wrap(~sample_type, scales = "free_x") +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = colors) +
+  theme(legend.position = "bottom",
+        axis.text.x = element_blank()) +
+  labs(x = "Sample", y = "Relative Abundance", fill = "Family")
+taxa_genus_sample_type_arf
+
+ggsave(taxa_genus_sample_type_arf, filename = "../05_figures/taxa_genus_sample_type_arf.jpeg", device = "jpeg", dpi = 300, width = 12, height = 8)
+```
+
+
+
+
+
+
+
+

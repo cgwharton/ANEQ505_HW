@@ -7,7 +7,37 @@
 		- **Dynamic** over time
 	- Trend: shift from _“who is there?”_ → _“what are they doing?”_ (functional inference, multi-omics).
 - ## Describe pros and cons of different microbiome data types
+	You don’t need exhaustive lists—know the **tradeoffs**.
+	
+	### 16S rRNA gene amplicon sequencing
 
+	**Pros**
+	
+	- Cheap, scalable
+	- Good for **community composition**
+	- Well-established pipelines
+	
+	**Cons**
+	
+	- Limited taxonomic resolution (often genus level)
+	- No direct functional information
+	- PCR bias
+	
+	### Shotgun metagenomics
+	
+	**Pros**
+	- Species/strain-level resolution
+	- Functional genes detected
+	- No primer bias
+	
+	**Cons**
+	- Expensive
+	- Computationally intensive
+	- Host DNA contamination
+	
+	### Metatranscriptomics / metabolomics (high level)
+	- Show **activity**, not just presence
+	- Harder to interpret, expensive, sensitive to degradation
 - ## Understand what makes a good amplicon marker
 
 - ## Describe how 16S rRNA gene amplicon data are generated
@@ -127,81 +157,7 @@
 		
 		- In practice, a typical workflow is: compute one or more ecologically appropriate beta‑diversity metrics; visualize with ordination (PCoA, NMDS); test group effects with PERMANOVA (with stratified permutations if blocking); check homogeneity of dispersion; and interpret in light of controls and potential confounders.
 
----
 
-## 1. Basic concepts and general trends in microbiome science
-
-**Core ideas**
-
-- Microbiomes = **communities of microorganisms** (bacteria, archaea, fungi, protists, viruses) living in a habitat.
-    
-- Microbiomes affect **host health, nutrient cycling, immunity, metabolism, and disease**.
-    
-- Microbial communities are:
-    
-    - **Highly diverse**
-        
-    - **Context-dependent** (host, diet, environment, geography)
-        
-    - **Dynamic** over time
-        
-- Trend: shift from _“who is there?”_ → _“what are they doing?”_ (functional inference, multi-omics).
-    
-
----
-
-## 2. Pros and cons of different microbiome data types
-
-You don’t need exhaustive lists—know the **tradeoffs**.
-
-### 16S rRNA gene amplicon sequencing
-
-**Pros**
-
-- Cheap, scalable
-    
-- Good for **community composition**
-    
-- Well-established pipelines
-    
-
-**Cons**
-
-- Limited taxonomic resolution (often genus level)
-    
-- No direct functional information
-    
-- PCR bias
-    
-
-### Shotgun metagenomics
-
-**Pros**
-
-- Species/strain-level resolution
-    
-- Functional genes detected
-    
-- No primer bias
-    
-
-**Cons**
-
-- Expensive
-    
-- Computationally intensive
-    
-- Host DNA contamination
-    
-
-### Metatranscriptomics / metabolomics (high level)
-
-- Show **activity**, not just presence
-    
-- Harder to interpret, expensive, sensitive to degradation
-    
-
----
 
 ## 3. What makes a good amplicon marker
 

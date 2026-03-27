@@ -83,7 +83,7 @@ qiime diversity alpha-group-significance \
 	
 2. what did you choose for the rarefaction depth (the input for core metrics -p-sampling-depth flag)? why? 
 	 - 1500 because that is where the alpha rarefaction curve started to plateau
-	 - ANSWER: anywhere from 
+	 - ANSWER: anywhere from 4-6k
 	 
 3. Which cow body location had more observed features? Which has the lowest?
 	 - Fecal had the highest, and nasal had the lowest

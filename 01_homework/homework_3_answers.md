@@ -1,0 +1,119 @@
+~={red}(1point)=~ for Alpha Rarefaction Plot
+Run Core Metrics ~={red}(1 point; .25pts per line)=~
+Make alpha diversity plots ~={red}(3points)=~
+~={red}10 points=~ for the questions 
+
+~={red}15 points total=~
+------------------------------------------------------------------
+
+Due: 
+
+**For complete credit for this assignment, you must answer all questions and include all commands in your obsidian upload.**
+
+------------------------------------------------------------------
+**Learning Objectives**
+1. Practice recording commands and editing code to match your analysis.
+2. Perform alpha rarefaction and determine an appropriate sequencing depth.
+3. Run core metrics, generate plots for alpha and beta diversity
+--------------------------------------------------
+
+**Cow Site Data Workflow**, part 3
+
+Load qiime2 in a terminal session after you go into the **cow** folder
+
+```
+# Insert the two commands to activate qiime2
+module purge
+module load qiime2/2024.10_amplicon
+```
+
+### Alpha Rarefaction Plot ==(1 point)==
+- Chose the input sequencings depths (min and max) for generating the alpha rarefaction plot: 
+
+```
+#go to the cow directory
+
+qiime diversity alpha-rarefaction \
+--i-table dada2/cow_table_dada2_filtered300.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--o-visualization alpha_rarefaction_curves_16S.qzv \
+--p-min-depth 10 \
+--p-max-depth 11000
+```
+VAL picked 33000 to capture all samples
+
+### Run Core Metrics ~={red}(1 point)=~
+
+```
+qiime diversity core-metrics-phylogenetic \
+--i-table dada2/cow_table_dada2_filtered300.qza \
+--i-phylogeny tree/tree_gg2.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--p-sampling-depth 1500 \
+--output-dir core_metrics_results
+```
+1500 was too low, VAL picked between 4000-6000
+
+### Visualize alpha diversity plots
+- generate a plot to visualize the observed features ~={red}(1 point)=~
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results/observed_features_vector.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--o-visualization core_metrics_results/observed_features_statistics.qzv
+```
+
+- generate a plot to visualize faith's PD ~={red}(2 points)=~
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results/faith_pd_vector.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--o-visualization core_metrics_results/faiths_pd_statistics.qzv
+
+```
+
+
+
+## Homework questions ~={red}(10 points)=~
+
+1. what is the name of the file you needed to use to figure out what min and max depths to use to generate the alpha rarefaction plot? (Hint: which file contains the sequencing depths for each sample)
+	 - cow_table_dada2_filtered300.qzv
+	
+2. what did you choose for the rarefaction depth (the input for core metrics -p-sampling-depth flag)? why? 
+	 - 1500 because that is where the alpha rarefaction curve started to plateau
+	 
+3. Which cow body location had more observed features? Which has the lowest?
+	 - Fecal had the highest, and nasal had the lowest
+	 
+4. What is the main difference between Faiths PD and Shannons alpha diversity metrics?  
+	- Faiths PD uses phylogeny and richness, whereas Shannon's uses richness and evenness
+	
+5. Which diversity metrics produced by the core-metrics pipeline require phylogenetic information?
+	- Faiths PD
+	- Unweighted UniFrac
+	- Weighted UniFrac
+	
+6. Which two body sites have the highest Faiths PD alpha diversity?  Are the groups significantly different?
+	-  Skin and fecal samples had the two highest **average** Faith's PD alpha diversity. The groups are significantly different. 
+	
+7. Does it seem like there are any groupings in the beta diversity? What are the groupings? 
+	-  Some groupings appear when coloring by body_site. Fecal is tightly clustered and very distinct, skin and udder are clustered together and overlap substantially, and nasal and oral are loosely clustered but clearly in a separate grouping from the other two groups. 
+	
+8. Why do you think these samples are grouping together? 
+	- These samples are likely grouping together because body sites with similar physical and biological conditions tend to host similar microbial communities. Skin and udder, because the udder has skin cells, so both sites likely share similar microbiota. Feces are completely on their own because the GI tract is a very different environment from the external body sites, so it contains a distinct microbial community. Nasal and oral are closer together because both are mucosal surfaces exposed to the external environment and may have similar microbes, especially in a moist environment. 
+	
+9. What test can you run to determine if the groups are significantly different?
+	- PERMANOVA
+	
+10. What command would you use to run that test?
+
+```
+#insert command for running the test you suggest from question 7
+
+qiime diversity beta-group-significance \  
+--i-distance-matrix core_metrics_results/bray_curtis_distance_matrix.qza \  
+--m-metadata-file metadata/cow_metadata.txt \  
+--m-metadata-column body_site \  
+--o-visualization core_metrics_results/bray_curtis_distance_matrix.qzv
+
+```

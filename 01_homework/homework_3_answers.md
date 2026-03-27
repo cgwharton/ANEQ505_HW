@@ -49,10 +49,12 @@ qiime diversity core-metrics-phylogenetic \
 --i-table dada2/cow_table_dada2_filtered300.qza \
 --i-phylogeny tree/tree_gg2.qza \
 --m-metadata-file metadata/cow_metadata.txt \
---p-sampling-depth 1500 \
---output-dir core_metrics_results
+--p-sampling-depth 5000 \
+--output-dir core_metrics_results_5000
 ```
 1500 was too low, VAL picked between 4000-6000
+
+==RE-DO FROM HERE FORWARD FOR FUTURE HW==
 
 ### Visualize alpha diversity plots
 - generate a plot to visualize the observed features ~={red}(1 point)=~
@@ -81,6 +83,7 @@ qiime diversity alpha-group-significance \
 	
 2. what did you choose for the rarefaction depth (the input for core metrics -p-sampling-depth flag)? why? 
 	 - 1500 because that is where the alpha rarefaction curve started to plateau
+	 - ANSWER: anywhere from 
 	 
 3. Which cow body location had more observed features? Which has the lowest?
 	 - Fecal had the highest, and nasal had the lowest

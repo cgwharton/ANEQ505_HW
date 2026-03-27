@@ -39,6 +39,7 @@ Briefly **describe** the key information from each denoising output file:
 	I chose to trim off the 251st base and keep 0-250 because the reverse read median quality score for 251 was 13, falling under the benchmark of 30.
 	
 	==*CORRECT
+Make sure to specify that you "truncated" not trimmed. trimming is from the start of the forward or reverse while truncating removes the from the end
 
 **To submit your homework from this document:**
 write all of your commands here, then use command+P (for mac) or control+P (for windows) and search Git: commit. click it. then search for Git: Push and click it. go to your github online to check that it pushed correctly. we will check your github for homework credit. 

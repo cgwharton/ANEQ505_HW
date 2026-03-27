@@ -358,7 +358,7 @@ alpha_div_addOc <- ggarrange(add0c_shannon, add0c_evenness,
 alpha_div_addOc
 
 # Save the figure
-ggsave(alpha_div_addOc, filename = "../05_figures/alpha_div_addOc.jpeg", device = "jpeg", dpi = 300, width = 12, height = 9)
+ggsave(alpha_div_addOc, filename = "/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/05_figures/alpha_div_addOc.jpeg", device = "jpeg", dpi = 300, width = 12, height = 9)
 
 ```
 
@@ -394,7 +394,7 @@ add_split_shannon <- ggplot(metadata, aes(x = add0c_split, y = shannon_entropy))
 add_split_shannon
 
 # Save the figure
-ggsave(add_split_shannon, filename = "../05_figures/add_split_shannon.jpeg", device = "jpeg", dpi = 300, width = 8, height = 9)
+ggsave(add_split_shannon, filename = "/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial2/05_figures/add_split_shannon.jpeg", device = "jpeg", dpi = 300, width = 8, height = 9)
 ```
 
 
@@ -543,7 +543,7 @@ add_split_faithpd_facility <- ggplot(metadata,
 
 
 add_split_faithpd_facility
-ggsave(add_split_faithpd_facility, filename = "../05_figures/add_split_faiths_facility.jpeg", device = "jpeg", dpi = 300, width = 8, height = 9)
+ggsave(add_split_faithpd_facility, filename = "/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/05_figures/add_split_faiths_facility.jpeg", device = "jpeg", dpi = 300, width = 8, height = 9)
 
 ```
 

@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05_notes/Learning Objectives.md",
+                "file": "01_homework/homework_2_answers.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Learning Objectives"
+              "title": "homework_2_answers"
             }
           }
         ]
@@ -196,6 +196,12 @@
   },
   "active": "658842ab49ef14fc",
   "lastOpenFiles": [
+    "01_homework/homework_2.md",
+    "01_homework/homework_3.md",
+    "05_notes/Week 3- 2.6.26.md",
+    "05_notes/Quiz 3 Review.md",
+    "05_notes/2.6.2026.md",
+    "05_notes/Learning Objectives.md",
     "r_decomp_tutorial/05_figures/add_split_faiths_facility.jpeg",
     "r_decomp_tutorial/05_figures/add_split_shannon.jpeg",
     "r_decomp_tutorial/05_figures/alpha_div_addOc.jpeg",
@@ -220,16 +226,10 @@
     "05_notes/Week 6- 2.27.26.md",
     "05_notes/Week 7- 3.6.26.md",
     "01_homework/homework_1 answers.md",
-    "01_homework/homework_3.md",
-    "05_notes/Learning Objectives.md",
-    "05_notes/2.6.2026.md",
     "05_notes/1.30.2026.md",
-    "05_notes/Quiz 3 Review.md",
     "level-7-bars.svg",
     "test test 12345.md",
-    "01_homework/homework_2.md",
     "01_homework/homework_1.md",
-    "05_notes/Week 3- 2.6.26.md",
     "CWharton Homework 1.md",
     "2026-01-30.md",
     "test.md",

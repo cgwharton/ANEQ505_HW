@@ -55,7 +55,7 @@ library(scales)
 
 # Import and clean metadata if needed
 ```{r}
-metadataOG <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/03_metadata/metadata.txt")
+metadata <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/03_metadata/metadata.txt")
 ```
 
 
@@ -691,10 +691,10 @@ ggsave(add_split_obsFeats_sampleType, filename = "../05_figures/add_split_obsFea
 (remember this is already our PCOA results so this is already our ordinations). I make separate metadata's for each beta diversity metric, another option would be to rename each PC ex. PC1J for jaccard and add PC1-PC3 for each metric to the metadata. I find it easier to keep everything separate when the metrics have different metadata. The variances extracted from the unzipped PCoA files will not match what you see in the Emperor plot, because Emperor adjusts the variance for plotting. To obtain variances that match the Emperor plot, you need to use qiime2R.
 ```{r}
 # Read in beta div metrics 
-bray_curtis <- read_tsv("beta_div/bray_curtis.txt")
-jaccard <- read_tsv("beta_div/jaccard.txt")
-uw_unifrac <- read_tsv("beta_div/unweighted_unifrac.txt")
-w_unifrac <- read_tsv("beta_div/weighted_unifrac.txt")
+bray_curtis <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/04_code/beta_div/bray_curtis.txt")
+jaccard <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/04_code/beta_div/jaccard.txt")
+uw_unifrac <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/04_code/beta_div/unweighted_unifrac.txt")
+w_unifrac <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/04_code/beta_div/weighted_unifrac.txt")
 
 # Clean metrics
 # bray curtis

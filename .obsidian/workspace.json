@@ -11,14 +11,12 @@
             "id": "658842ab49ef14fc",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "image",
               "state": {
-                "file": "01_homework/homework_2_answers.md",
-                "mode": "source",
-                "source": false
+                "file": "r_decomp_tutorial/05_figures/alpha_div_addOc.jpeg"
               },
-              "icon": "lucide-file",
-              "title": "homework_2_answers"
+              "icon": "lucide-image",
+              "title": "alpha_div_addOc"
             }
           }
         ]
@@ -196,17 +194,18 @@
   },
   "active": "658842ab49ef14fc",
   "lastOpenFiles": [
+    "r_decomp_tutorial/05_figures/add_split_shannon.jpeg",
+    "r_decomp_tutorial/05_figures/add_split_faiths_facility.jpeg",
+    "05_notes/Week 9- 3.27.26.md",
+    "05_notes/Learning Objectives.md",
+    "01_homework/homework_2_answers.md",
     "01_homework/homework_2.md",
     "01_homework/homework_3.md",
     "05_notes/Week 3- 2.6.26.md",
     "05_notes/Quiz 3 Review.md",
     "05_notes/2.6.2026.md",
-    "05_notes/Learning Objectives.md",
-    "r_decomp_tutorial/05_figures/add_split_faiths_facility.jpeg",
-    "r_decomp_tutorial/05_figures/add_split_shannon.jpeg",
     "r_decomp_tutorial/05_figures/alpha_div_addOc.jpeg",
     "r_decomp_tutorial/04_code/decomp_stats_figures_CGW.Rmd",
-    "05_notes/Week 9- 3.27.26.md",
     "01_homework/homework_3_answers.md",
     "2026-03-27.md",
     "Untitled.md",
@@ -215,7 +214,6 @@
     "Untitled 1.base",
     "05_notes/week4_Mon_Alpha_lecture.pdf",
     "r_decomp_tutorial/04_code/alpha_div 2",
-    "01_homework/homework_2_answers.md",
     "r_decomp_tutorial/04_code/taxonomy/tabulated_results.tsv",
     "r_decomp_tutorial/04_code/taxonomy/untitled folder",
     "r_decomp_tutorial/04_code/taxonomy",

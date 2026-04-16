@@ -163,13 +163,13 @@ qiime composition ancombc2-visualizer \
 	1. Create a new directory for the data to be exported titled "export". Unzip the .qza files of interest using alpine and set the code to save the unzipped files in that export directory. The unzipped files will end in .tsv. Then, download the entire export directory. Then, individual diversity metrics files (ending in .tsv) are able to be imported in R using read_tsv().
 
 2. Which body site appeared most distinct in the taxa bar plot, meaning it was not similar to at least one of the other body sites? Explain why that site looks different. 
-	1. 
+	1.  Fecal appeared the most distinct because the GI tract is a very different environment from the external body sites, so it contains a distinct microbial community. Whereas nasal is similar to oral and skin being similar to udder. 
 
 3. When generating the filtered table for ANCOM-BC2, what value did you choose for `--p-min-frequency`? Which core metrics parameter should this match, and why do these values need to be the same? (Report your core metrics value here:    5000 ___) 
 	1. I chose 5000 for the -p-min-frequency. I matched this to the -p-sampling-depth of 5000 that was used for core metrics. These values need to be the same because 
 
 4. Why do we filter out samples with low frequency and low abundance ASVs?
-	1. 
+	1. For better resolution and to limit false discovery rate penalty on Including features that are far below the noise threshold 
 
 5. What was the most enriched genus in skin compared to fecal, and what was the most depleted genus in skin compared to fecal (make sure adjusted p is set to less than 0.05)?
 	1. 

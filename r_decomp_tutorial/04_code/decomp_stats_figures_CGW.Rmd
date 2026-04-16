@@ -818,7 +818,7 @@ summary(model_add0_facility_sampletype_bc2)
 # residual diagnostic plot, check assumptions
 anova(model_add0_facility_sampletype_bc2)
 # pairwise comparisons
-emmeans(model_add0_facility_sampletype_bc2, pairwise ~ sample_type|add0c_split)
+emmeans(model_add0_facility_sampletype_bc2, pairwise ~ sample_type|add0c_split)2
 ```
 
 
@@ -1101,7 +1101,7 @@ beta_div_sample_type <- ggarrange(sampletype_bray_curtis, sampletype_jaccard,
 beta_div_sample_type
 
 # Save the figure
-ggsave(beta_div_sample_type, filename = "../05_figures/beta_div_sample_type.jpeg", device = "jpeg", dpi = 300, width = 10, height = 9)
+ggsave(beta_div_sample_type, filename = "/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/05_figures/beta_div_sample_type.jpeg", device = "jpeg", dpi = 300, width = 10, height = 9)
 ```
 
 ################################################################################
@@ -1110,7 +1110,7 @@ ggsave(beta_div_sample_type, filename = "../05_figures/beta_div_sample_type.jpeg
 
 # Import feature table and taxonomy data from QIIME2 output
 ```{r}
-tabulated_results <- read_tsv("taxonomy/tabulated_results.tsv")
+tabulated_results <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/04_code/taxonomy/tabulated_results.tsv")
 ```
 
 # Format, convert taxonomy to relative abundance, and group at taxonomic levels
@@ -1207,7 +1207,7 @@ rel_abundance_taxa_family_long <- rel_abundance_taxa_family_long %>%
   mutate(rare_taxa = if_else(relative_abundance < 0.2, "Other", Family))
 
 # associate metadata with taxa
-metadata <- read_tsv("../03_metadata/metadata.txt")
+metadata <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/03_metadata/metadata.txt")
 metadata_filt <- metadata[, which((names(metadata) %in% c("sample_name","sample_type","facility", "add_0c"))==TRUE)]
 
 rel_abundance_taxa_family_long <- rel_abundance_taxa_family_long %>% 
@@ -1260,7 +1260,7 @@ taxa_family_add <- ggplot(rel_abundance_taxa_family_long_STAFS,
        fill = "Family")
 
 taxa_family_add
-ggsave(taxa_family_add, filename = "../05_figures/taxa_family_add.jpeg", device = "jpeg", dpi = 300, width = 12, height = 8)
+ggsave(taxa_family_add, filename = "/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/05_figures/taxa_family_add.jpeg", device = "jpeg", dpi = 300, width = 12, height = 8)
 
 # graph taxa by sample type at the family level for STAFS samples only
 rel_abundance_taxa_family_long_STAFS_ordered <- rel_abundance_taxa_family_long_STAFS %>%
@@ -1276,7 +1276,7 @@ taxa_family_sample_type <- ggplot(rel_abundance_taxa_family_long_STAFS, aes(x = 
   labs(x = "Sample", y = "Relative Abundance", fill = "Family")
 taxa_family_sample_type
 
-ggsave(taxa_family_sample_type, filename = "../05_figures/taxa_family_sample_type.jpeg", device = "jpeg", dpi = 300, width = 12, height = 8)
+ggsave(taxa_family_sample_type, filename = "/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/05_figures/taxa_family_sample_type.jpeg", device = "jpeg", dpi = 300, width = 12, height = 8)
 ```
 
 
@@ -1301,7 +1301,7 @@ rel_abundance_taxa_genus_long <- rel_abundance_taxa_genus_long %>%
   mutate(rare_taxa = if_else(relative_abundance < 0.2, "Other", Genus))
 
 # associate metadata with taxa
-metadata <- read_tsv("../03_metadata/metadata.txt")
+metadata <- read_tsv("/Users/catiewharton/ANEQ_505/ANEQ505_HW/r_decomp_tutorial/03_metadata/metadata.txt")
 metadata_filt <- metadata[, which((names(metadata) %in% c("sample_name","sample_type","facility", "add_0c"))==TRUE)]
 
 rel_abundance_taxa_genus_long <- rel_abundance_taxa_genus_long %>% 

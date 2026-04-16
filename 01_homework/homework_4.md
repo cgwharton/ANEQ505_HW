@@ -160,7 +160,7 @@ qiime composition ancombc2-visualizer \
 
 ## Homework questions: (~={red}5 POINTS=~)
 1. Describe one way to get data from your qiime2 outputs into a format that can be used for R. 
-	1. Unzip the .qza files of interest using alpine
+	1. Create a new directory for the data to be exported titled "export". Unzip the .qza files of interest using alpine and set the code to save the unzipped files in that export directory. The unzipped files will end in .tsv. Then, download the entire export directory. Then, individual diversity metrics files (ending in .tsv) are able to be imported in R using read_tsv().
 
 2. Which body site appeared most distinct in the taxa bar plot, meaning it was not similar to at least one of the other body sites? Explain why that site looks different. 
 	1. 
@@ -191,7 +191,7 @@ qiime feature-table filter-samples \
 
 qiime taxa collapse \
 --i-table rarefied_table_no_controls.qza \
---i-taxonomy ../taxonomy/taxonomy_gg2.qza \
+--i-taxonomy ../taxonomy/taxonomy_gg2_filtered.qza \
 --p-level 7 \
 --o-collapsed-table rarefied_table_no_controls_L7.qza
 ```
@@ -199,8 +199,8 @@ qiime taxa collapse \
 ```
 qiime sample-classifier classify-samples \
 --i-table rarefied_table_no_controls_L7.qza \
---m-metadata-file ../metadata/cow_metadata_nocontrols.txt \
---m-metadata-column WHAT TO TEST \
+--m-metadata-file ../cow_metadata_nocontrols.txt \
+--m-metadata-column body_site \
 --p-random-state 123 \
 --p-n-jobs 1 \
 --output-dir sample_classifier_results_bodysite

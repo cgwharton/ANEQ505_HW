@@ -208,9 +208,10 @@ qiime sample-classifier classify-samples \
 
 ### **Questions:**
 1. Why might removing controls be important before downstream analysis? 
+	1. Controls are not true biological body-site samples, and keeping them could introduce contamination/background noise and confuse the classifier.
 2. what 2 features that are high in fecal samples? 
-	1. Cryptobacteroides sp902787255 & Faecousia sp000434635
+	1. Cryptobacteroides sp902787255 and Faecousia sp000434635
 3. what are 2 features that are low in nasal?
-	1. Cryptobacteroides and Corynebacterium maris
+	1. Cryptobacteroides and Alistipes_A_871400 finegoldii
 4. what is the accuracy of your model, and if the accuracy of the classifier is high, what does that suggest about the microbial compositions of each site?
-	1. Overall accuracy is 0.882353
+	1. Overall accuracy is 0.882353 (~88%). High classifier accuracy suggests that each body site has a distinct and consistent microbial community composition. Therefore, the model can correctly identify the body site based on microbiome data most of the time.

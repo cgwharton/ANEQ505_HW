@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05_notes/Learning Objectives.md",
+                "file": "01_homework/homework_4.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Learning Objectives"
+              "title": "homework_4"
             }
           }
         ]
@@ -78,7 +78,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "223c8da97886a9ca",
@@ -196,6 +197,8 @@
   },
   "active": "658842ab49ef14fc",
   "lastOpenFiles": [
+    "r_decomp_tutorial/shannon.tsv",
+    "05_notes/Learning Objectives.md",
     "r_decomp_tutorial/05_figures/taxa_family_sample_type.jpeg",
     "r_decomp_tutorial/05_figures/taxa_family_add.jpeg",
     "r_decomp_tutorial/05_figures/beta_div_sample_type.jpeg",
@@ -203,7 +206,6 @@
     "r_decomp_tutorial/05_figures/add_split_shannon.jpeg",
     "r_decomp_tutorial/05_figures/add_split_faiths_facility.jpeg",
     "05_notes/Week 9- 3.27.26.md",
-    "05_notes/Learning Objectives.md",
     "01_homework/homework_2_answers.md",
     "01_homework/homework_2.md",
     "01_homework/homework_3.md",

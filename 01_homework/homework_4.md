@@ -45,7 +45,7 @@ cow_r
 
 **What directory should the cow_HW4_r.Rmd file go in? ~={red}(1 point)=~**
 
-- *Write the directory here:*
+- *Write the directory here:* 04_code
 #### Statistical analysis and figure generation in R 
 
 - Now that we have set up the correct file structure and put our files in the correct directories, we can start our cow R analysis. 
@@ -56,13 +56,13 @@ cow_r
 **Read in metadata ~={red}(1 point)=~**
 - Fill in the file path you used in the R Markdown to load the metadata. 
 ```
-metadata <- read_tsv("YOUR FILE PATH HERE")
+metadata <- read_tsv("/Users/catiewharton/ANEQ_505/cow_r/03_metadata/cow_metadata.txt")
 ```
 
 **Read in alpha diversity data ~={red}(1 point)=~**
 - Fill in the file path you used in the R Markdown to load the shannon data
 ```
-shannon <- read_tsv("YOUR FILE PATH HERE")
+shannon <- read_tsv("/Users/catiewharton/ANEQ_505/cow_r/04_code/alpha_div/shannon.tsv")
 ```
 
 **Read in beta diversity data ~={red}(1 point)=~**

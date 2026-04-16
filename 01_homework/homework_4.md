@@ -169,7 +169,7 @@ qiime composition ancombc2-visualizer \
 	1. I chose 5000 for the -p-min-frequency. I matched this to the -p-sampling-depth of 5000 that was used for core metrics. These values need to be the same because 
 
 4. Why do we filter out samples with low frequency and low abundance ASVs?
-	1. For better resolution and to limit false discovery rate penalty on Including features that are far below the noise threshold 
+	1. Including features that are far below the noise threshold could increase false discovery rate, therefore we filter out these samples. Filtering can also improve resolution.   
 
 5. What was the most enriched genus in skin compared to fecal, and what was the most depleted genus in skin compared to fecal (make sure adjusted p is set to less than 0.05)?
 	1. 

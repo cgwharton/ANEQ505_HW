@@ -172,7 +172,7 @@ qiime composition ancombc2-visualizer \
 	1. Including features that are far below the noise threshold could increase false discovery rate, therefore we filter out these samples. Filtering can also improve resolution.   
 
 5. What was the most enriched genus in skin compared to fecal, and what was the most depleted genus in skin compared to fecal (make sure adjusted p is set to less than 0.05)?
-	1. 
+	1. The most enriched was Atopostipes and the most depleted was Streptococcus. 
 	
 
 ## Extra credit~={orange} (3 points)=~ generate a classification model to see how well we can predict cow body site
@@ -209,5 +209,8 @@ qiime sample-classifier classify-samples \
 ### **Questions:**
 1. Why might removing controls be important before downstream analysis? 
 2. what 2 features that are high in fecal samples? 
+	1. Cryptobacteroides sp902787255 & Faecousia sp000434635
 3. what are 2 features that are low in nasal?
+	1. Cryptobacteroides and Corynebacterium maris
 4. what is the accuracy of your model, and if the accuracy of the classifier is high, what does that suggest about the microbial compositions of each site?
+	1. Overall accuracy is 0.882353

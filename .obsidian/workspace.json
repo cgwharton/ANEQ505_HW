@@ -77,7 +77,8 @@
               "title": "Project Code Log"
             }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -134,7 +135,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200
+    "width": 200,
+    "collapsed": true
   },
   "right": {
     "id": "223c8da97886a9ca",
@@ -250,10 +252,11 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "cff45a38aa33e078",
+  "active": "39c050c34e3cece1",
   "lastOpenFiles": [
-    "01_homework/homework_1 answers.md",
+    "01_homework/homework_1.md",
     "02_class_project/Project Code Log.md",
+    "01_homework/homework_1 answers.md",
     "05_notes/Week 9- 3.27.26.md",
     "05_notes/Week 7- 3.6.26.md",
     "05_notes/Week 6- 2.27.26.md",
@@ -289,7 +292,6 @@
     "r_decomp_tutorial/04_code/untitled folder",
     "level-7-bars.svg",
     "test test 12345.md",
-    "01_homework/homework_1.md",
     "CWharton Homework 1.md",
     "2026-01-30.md",
     "test.md",

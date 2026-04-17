@@ -32,10 +32,6 @@ mkdir metadata
 ```
 cd metadata
 
-qiime metadata tabulate \  
---m-input-file metadata.txt \  
---o-visualization metadata.qzv
-
 qiime metadata tabulate \--m-input-file metadata.txt \--o-visualization metadata.qzv
 ```
 
@@ -82,3 +78,9 @@ qiime demux summarize \
 --i-data demux_cow.qza \
 --o-visualization demux_cow.qzv
 ```
+
+**Submitting the Job**
+ ```
+ cd slurm
+ sbatch demux.sh
+ ```

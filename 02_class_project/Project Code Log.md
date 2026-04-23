@@ -43,12 +43,6 @@ cd metadata
 qiime metadata tabulate \--m-input-file metadata.txt \--o-visualization metadata.qzv
 ```
 
-```
-cut -f1 oxy_barcodes.txt | grep '/'
-
-head oxy_barcodes.txt
-```
-
 **Import sequence/reads**
 ```
 qiime tools import \
@@ -57,7 +51,76 @@ qiime tools import \
 --output-path oxycow_reads.qza
 ```
 
-**Demultiplex code in the demux.sh file to submit a job**
+**Demultiplex code to submit a job**
+```
+#!/bin/bash
+#SBATCH --job-name=demux
+#SBATCH --nodes=1
+#SBATCH --ntasks=12
+#SBATCH --partition=amilan
+#SBATCH --time=02:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+#SBATCH --mail-user=cwharton@colostate.edu
+
+module purge
+module load qiime2/2024.10_amplicon
+
+#change the following line if your file path looks different
+cd /scratch/alpine/$USER/project/demux
+
+#Below is the command you will run to demultiplex the samples.
+
+qiime demux emp-paired \
+--m-barcodes-file ../metadata/oxy_barcodes.txt \
+--m-barcodes-column Barcode \
+--p-rev-comp-mapping-barcodes \
+--p-rev-comp-barcodes \
+--i-seqs ../oxycow_reads.qza \
+--o-per-sample-sequences demux_oxycow.qza \
+--o-error-correction-details cow_demux_error.qza
+
+#visualize the read quality
+qiime demux summarize \
+--i-data demux_oxycow.qza \
+--o-visualization demux_oxycow.qzv
+```
+
+**Submitting the Job**
+ ```
+ cd slurm
+ sbatch oxy.sh
+ ```
+- 4/17 demux failed
+	- figured out it was a problem with sample ID containing "/" 
+		- ex: 1180_04/24/2025_12:00 PM
+
+**Sample IDs in oxy_barcode.txt contain "/" and QIIME doesnt like it**
+```
+# checking to see if the SampleIDs contain "/"
+head oxy_barcodes.txt
+
+# code to make a cleaned copy
+awk 'BEGIN{FS=OFS="\t"} 
+NR==1 {print; next} 
+{
+  gsub(/\//, "_", $1)
+  gsub(/:/, "_", $1)
+  gsub(/ /, "", $1)
+  print
+}' oxy_barcodes.txt > oxy_barcodes_clean.txt
+
+# check the copy
+cut -f1 oxy_barcodes_clean.txt | head
+cut -f1 oxy_barcodes_clean.txt | grep '/'
+cut -f1 oxy_barcodes_clean.txt | grep ':'
+cut -f1 oxy_barcodes_clean.txt | grep ' '
+
+# Those last three should return nothing.
+```
+
+**Demultiplex code try #2**
 ```
 #!/bin/bash
 #SBATCH --job-name=demux

@@ -14,8 +14,6 @@ cd project
 ```
 cp -r /pl/active/courses/2025_summer/CSU_2025/raw_reads_oxycow .
 ```
-
-
 ### Create directories for the different analyses:
 - do this once
 ```
@@ -35,14 +33,12 @@ mkdir core_metrics
 
 mkdir metadata
 ```
-
 ### Load metadata
 ```
 cd metadata
 
 qiime metadata tabulate \--m-input-file metadata.txt \--o-visualization metadata.qzv
 ```
-
 ### Import sequence/reads
 ```
 qiime tools import \
@@ -50,7 +46,6 @@ qiime tools import \
 --input-path raw_reads_oxycow \
 --output-path oxycow_reads.qza
 ```
-
 ## Demultiplex 
 ```
 #!/bin/bash
@@ -217,7 +212,48 @@ qiime feature-table tabulate-seqs \
 --i-data cow_seqs_dada2.qza \
 --o-visualization cow_seqs.qzv
 ```
+- Plugin error from feature-table
+	- DADA2 table now has cleaned sample IDs like:
+		- 1010_04_24_2025_12_00AM
+	- but metadata file still has the old/unclean IDs, like:
+		- 1010_04/24/2025_12:00 AM
+	- QIIME requires the sample IDs in the feature table and metadata file to match **exactly**.
 
+### Troubleshooting
+ 
+```
+cd ../metadata
+
+awk 'BEGIN{FS=OFS="\t"}
+NR==1 {print; next}
+{
+  split($1,a,"_")
+  $1 = a[1]"_"a[2]"_"a[3]"_2025_"a[4]"_00"a[5]
+  print
+}' metadata.txt > metadata_fixed.txt
+
+head metadata_fixed.txt
+```
+
+- barcode.txt has 1010_04_24_2025_12_00AM  
+- metadata.txt has 1010_04_24_2025_12AM_00
+
+```
+sed -E 's/([0-9]+_[0-9]+_[0-9]+_2025_)([0-9]+)(AM|PM)_00/\1\2_00\3/' metadata_fixed.txt > metadata_fixed2.txt
+
+cut -f1 metadata_fixed.txt | head -20
+```
+
+Then I had to go in and edit the metadata_fixed2.text file to 
+### Try feature table again
+```
+cd ../dada2
+
+qiime feature-table summarize \
+  --i-table cow_table_dada2.qza \
+  --m-sample-metadata-file ../metadata/metadata_fixed2.txt \
+  --o-visualization cow_table.qzv
+```
 ## Classify taxonomy using GreenGenes2
 
 ### First get the Greengenes2 database:

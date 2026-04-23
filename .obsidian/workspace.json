@@ -8,34 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "7658066e6872a2fc",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_notes/example_worflow.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "example_worflow"
-            }
-          },
-          {
-            "id": "757a0c71bd18d6e9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "02_class_project/Project Code Log.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Project Code Log"
-            }
-          },
-          {
             "id": "a8e17565d2475b6a",
             "type": "leaf",
             "state": {
@@ -90,9 +62,51 @@
               "icon": "lucide-file",
               "title": "homework_1 answers"
             }
+          },
+          {
+            "id": "7658066e6872a2fc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "05_notes/example_worflow.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "example_worflow"
+            }
+          },
+          {
+            "id": "d72b42c3756d7da4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "02_class_project/Project Code Log.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Project Code Log"
+            }
+          },
+          {
+            "id": "46256362e53605e1",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "05_notes/Week 4- 2.13.26.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Week 4- 2.13.26"
+            }
           }
         ],
-        "currentTab": 5
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -266,28 +280,37 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "51eaf87e9dea6cd5",
+  "active": "d72b42c3756d7da4",
   "lastOpenFiles": [
-    "01_homework/homework_1.md",
+    "05_notes/Week 4- 2.13.26.md",
     "02_class_project/Project Code Log.md",
+    "01_homework/homework_1 answers.md",
+    "01_homework/homework_1.md",
+    "05_notes/Week 3- 2.6.26.md",
+    "05_notes/example_worflow.md",
+    "Users/catiewharton/ANEQ_505/ANEQ505_HW/demux_oxycow.qzv.md",
+    "Users/catiewharton/ANEQ_505/ANEQ505_HW",
+    "Users/catiewharton/ANEQ_505",
+    "Users/catiewharton",
+    "Users",
+    "demux_oxycow.qzv",
+    "Unconfirmed 329570.crdownload",
+    "demux_cow (1).qzv",
+    "Unconfirmed 798550.crdownload",
+    "01_homework/demux_cow.qzv",
+    "01_homework/Unconfirmed 494055.crdownload",
     "01_homework/homework_3_answers.md",
     "01_homework/homework_2_answers.md",
-    "05_notes/example_worflow.md",
     "01_homework/homework_4.md",
     "05_notes/Example_Obsidian_Note.md",
-    "05_notes/Unconfirmed 379877.crdownload",
-    "01_homework/homework_1 answers.md",
     "05_notes/Week 9- 3.27.26.md",
     "05_notes/Week 7- 3.6.26.md",
     "05_notes/Week 6- 2.27.26.md",
     "05_notes/Week 5- 2.20.26.md",
-    "05_notes/Week 4- 2.13.26.md",
-    "05_notes/Week 3- 2.6.26.md",
     "05_notes/1.30.2026.md",
     "05_notes/2.6.2026.md",
     "05_notes/Quiz 3 Review.md",
     "05_notes/Learning Objectives.md",
-    "r_decomp_tutorial/shannon.tsv",
     "r_decomp_tutorial/05_figures/taxa_family_sample_type.jpeg",
     "r_decomp_tutorial/05_figures/taxa_family_add.jpeg",
     "r_decomp_tutorial/05_figures/beta_div_sample_type.jpeg",
@@ -296,21 +319,12 @@
     "r_decomp_tutorial/05_figures/add_split_faiths_facility.jpeg",
     "01_homework/homework_2.md",
     "01_homework/homework_3.md",
-    "r_decomp_tutorial/04_code/decomp_stats_figures_CGW.Rmd",
     "2026-03-27.md",
-    "Untitled.base",
     "Untitled.canvas",
-    "Untitled 1.base",
-    "05_notes/week4_Mon_Alpha_lecture.pdf",
-    "r_decomp_tutorial/04_code/alpha_div 2",
-    "r_decomp_tutorial/04_code/taxonomy/tabulated_results.tsv",
-    "r_decomp_tutorial/04_code/taxonomy/untitled folder",
-    "r_decomp_tutorial/04_code/taxonomy",
     "level-7-bars.svg",
     "test test 12345.md",
     "CWharton Homework 1.md",
     "2026-01-30.md",
-    "test.md",
-    "GITHUB TOKEN.md"
+    "test.md"
   ]
 }

@@ -96,6 +96,7 @@ qiime demux summarize \
 	- figured out it was a problem with sample ID containing "/" 
 		- ex: 1180_04/24/2025_12:00 PM
 
+4/23/26
 **Sample IDs in oxy_barcode.txt contain "/" and QIIME doesnt like it**
 ```
 # checking to see if the SampleIDs contain "/"
@@ -161,6 +162,20 @@ qiime demux summarize \
  cd ../slurm
  sbatch oxy.sh
  ```
+Job ID: 26005166  
+Cluster: alpine  
+User/Group: cwharton@colostate.edu/cwhartonpgrp@colostate.edu  
+State: COMPLETED (exit code 0)  
+Nodes: 1  
+Cores per node: 12  
+  
+-------- CPU Metrics --------  
+CPU Utilized: 00:43:21  
+CPU Efficiency: 6.08% of 11:53:00 core-walltime  
+Job Wall-clock time: 00:59:25  
+Memory Utilized: 3.73 GiB  
+Memory Efficiency: 8.28% of 45.00 GiB (3.75 GiB/core)
+
 
 **Open demux.qzv and check quality score**
 	Quality score: 

@@ -256,7 +256,9 @@ qiime feature-table summarize \
 ```
 FINALLY, it worked!
 
-Mean reads per sample
+Mean reads per sample?
+	Pre-denoising: 33,354.3
+	Post-denoising: 20,495.1
 
 How long are the reads: 251 - 415 bp 
 - Must filter

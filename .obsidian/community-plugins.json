@@ -1,4 +1,8 @@
 [
   "obsidian-git",
-  "open-vscode"
+  "open-vscode",
+  "highlightr-plugin",
+  "templater-obsidian",
+  "obsidian-annotator",
+  "obsidian-pandoc"
 ]

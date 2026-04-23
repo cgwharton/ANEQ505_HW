@@ -1,16 +1,23 @@
 **Load data
+- do this once
 ```
 cp -r /pl/active/courses/2025_summer/CSU_2025/raw_reads_oxycow .
 ```
 
  **Launch a session and load qiime**
+ - do this every time you open terminal
+ - qiime2 analysis was done with qiime2 amplicon version 2024.10
 ```
 ainteractive --ntasks=6 --time=02:00:00
+
 module purge
 module load qiime2/2024.10_amplicon
+
+cd project
 ```
 
 **Create directories for the different analyses:**
+- do this once
 ```
 mkdir slurm
 
@@ -34,6 +41,12 @@ mkdir metadata
 cd metadata
 
 qiime metadata tabulate \--m-input-file metadata.txt \--o-visualization metadata.qzv
+```
+
+```
+cut -f1 oxy_barcodes.txt | grep '/'
+
+head oxy_barcodes.txt
 ```
 
 **Import sequence/reads**

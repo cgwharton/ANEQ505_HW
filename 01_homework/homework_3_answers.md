@@ -3,7 +3,8 @@ Run Core Metrics ~={red}(1 point; .25pts per line)=~
 Make alpha diversity plots ~={red}(3points)=~
 ~={red}10 points=~ for the questions 
 
-~={red}15 points total=~
+<mark style="background: #FF5582A6;">15 points total</mark>
+
 ------------------------------------------------------------------
 
 Due: 

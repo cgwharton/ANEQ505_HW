@@ -13,40 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "01_homework/homework_1.md",
+                "file": "01_homework/homework_1 answers.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "homework_1"
-            }
-          },
-          {
-            "id": "7c92a650742841da",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01_homework/homework_2_answers.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "homework_2_answers"
-            }
-          },
-          {
-            "id": "e2b341e9fc670813",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01_homework/homework_3_answers.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "homework_3_answers"
+              "title": "homework_1 answers"
             }
           },
           {
@@ -91,8 +63,7 @@
               "title": "Week 5- 2.20.26"
             }
           }
-        ],
-        "currentTab": 3
+        ]
       }
     ],
     "direction": "vertical"
@@ -266,16 +237,20 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "d72b42c3756d7da4",
+  "active": "a8e17565d2475b6a",
   "lastOpenFiles": [
-    "01_homework/homework_2_answers.md",
     "02_class_project/Project Code Log.md",
     "01_homework/homework_1 answers.md",
+    "01_homework/homework_1.md",
     "01_homework/homework_3_answers.md",
+    "01_homework/homework_2_answers.md",
+    "cow_table.qzv",
+    "Unconfirmed 144171.crdownload",
+    "cow_dada2_stats.qzv",
+    "Unconfirmed 870250.crdownload",
     "05_notes/Week 5- 2.20.26.md",
     "05_notes/Week 4- 2.13.26.md",
     "05_notes/example_worflow.md",
-    "01_homework/homework_1.md",
     "05_notes/Week 3- 2.6.26.md",
     "Users/catiewharton/ANEQ_505/ANEQ505_HW/demux_oxycow.qzv.md",
     "Users/catiewharton/ANEQ_505/ANEQ505_HW",
@@ -284,10 +259,6 @@
     "Users",
     "demux_oxycow.qzv",
     "Unconfirmed 329570.crdownload",
-    "demux_cow (1).qzv",
-    "Unconfirmed 798550.crdownload",
-    "01_homework/demux_cow.qzv",
-    "01_homework/Unconfirmed 494055.crdownload",
     "01_homework/homework_4.md",
     "05_notes/Example_Obsidian_Note.md",
     "05_notes/Week 9- 3.27.26.md",
@@ -310,7 +281,6 @@
     "level-7-bars.svg",
     "test test 12345.md",
     "CWharton Homework 1.md",
-    "2026-01-30.md",
-    "test.md"
+    "2026-01-30.md"
   ]
 }

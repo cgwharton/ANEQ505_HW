@@ -218,7 +218,6 @@ qiime feature-table tabulate-seqs \
 	- but metadata file still has the old/unclean IDs, like:
 		- 1010_04/24/2025_12:00 AM
 	- QIIME requires the sample IDs in the feature table and metadata file to match **exactly**.
-
 ### Troubleshooting
  
 ```
@@ -244,7 +243,8 @@ sed -E 's/([0-9]+_[0-9]+_[0-9]+_2025_)([0-9]+)(AM|PM)_00/\1\2_00\3/' metadata_fi
 cut -f1 metadata_fixed.txt | head -20
 ```
 
-Then I had to go in and edit the metadata_fixed2.text file to 
+<mark style="background: #FFF3A3A6;">Then I had to go in and edit the metadata_fixed2.txt file to change the controls from "EC7_1_SR69_2025__00" to "EC7_1_SR69" so that it matched the oxy_barcodes.txt</mark>
+
 ### Try feature table again
 ```
 cd ../dada2
@@ -254,6 +254,13 @@ qiime feature-table summarize \
   --m-sample-metadata-file ../metadata/metadata_fixed2.txt \
   --o-visualization cow_table.qzv
 ```
+FINALLY, it worked!
+
+Mean reads per sample
+
+How long are the reads: 251 - 415 bp 
+- Must filter
+
 ## Classify taxonomy using GreenGenes2
 
 ### First get the Greengenes2 database:

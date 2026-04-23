@@ -64,20 +64,6 @@
             }
           },
           {
-            "id": "7658066e6872a2fc",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_notes/example_worflow.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "example_worflow"
-            }
-          },
-          {
             "id": "d72b42c3756d7da4",
             "type": "leaf",
             "state": {
@@ -89,6 +75,20 @@
               },
               "icon": "lucide-file",
               "title": "Project Code Log"
+            }
+          },
+          {
+            "id": "7658066e6872a2fc",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "05_notes/example_worflow.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "example_worflow"
             }
           },
           {
@@ -282,12 +282,12 @@
   },
   "active": "d72b42c3756d7da4",
   "lastOpenFiles": [
-    "05_notes/Week 4- 2.13.26.md",
-    "02_class_project/Project Code Log.md",
     "01_homework/homework_1 answers.md",
+    "02_class_project/Project Code Log.md",
+    "05_notes/example_worflow.md",
+    "05_notes/Week 4- 2.13.26.md",
     "01_homework/homework_1.md",
     "05_notes/Week 3- 2.6.26.md",
-    "05_notes/example_worflow.md",
     "Users/catiewharton/ANEQ_505/ANEQ505_HW/demux_oxycow.qzv.md",
     "Users/catiewharton/ANEQ_505/ANEQ505_HW",
     "Users/catiewharton/ANEQ_505",

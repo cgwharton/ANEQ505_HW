@@ -178,7 +178,11 @@ Memory Efficiency: 8.28% of 45.00 GiB (3.75 GiB/core)
 
 
 **Open demux.qzv and check quality score**
-	Quality score: 
+	Forward reads median quality score never dropped below 30
+	Reverse reads median quality score for 251 was 13
+		Trim at 0 bp
+		Truncate at 251 bp
+		
 
 **Denoising**
 ```
@@ -186,10 +190,10 @@ cd ../dada2
 
 qiime dada2 denoise-paired \
 --i-demultiplexed-seqs ../demux/demux_oxycow.qza \
---p-trim-left-f NUMBER \
---p-trim-left-r NUMBER \
---p-trunc-len-f NUMBER \
---p-trunc-len-r NUMBER \
+--p-trim-left-f 0 \
+--p-trim-left-r 0 \
+--p-trunc-len-f 250 \
+--p-trunc-len-r 250 \
 --p-n-threads 6 \
 --o-representative-sequences cow_seqs_dada2.qza \
 --o-denoising-stats cow_dada2_stats.qza \
@@ -202,7 +206,7 @@ qiime metadata tabulate \
 
 qiime feature-table summarize \
 --i-table cow_table_dada2.qza \
---m-sample-metadata-file ../metadata/cow_metadata.txt \
+--m-sample-metadata-file ../metadata/metadata.txt \
 --o-visualization cow_table.qzv
 
 qiime feature-table tabulate-seqs \

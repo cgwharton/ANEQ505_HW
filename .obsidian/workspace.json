@@ -97,16 +97,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05_notes/Week 4- 2.13.26.md",
+                "file": "05_notes/Week 5- 2.20.26.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Week 4- 2.13.26"
+              "title": "Week 5- 2.20.26"
             }
           }
         ],
-        "currentTab": 3
+        "currentTab": 4
       }
     ],
     "direction": "vertical"
@@ -280,12 +280,15 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "51eaf87e9dea6cd5",
+  "active": "d72b42c3756d7da4",
   "lastOpenFiles": [
+    "01_homework/homework_3_answers.md",
+    "01_homework/homework_2_answers.md",
+    "05_notes/Week 5- 2.20.26.md",
+    "05_notes/Week 4- 2.13.26.md",
     "02_class_project/Project Code Log.md",
     "01_homework/homework_1 answers.md",
     "05_notes/example_worflow.md",
-    "05_notes/Week 4- 2.13.26.md",
     "01_homework/homework_1.md",
     "05_notes/Week 3- 2.6.26.md",
     "Users/catiewharton/ANEQ_505/ANEQ505_HW/demux_oxycow.qzv.md",
@@ -299,14 +302,11 @@
     "Unconfirmed 798550.crdownload",
     "01_homework/demux_cow.qzv",
     "01_homework/Unconfirmed 494055.crdownload",
-    "01_homework/homework_3_answers.md",
-    "01_homework/homework_2_answers.md",
     "01_homework/homework_4.md",
     "05_notes/Example_Obsidian_Note.md",
     "05_notes/Week 9- 3.27.26.md",
     "05_notes/Week 7- 3.6.26.md",
     "05_notes/Week 6- 2.27.26.md",
-    "05_notes/Week 5- 2.20.26.md",
     "05_notes/1.30.2026.md",
     "05_notes/2.6.2026.md",
     "05_notes/Quiz 3 Review.md",

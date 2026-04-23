@@ -213,6 +213,7 @@ qiime feature-table tabulate-seqs \
 --i-data cow_seqs_dada2.qza \
 --o-visualization cow_seqs.qzv
 ```
+
 ### Remove long (300+ base pair) amplicons from the representative sequences file and the feature table
 
 ```

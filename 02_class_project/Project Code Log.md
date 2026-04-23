@@ -142,7 +142,7 @@ cd /scratch/alpine/$USER/project/demux
 #Below is the command you will run to demultiplex the samples.
 
 qiime demux emp-paired \
---m-barcodes-file ../metadata/oxy_barcodes.txt \
+--m-barcodes-file ../metadata/oxy_barcodes_clean.txt \
 --m-barcodes-column Barcode \
 --p-rev-comp-mapping-barcodes \
 --p-rev-comp-barcodes \
@@ -158,7 +158,7 @@ qiime demux summarize \
 
 **Submitting the Job**
  ```
- cd slurm
+ cd ../slurm
  sbatch oxy.sh
  ```
 

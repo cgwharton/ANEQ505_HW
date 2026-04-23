@@ -230,32 +230,79 @@ wget --no-check-certificate https://ftp.microbio.me/greengenes_release/2024.09/2
 ### Classify taxonomy using GreenGenes2 classify the ASVs 
 ```
 qiime feature-classifier classify-sklearn \
---i-reads ../dada2/cow_seqs_dada2_filtered300.qza \
+--i-reads ../dada2/cow_seqs_dada2.qza \
 --i-classifier 2024.09.backbone.v4.nb.qza \
---o-classification taxonomy_gg2_filtered.qza
+--o-classification taxonomy_gg2.qza
 ```
 
 ### Visualize the taxonomy of your ASVs: 
 ```
 qiime metadata tabulate \
---m-input-file taxonomy_gg2_filtered.qza \
---o-visualization taxonomy_gg2_filtered.qzv
+--m-input-file taxonomy_gg2.qza \
+--o-visualization taxonomy_gg2.qzv
 ```
 
+### Filter out mitochondria/chloroplasts/sp004296775
 ```
 qiime taxa filter-table \
---i-table ../dada2/cow_table_dada2_filtered300.qza \
---i-taxonomy taxonomy_gg2_filtered.qza \
+--i-table ../dada2/cow_table_dada2.qza \
+--i-taxonomy taxonomy_gg2.qza \
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
---o-filtered-table ../dada2/table_nomitochloro_gg2_filtered300.qza
+--o-filtered-table ../dada2/table_nomitochloro_gg2.qza
 ```
 
-- Visualize the taxa bar plot
+### Visualize the taxa bar plot
 ```
 qiime taxa barplot \
---i-table ../dada2/table_nomitochloro_gg2_filtered300.qza \
---i-taxonomy taxonomy_gg2_filtered.qza \
---m-metadata-file ../metadata/cow_metadata.txt \
---o-visualization ../taxaplots/taxa_barplot_nomitochloro_gg2_filtered300.qzv
+--i-table ../dada2/table_nomitochloro_gg2.qza \
+--i-taxonomy taxonomy_gg2.qza \
+--m-metadata-file ../metadata/metadata.txt \
+--o-visualization ../taxaplots/taxa_barplot_nomitochloro_gg2.qzv
 ```
+
+## Phylogenetic tree 
+
+Create a job script to run the phylogenetic tree building. Remember you must start a new terminal session, navigate to your slurm directory, and then submit the job. You do NOT need to start any other interactive sessions.This job will take about an hour. 
+
+Go to OnDemand and create a new text file for your job script
+```
+nano <tree.sh>
+```
+
+```
+#!/bin/bash
+#SBATCH --job-name=tree
+#SBATCH --nodes=1
+#SBATCH --ntasks=8
+#SBATCH --partition=amilan
+#SBATCH --time=20:00:00
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=cwharton@colostate.edu
+#SBATCH --output=slurm-%j.out
+#SBATCH --qos=normal
+
+#Activate qiime
+
+module purge
+module load qiime2/2024.10_amplicon
+
+
+#Get reference
+
+wget --no-check-certificate -P ../tree https://ftp.microbio.me/greengenes_release/2022.10/2022.10.backbone.sepp-reference.qza
+
+
+#Command
+
+qiime fragment-insertion sepp \
+--i-representative-sequences ../dada2/cow_seqs_dada2_filtered300.qza \
+--i-reference-database ../tree/2022.10.backbone.sepp-reference.qza \
+--o-tree ../tree/tree_gg2.qza \
+--o-placements ../tree/tree_placements_gg2.qza
+```
+
+- submit the job from the terminal
+```
+#submit the job
+sbatch tree.sh

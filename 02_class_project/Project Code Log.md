@@ -263,7 +263,7 @@ Mean reads per sample
 How long are the reads: 251 - 415 bp 
 - Must filter
 ## Remove long (300+ base pair) amplicons from the representative sequences file and the feature table
-
+- 4/27/26
 ```
 # filter out any large amplicons from the seqs and table (because they are contaminates)
 
@@ -336,13 +336,7 @@ qiime taxa barplot \
 
 ## Phylogenetic tree 
 
-Create a job script to run the phylogenetic tree building. Remember you must start a new terminal session, navigate to your slurm directory, and then submit the job. You do NOT need to start any other interactive sessions.This job will take about an hour. 
-
-Go to OnDemand and create a new text file for your job script
-```
-nano <tree.sh>
-```
-
+in tree.sh
 ```
 #!/bin/bash
 #SBATCH --job-name=tree
@@ -355,27 +349,23 @@ nano <tree.sh>
 #SBATCH --output=slurm-%j.out
 #SBATCH --qos=normal
 
-#Activate qiime
-
 module purge
 module load qiime2/2024.10_amplicon
 
 
-#Get reference
-
 wget --no-check-certificate -P ../tree https://ftp.microbio.me/greengenes_release/2022.10/2022.10.backbone.sepp-reference.qza
 
 
-#Command
-
 qiime fragment-insertion sepp \
---i-representative-sequences ../dada2/cow_seqs_dada2_filtered300.qza \
+--i-representative-sequences ../dada2/oxy_seqs_dada2_filtered300.qza \
 --i-reference-database ../tree/2022.10.backbone.sepp-reference.qza \
 --o-tree ../tree/tree_gg2.qza \
 --o-placements ../tree/tree_placements_gg2.qza
 ```
 
-- submit the job from the terminal
+New session
 ```
-#submit the job
+cd slurm
 sbatch tree.sh
+```
+

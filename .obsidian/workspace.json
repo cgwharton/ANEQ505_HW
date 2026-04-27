@@ -77,8 +77,7 @@
               "title": "homework_1 answers"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -252,11 +251,11 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "a8e17565d2475b6a",
+  "active": "d72b42c3756d7da4",
   "lastOpenFiles": [
+    "01_homework/homework_3_answers.md",
     "02_class_project/Project Code Log.md",
     "01_homework/homework_2_answers.md",
-    "01_homework/homework_3_answers.md",
     "01_homework/homework_1 answers.md",
     "02_class_project/Project Code Log 1.md",
     "01_homework/homework_4.md",

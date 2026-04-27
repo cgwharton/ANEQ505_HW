@@ -369,3 +369,48 @@ cd slurm
 sbatch tree.sh
 ```
 
+## Alpha Rarefaction Plot 
+```
+#go to the project directory
+
+qiime diversity alpha-rarefaction \
+--i-table dada2/oxy_table_dada2_filtered300.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization alpha_rarefaction_curves_16S.qzv \
+--p-min-depth 10 \
+--p-max-depth 30000
+```
+
+
+## Run Core Metrics 
+
+```
+qiime diversity core-metrics-phylogenetic \
+--i-table dada2/oxy_table_dada2_filtered300.qza \
+--i-phylogeny tree/tree_gg2.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--p-sampling-depth 5000 \
+--output-dir core_metrics_results_5000
+```
+1500 was too low, VAL picked between 4000-6000
+
+==RE-DO FROM HERE FORWARD FOR FUTURE HW==
+
+## Visualize alpha diversity plots
+- generate a plot to visualize the observed features ~={red}(1 point)=~
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results/observed_features_vector.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--o-visualization core_metrics_results/observed_features_statistics.qzv
+```
+
+- generate a plot to visualize faith's PD ~={red}(2 points)=~
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results/faith_pd_vector.qza \
+--m-metadata-file metadata/cow_metadata.txt \
+--o-visualization core_metrics_results/faiths_pd_statistics.qzv
+
+```
+

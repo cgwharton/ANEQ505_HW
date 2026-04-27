@@ -379,12 +379,10 @@ qiime feature-table filter-samples \
 ```
 
 ```
-#go to the project directory
-
 qiime diversity alpha-rarefaction \
 --i-table dada2/table_nomitochloro_nocontrol.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization alpha_rarefaction_curves_16S.qzv \
+--o-visualization alpha_rarefaction_curves.qzv \
 --p-min-depth 10 \
 --p-max-depth 30000
 ```
@@ -392,8 +390,10 @@ qiime diversity alpha-rarefaction \
 ## Run Core Metrics 
 
 ```
+cd project
+
 qiime diversity core-metrics-phylogenetic \
---i-table dada2/oxy_table_dada2_filtered300.qza \
+--i-table dada2/table_nomitochloro_nocontrol.qza \
 --i-phylogeny tree/tree_gg2.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
 --p-sampling-depth 5000 \

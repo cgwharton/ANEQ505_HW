@@ -256,7 +256,7 @@ qiime feature-table summarize \
 ```
 FINALLY, it worked!
 
-Mean reads per sample?
+Mean reads per sample
 	Pre-denoising: 33,354.3
 	Post-denoising: 20,495.1
 
@@ -303,7 +303,7 @@ wget --no-check-certificate https://ftp.microbio.me/greengenes_release/2024.09/2
 ### Classify taxonomy using GreenGenes2 classify the ASVs 
 ```
 qiime feature-classifier classify-sklearn \
---i-reads ../dada2/cow_seqs_dada2.qza \
+--i-reads ../dada2/oxy_seqs_dada2_filtered300.qza \
 --i-classifier 2024.09.backbone.v4.nb.qza \
 --o-classification taxonomy_gg2.qza
 ```
@@ -318,7 +318,7 @@ qiime metadata tabulate \
 ### Filter out mitochondria/chloroplasts/sp004296775
 ```
 qiime taxa filter-table \
---i-table ../dada2/cow_table_dada2.qza \
+--i-table ../dada2/oxy_table_dada2_filtered300.qza \
 --i-taxonomy taxonomy_gg2.qza \
 --p-exclude mitochondria,chloroplast,sp004296775 \
 --p-include c__ \
@@ -330,7 +330,7 @@ qiime taxa filter-table \
 qiime taxa barplot \
 --i-table ../dada2/table_nomitochloro_gg2.qza \
 --i-taxonomy taxonomy_gg2.qza \
---m-metadata-file ../metadata/metadata.txt \
+--m-metadata-file ../metadata/metadata_fixed2.txt \
 --o-visualization ../taxaplots/taxa_barplot_nomitochloro_gg2.qzv
 ```
 

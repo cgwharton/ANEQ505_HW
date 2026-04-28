@@ -369,6 +369,7 @@ cd slurm
 sbatch tree.sh
 ```
 ## Alpha Rarefaction Plot 
+4/28/26
 Filter out controls
 ```
 qiime feature-table filter-samples \
@@ -468,9 +469,10 @@ cd longitudinal
 qiime longitudinal volatility \
 --m-metadata-file ../metadata/metadata_fixed2.txt \
 --m-metadata-file ../core_metrics_results_15000/weighted_unifrac_pcoa_results.qza \
---p-state-column add_0c \
---p-individual-id-column host_subject_id \  
---p-default-group-column 'sample_type' \  
---p-default-metric 'Axis 2' \  
---o-visualization pc_vol_sample_type.qzv```
+--p-state-column Hour \
+--p-individual-id-column VID \
+--p-default-group-column 'Treatment' \
+--p-default-metric 'Axis 2' \
+--o-visualization pc_vol_sample_type.qzv
+```
 

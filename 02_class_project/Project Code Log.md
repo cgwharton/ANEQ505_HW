@@ -417,6 +417,7 @@ qiime diversity alpha-group-significance \
 --m-metadata-file metadata/metadata_fixed2.txt \
 --o-visualization core_metrics_results_15000/observed_features_statistics.qzv
 ```
+- not significant (NS)
 
 **Faith's Phylogenetic Diversity (pd):** this is an alpha diversity metric that uses **phylogenetic information plus richness** (presence/absence of an organism) to determine alpha diversity.
 ```
@@ -424,8 +425,8 @@ qiime diversity alpha-group-significance \
 --i-alpha-diversity core_metrics_results_15000/faith_pd_vector.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
 --o-visualization core_metrics_results_15000/faiths_pd_statistics.qzv
-
 ```
+- NS
 
 For continuous covariates that we think could be associated with alpha diversity, we can use the alpha-correlation visualizer.
 ```
@@ -434,7 +435,13 @@ qiime diversity alpha-correlation \
 --m-metadata-file metadata/metadata_fixed2.txt \
 --o-visualization core_metrics_results_15000/faith_pd_correlation_statistics.qzv
 ```
-
+- Spearman 
+- VID NS
+- Hour NS
+- ORP NS
+- pH NS
+- DO p=0.0027
+  
 **Shannon's Diversity:** this is an alpha diversity metric that uses **richness** (presence/absence of an organism) _and_ **evenness** (organism relative abundance), but does **not** use phylogeny.
 ```
 qiime diversity alpha-group-significance \
@@ -442,4 +449,25 @@ qiime diversity alpha-group-significance \
 --m-metadata-file metadata/metadata_fixed2.txt \
 --o-visualization core_metrics_results_15000/shannon_statistics.qzv
 ```
-- Treatment p 
+- Treatment p=0.0648
+- Date p=0.00648
+- Period p=0.00648
+- Time p=0.687
+
+## Beta Diversity 
+
+**Unweighted UniFrac:** Unweighted, phylogenetic. Measures the richness of the species and the number of shared branches in the phylogenetic tree. Unweighted UniFrac is **more sensitive to differences in low-abundance features**. May overrepresent rare features because everything that is present is counted as 1.
+
+    
+
+**Weighted Unifrac:** Weighted, phylogenetic. Measures the **richness** and **evenness** of the species _and_ the **number of shared branches** in the phylogenetic tree. Weighted UniFrac is useful for **examining differences in community structure.** You may see less separation in this visualization compared to the unweighted, that is because the most prominent features are present similarly in both groups. So taxa abundance is accounted for.
+
+
+    
+
+**Jaccard:** Unweighted, non-phylogenetic. Measures how many shared microbes there are between the samples. So the fraction of unique features, regardless of abundance. 
+
+
+
+
+**Bray Curtis:** Weighted, non-phylogenetic. Uses richness and evenness to measure how many features are shared and the abundance of those features. Good when you have highly abundant species!

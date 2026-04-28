@@ -384,37 +384,44 @@ qiime diversity alpha-rarefaction \
 --m-metadata-file metadata/metadata_fixed2.txt \
 --o-visualization alpha_rarefaction_curve_15000.qzv \
 --p-min-depth 10 \
---p-max-depth 15000
+--p-max-depth 30000
 ```
 - Alpha rarefaction curve
-	- Plateau at 
+	- Seems to plateau around 15000 but I want a closer look
+
+```
+qiime diversity alpha-rarefaction \
+--i-table dada2/table_nomitochloro_nocontrol.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization alpha_rarefaction_curve_15000.qzv \
+--p-min-depth 10 \
+--p-max-depth 15000
+```
 ## Run Core Metrics 
 
 ```
-cd project
-
 qiime diversity core-metrics-phylogenetic \
 --i-table dada2/table_nomitochloro_nocontrol.qza \
 --i-phylogeny tree/tree_gg2.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
---p-sampling-depth 5000 \
---output-dir core_metrics_results_5000
+--p-sampling-depth 15000 \
+--output-dir core_metrics_results_15000
 ```
 
 ## Visualize alpha diversity plots
 
 ```
 qiime diversity alpha-group-significance \
---i-alpha-diversity core_metrics_results/observed_features_vector.qza \
+--i-alpha-diversity core_metrics_results_15000/observed_features_vector.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization core_metrics_results/observed_features_statistics.qzv
+--o-visualization core_metrics_results_15000/observed_features_statistics.qzv
 ```
 
 ```
 qiime diversity alpha-group-significance \
---i-alpha-diversity core_metrics_results/faith_pd_vector.qza \
+--i-alpha-diversity core_metrics_results_15000/faith_pd_vector.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization core_metrics_results/faiths_pd_statistics.qzv
+--o-visualization core_metrics_results_15000/faiths_pd_statistics.qzv
 
 ```
 

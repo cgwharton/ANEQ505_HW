@@ -371,10 +371,10 @@ sbatch tree.sh
 ## Alpha Rarefaction Plot 
 Filter out controls
 ```
-qiime feature-table filter-samples \  
---i-table dada2/table_nomitochloro_gg2.qza \  
---m-metadata-file metadata/metadata_fixed2.txt \  
---p-where "NOT [sample_type] IN ('control') " \  
+qiime feature-table filter-samples \
+--i-table dada2/table_nomitochloro_gg2.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--p-where "NOT [Treatment] IN ('ext_control') " \
 --o-filtered-table dada2/table_nomitochloro_nocontrol.qza
 ```
 
@@ -382,11 +382,12 @@ qiime feature-table filter-samples \
 qiime diversity alpha-rarefaction \
 --i-table dada2/table_nomitochloro_nocontrol.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization alpha_rarefaction_curves.qzv \
+--o-visualization alpha_rarefaction_curve_15000.qzv \
 --p-min-depth 10 \
---p-max-depth 30000
+--p-max-depth 15000
 ```
-
+- Alpha rarefaction curve
+	- Plateau at 
 ## Run Core Metrics 
 
 ```

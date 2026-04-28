@@ -454,20 +454,23 @@ qiime diversity alpha-group-significance \
 - Period p=0.00648
 - Time p=0.687
 
-## Beta Diversity 
+## Longitudinal
 
-**Unweighted UniFrac:** Unweighted, phylogenetic. Measures the richness of the species and the number of shared branches in the phylogenetic tree. Unweighted UniFrac is **more sensitive to differences in low-abundance features**. May overrepresent rare features because everything that is present is counted as 1.
+```
+# make a longitudinal directory  
+  
+mkdir longitudinal  
+  
+cd longitudinal  
+  
+# construct a volatility plot  
+  
+qiime longitudinal volatility \
+--m-metadata-file ../metadata/metadata_fixed2.txt \
+--m-metadata-file ../core_metrics_results_15000/weighted_unifrac_pcoa_results.qza \
+--p-state-column add_0c \
+--p-individual-id-column host_subject_id \  
+--p-default-group-column 'sample_type' \  
+--p-default-metric 'Axis 2' \  
+--o-visualization pc_vol_sample_type.qzv```
 
-    
-
-**Weighted Unifrac:** Weighted, phylogenetic. Measures the **richness** and **evenness** of the species _and_ the **number of shared branches** in the phylogenetic tree. Weighted UniFrac is useful for **examining differences in community structure.** You may see less separation in this visualization compared to the unweighted, that is because the most prominent features are present similarly in both groups. So taxa abundance is accounted for.
-
-
-    
-
-**Jaccard:** Unweighted, non-phylogenetic. Measures how many shared microbes there are between the samples. So the fraction of unique features, regardless of abundance. 
-
-
-
-
-**Bray Curtis:** Weighted, non-phylogenetic. Uses richness and evenness to measure how many features are shared and the abundance of those features. Good when you have highly abundant species!

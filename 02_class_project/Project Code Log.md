@@ -410,6 +410,7 @@ qiime diversity core-metrics-phylogenetic \
 
 ## Visualize alpha diversity plots
 
+**Observed features:** this is an alpha diversity metric that counts the number of **_present_ features** in your community.
 ```
 qiime diversity alpha-group-significance \
 --i-alpha-diversity core_metrics_results_15000/observed_features_vector.qza \
@@ -417,6 +418,7 @@ qiime diversity alpha-group-significance \
 --o-visualization core_metrics_results_15000/observed_features_statistics.qzv
 ```
 
+**Faith's Phylogenetic Diversity (pd):** this is an alpha diversity metric that uses **phylogenetic information plus richness** (presence/absence of an organism) to determine alpha diversity.
 ```
 qiime diversity alpha-group-significance \
 --i-alpha-diversity core_metrics_results_15000/faith_pd_vector.qza \
@@ -425,3 +427,19 @@ qiime diversity alpha-group-significance \
 
 ```
 
+For continuous covariates that we think could be associated with alpha diversity, we can use the alpha-correlation visualizer.
+```
+qiime diversity alpha-correlation \
+--i-alpha-diversity core_metrics_results_15000/faith_pd_vector.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization core_metrics_results_15000/faith_pd_correlation_statistics.qzv
+```
+
+**Shannon's Diversity:** this is an alpha diversity metric that uses **richness** (presence/absence of an organism) _and_ **evenness** (organism relative abundance), but does **not** use phylogeny.
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results_15000/shannon_vector.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization core_metrics_results_15000/shannon_statistics.qzv
+```
+- Treatment p 

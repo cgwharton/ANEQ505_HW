@@ -383,7 +383,7 @@ qiime feature-table filter-samples \
 qiime diversity alpha-rarefaction \
 --i-table dada2/table_nomitochloro_nocontrol.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization alpha_rarefaction_curve_15000.qzv \
+--o-visualization alpha_rarefaction_curve.qzv \
 --p-min-depth 10 \
 --p-max-depth 30000
 ```
@@ -394,8 +394,8 @@ qiime diversity alpha-rarefaction \
 ```
 qiime diversity alpha-rarefaction \
 --i-table dada2/table_nomitochloro_nocontrol.qza \
---m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization alpha_rarefaction_curve_15000.qzv \
+--m-metadata-file metadata/metadata_v3.txt \
+--o-visualization alpha_rarefaction_curve_10000.qzv \
 --p-min-depth 10 \
 --p-max-depth 10000
 ```
@@ -405,7 +405,7 @@ qiime diversity alpha-rarefaction \
 qiime diversity core-metrics-phylogenetic \
 --i-table dada2/table_nomitochloro_nocontrol.qza \
 --i-phylogeny tree/tree_gg2.qza \
---m-metadata-file metadata/metadata_fixed2.txt \
+--m-metadata-file metadata/metadata_v3.txt \
 --p-sampling-depth 10000 \
 --output-dir core_metrics_results_10000
 ```
@@ -524,45 +524,41 @@ mkdir export
 ```
 ### Shannon
 ```
-unzip core_metrics_results_15000/shannon_vector.qza -d export/shannon
+unzip core_metrics_results_10000/shannon_vector.qza -d export/shannon
 ```
 
 move back to project directory if not there
 ### Observed Features  
 ```
-unzip core_metrics_results_15000/observed_features_vector.qza -d export/observed_features  
+unzip core_metrics_results_10000/observed_features_vector.qza -d export/observed_features  
 ```
 ### Faith's PD  
 ```
-unzip core_metrics_results_15000/faith_pd_vector.qza -d export/faith_pd 
+unzip core_metrics_results_10000/faith_pd_vector.qza -d export/faith_pd 
 ``` 
-  
-# Pielou's evenness  
+### Pielou's evenness  
 ```
-unzip core_metrics_results_15000/evenness_vector.qza -d export/evenness
+unzip core_metrics_results_10000/evenness_vector.qza -d export/evenness
 ```
-# Bray Curtis  
+### Bray Curtis  
 ```
-unzip core_metrics_results_15000/bray_curtis_pcoa_results.qza -d export/bray_curtis  
+unzip core_metrics_results_10000/bray_curtis_pcoa_results.qza -d export/bray_curtis  
 ```
-# Jaccard  
+### Jaccard  
 ```
-unzip core_metrics_results_15000/jaccard_pcoa_results.qza -d export/jaccard  
+unzip core_metrics_results_10000/jaccard_pcoa_results.qza -d export/jaccard  
 ```
-
-
-  
-# Unweighted Unifrac  
+### Unweighted Unifrac  
 ```
-unzip core_metrics_results_15000/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifrac  
+unzip core_metrics_results_10000/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifrac  
 ```
-
-  
-# Weighted Unifrac  
+### Weighted Unifrac  
 ```
-unzip core_metrics_results_15000/weighted_unifrac_pcoa_results.qza -d export/weighted_unifrac
+unzip core_metrics_results_10000/weighted_unifrac_pcoa_results.qza -d export/weighted_unifrac
 ```
 
+### Export
+ 
 ```
 cd export 
 

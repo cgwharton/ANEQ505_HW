@@ -389,7 +389,7 @@ qiime diversity alpha-rarefaction \
 ```
 - Alpha rarefaction curve
 	- Seems to plateau around 15000 but I want a closer look
-	- go down to 10,000
+	- 15,000 fine for the class project but go down to 10,000 for publication
 
 ```
 qiime diversity alpha-rarefaction \

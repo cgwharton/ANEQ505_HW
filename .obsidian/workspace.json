@@ -22,20 +22,6 @@
             }
           },
           {
-            "id": "cdf7967601171a35",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01_homework/homework_3_answers.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "homework_3_answers"
-            }
-          },
-          {
             "id": "1dbf166f039fdfc9",
             "type": "leaf",
             "state": {
@@ -50,34 +36,31 @@
             }
           },
           {
-            "id": "ceee78132c2a8ac6",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01_homework/homework_2_answers.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "homework_2_answers"
-            }
-          },
-          {
             "id": "2dcf41a41482426b",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "05_notes/Week 6- 2.27.26.md",
+                "file": "05_notes/Week 9- 3.27.26.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Week 6- 2.27.26"
+              "title": "Week 9- 3.27.26"
+            }
+          },
+          {
+            "id": "a7d517242592e961",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {},
+              "icon": "lucide-file",
+              "title": "New tab"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -130,8 +113,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -253,13 +235,14 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "d72b42c3756d7da4",
+  "active": "2dcf41a41482426b",
   "lastOpenFiles": [
-    "01_homework/homework_3_answers.md",
+    "05_notes/Week 9- 3.27.26.md",
+    "05_notes/Week 6- 2.27.26.md",
     "01_homework/homework_2_answers.md",
     "01_homework/homework_4.md",
+    "01_homework/homework_3_answers.md",
     "02_class_project/Project Code Log.md",
-    "05_notes/Week 6- 2.27.26.md",
     "05_notes/Week 5- 2.20.26.md",
     "01_homework/homework_1 answers.md",
     "02_class_project/Project Code Log 1.md",
@@ -279,7 +262,6 @@
     "demux_oxycow.qzv",
     "Unconfirmed 329570.crdownload",
     "05_notes/Example_Obsidian_Note.md",
-    "05_notes/Week 9- 3.27.26.md",
     "05_notes/Week 7- 3.6.26.md",
     "05_notes/1.30.2026.md",
     "05_notes/2.6.2026.md",

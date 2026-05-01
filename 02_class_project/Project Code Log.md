@@ -524,43 +524,43 @@ mkdir export
 ```
 ### Shannon
 ```
-unzip core_metrics_results_1500/shannon_vector.qza -d export/shannon
+unzip core_metrics_results_15000/shannon_vector.qza -d export/shannon
 ```
 
 move back to project directory if not there
 ### Observed Features  
 ```
-unzip core_metrics_results_1500/observed_features_vector.qza -d export/observed_features  
+unzip core_metrics_results_15000/observed_features_vector.qza -d export/observed_features  
 ```
 ### Faith's PD  
 ```
-unzip core_metrics_results_1500/faith_pd_vector.qza -d export/faith_pd 
+unzip core_metrics_results_15000/faith_pd_vector.qza -d export/faith_pd 
 ``` 
   
 # Pielou's evenness  
 ```
-unzip core_metrics_results_1500/evenness_vector.qza -d export/evenness
+unzip core_metrics_results_15000/evenness_vector.qza -d export/evenness
 ```
 # Bray Curtis  
 ```
-unzip core_metrics_results_1500/bray_curtis_pcoa_results.qza -d export/bray_curtis  
+unzip core_metrics_results_15000/bray_curtis_pcoa_results.qza -d export/bray_curtis  
 ```
 # Jaccard  
 ```
-unzip core_metrics_results_1500/jaccard_pcoa_results.qza -d export/jaccard  
+unzip core_metrics_results_15000/jaccard_pcoa_results.qza -d export/jaccard  
 ```
 
 
   
 # Unweighted Unifrac  
 ```
-unzip core_metrics_results_1500/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifrac  
+unzip core_metrics_results_15000/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifrac  
 ```
 
   
 # Weighted Unifrac  
 ```
-unzip core_metrics_results_1500/weighted_unifrac_pcoa_results.qza -d export/weighted_unifrac
+unzip core_metrics_results_15000/weighted_unifrac_pcoa_results.qza -d export/weighted_unifrac
 ```
 
 ```

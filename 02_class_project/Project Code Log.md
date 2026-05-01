@@ -602,3 +602,5 @@ qiime metadata tabulate \--m-input-file table_nomitochloro_transposed.qza \--m-i
 
 ```
 
+## Move to R
+

@@ -616,6 +616,6 @@ qiime metadata tabulate \--m-input-file table_nomitochloro_transposed.qza \--m-i
 - Seq p = 0.6835
 #### Fixed: Period
 - Residuals evenly distributed 
-- Period p=0.1131
+- Period p=0.01131
 
 ### Faiths Model

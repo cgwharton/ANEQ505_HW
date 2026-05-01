@@ -14,7 +14,7 @@ cd project
 ```
 cp -r /pl/active/courses/2025_summer/CSU_2025/raw_reads_oxycow .
 ```
-### Create directories for the different analyses:
+### Create directories:
 - do this once
 ```
 mkdir slurm
@@ -585,8 +585,20 @@ for metric in "${metrics[@]}"; do
 done
 ```
 
+on your computer use terminal and navigate to 04_code 
+
 ```
 for f in *_div.zip; do  
  unzip "$f" -d "${f%.zip}"  
 done
 ```
+
+```
+cd /scratch/alpine/$USER/project/dada2
+
+qiime feature-table transpose \--i-table table_nomitochloro_gg2.qza \--o-transposed-feature-table table_nomitochloro_transposed.qza
+
+qiime metadata tabulate \--m-input-file table_nomitochloro_transposed.qza \--m-input-file oxy_seqs_dada2_filtered300.qza \--m-input-file ../taxonomy/taxonomy_gg2.qza \--o-visualization tabulated_results.qzv
+
+```
+

@@ -397,7 +397,7 @@ qiime diversity alpha-rarefaction \
 --m-metadata-file metadata/metadata_fixed2.txt \
 --o-visualization alpha_rarefaction_curve_15000.qzv \
 --p-min-depth 10 \
---p-max-depth 15000
+--p-max-depth 10000
 ```
 ## Run Core Metrics 
 
@@ -406,8 +406,8 @@ qiime diversity core-metrics-phylogenetic \
 --i-table dada2/table_nomitochloro_nocontrol.qza \
 --i-phylogeny tree/tree_gg2.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
---p-sampling-depth 15000 \
---output-dir core_metrics_results_15000
+--p-sampling-depth 10000 \
+--output-dir core_metrics_results_10000
 ```
 
 ## Visualize alpha diversity plots

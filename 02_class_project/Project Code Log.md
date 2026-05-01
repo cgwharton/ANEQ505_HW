@@ -604,3 +604,18 @@ qiime metadata tabulate \--m-input-file table_nomitochloro_transposed.qza \--m-i
 
 ## Move to R
 
+### Shannon Model 
+#### Fixed: Tx
+- Residuals evenly distributed 
+- Treatment p = 0.02167
+#### Fixed: Hour
+- residuals even 
+- p = 0.5119
+#### Fixed: Sequence
+- Residuals evenly distributed 
+- Seq p = 0.6835
+#### Fixed: Period
+- Residuals evenly distributed 
+- Period p=0.1131
+
+### Faiths Model

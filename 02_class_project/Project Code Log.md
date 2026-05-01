@@ -477,3 +477,120 @@ qiime longitudinal volatility \
 --o-visualization pc_vol_sample_type.qzv
 ```
 
+```
+# evaluate using first distances  
+  
+qiime longitudinal first-distances \
+--i-distance-matrix ../core-metrics-results/weighted_unifrac_distance_matrix.qza \
+--m-metadata-file ../metadata/metadata.txt \
+--p-state-column add_0c \
+--p-individual-id-column host_subject_id_sample_type \
+--p-baseline 0 \
+--o-first-distances from_first_wunifrac.qza
+```
+
+```
+# visualize volatility  
+  
+qiime longitudinal volatility \
+--m-metadata-file ../metadata/metadata.txt \
+--m-metadata-file from_first_wunifrac.qza \
+--p-state-column add_0c \
+--p-individual-id-column host_subject_id \
+--p-default-metric Distance \
+--p-default-group-column 'sample_type' \
+--o-visualization from_first_wunifrac_vol.qzv
+```
+
+```
+# run LME   
+  
+qiime longitudinal linear-mixed-effects \
+--m-metadata-file ../metadata/metadata.txt \
+--m-metadata-file from_first_wunifrac.qza \
+--p-state-column add_0c \
+--p-individual-id-column host_subject_id \
+--p-formula "Distance ~ add_0c + facility + sample_type" \
+--o-visualization from_first_wunifrac_lme_formula.qzv
+```
+
+## Exporting Qiime2 data
+```
+# move to project directory
+
+cd ../
+
+mkdir export 
+```
+### Shannon
+```
+unzip core_metrics_results_1500/shannon_vector.qza -d export/shannon
+```
+
+move back to project directory if not there
+### Observed Features  
+```
+unzip core_metrics_results_1500/observed_features_vector.qza -d export/observed_features  
+```
+### Faith's PD  
+```
+unzip core_metrics_results_1500/faith_pd_vector.qza -d export/faith_pd 
+``` 
+  
+# Pielou's evenness  
+```
+unzip core_metrics_results_1500/evenness_vector.qza -d export/evenness
+```
+# Bray Curtis  
+```
+unzip core_metrics_results_1500/bray_curtis_pcoa_results.qza -d export/bray_curtis  
+```
+# Jaccard  
+```
+unzip core_metrics_results_1500/jaccard_pcoa_results.qza -d export/jaccard  
+```
+
+
+  
+# Unweighted Unifrac  
+```
+unzip core_metrics_results_1500/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifrac  
+```
+
+  
+# Weighted Unifrac  
+```
+unzip core_metrics_results_1500/weighted_unifrac_pcoa_results.qza -d export/weighted_unifrac
+```
+
+```
+cd export 
+
+mkdir alpha_div
+
+# define alpha metrics  
+metrics=("shannon" "evenness" "faith_pd" "observed_features")  
+  
+# copy their tsv files into alpha_div/  
+for metric in "${metrics[@]}"; do  
+ cp $metric/*/data/alpha-diversity.tsv alpha_div/${metric}.tsv  
+done
+```
+
+```
+mkdir beta_div
+
+# define beta metrics  
+metrics=("bray_curtis" "jaccard" "unweighted_unifrac" "weighted_unifrac")  
+  
+# copy their txt files into beta_div/  
+for metric in "${metrics[@]}"; do  
+ cp $metric/*/data/ordination.txt beta_div/${metric}.txt  
+done
+```
+
+```
+for f in *_div.zip; do  
+ unzip "$f" -d "${f%.zip}"  
+done
+```

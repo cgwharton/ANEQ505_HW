@@ -59,8 +59,7 @@
               "title": "New tab"
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -235,14 +234,14 @@
       "templater-obsidian:Templater": false
     }
   },
-  "active": "2dcf41a41482426b",
+  "active": "d72b42c3756d7da4",
   "lastOpenFiles": [
+    "01_homework/homework_4.md",
+    "02_class_project/Project Code Log.md",
     "05_notes/Week 9- 3.27.26.md",
     "05_notes/Week 6- 2.27.26.md",
     "01_homework/homework_2_answers.md",
-    "01_homework/homework_4.md",
     "01_homework/homework_3_answers.md",
-    "02_class_project/Project Code Log.md",
     "05_notes/Week 5- 2.20.26.md",
     "01_homework/homework_1 answers.md",
     "02_class_project/Project Code Log 1.md",

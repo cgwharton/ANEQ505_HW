@@ -1,4 +1,4 @@
-## Launch a session and load qiime
+-## Launch a session and load qiime
  - do this every time you open terminal
  - qiime2 analysis was done with qiime2 amplicon version 2024.10
 ```

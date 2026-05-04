@@ -559,20 +559,20 @@ cd ../
 
 ```
 
-### Jaccard  
+### Jaccard  A
 ```
 unzip core_metrics_results_10000A/jaccard_pcoa_results.qza -d export/jaccardA  
 ```
-### Unweighted Unifrac  
+### Unweighted Unifrac  A
 ```
 unzip core_metrics_results_10000A/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifracA  
 ```
 
-### Jaccard  
+### Jaccard  B
 ```
 unzip core_metrics_results_10000B/jaccard_pcoa_results.qza -d export/jaccardB  
 ```
-### Unweighted Unifrac  
+### Unweighted Unifrac  B
 ```
 unzip core_metrics_results_10000B/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifracB  
 ```
@@ -605,21 +605,4 @@ metrics=("jaccardB" "unweighted_unifracB")
 for metric in "${metrics[@]}"; do  
  cp $metric/*/data/ordination.txt beta_divB/${metric}.txt  
 done
-```
-
-on your computer use terminal and navigate to 04_code 
-
-```
-for f in *_div.zip; do  
- unzip "$f" -d "${f%.zip}"  
-done
-```
-
-```
-cd /scratch/alpine/$USER/project/dada2
-
-qiime feature-table transpose \--i-table table_nomitochloro_gg2.qza \--o-transposed-feature-table table_nomitochloro_transposed.qza
-
-qiime metadata tabulate \--m-input-file table_nomitochloro_transposed.qza \--m-input-file oxy_seqs_dada2_filtered300.qza \--m-input-file ../taxonomy/taxonomy_gg2.qza \--o-visualization tabulated_results.qzv
-
 ```

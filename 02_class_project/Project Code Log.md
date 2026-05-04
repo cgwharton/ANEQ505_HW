@@ -563,18 +563,18 @@ cd ../
 ```
 unzip core_metrics_results_10000A/jaccard_pcoa_results.qza -d export/jaccardA  
 ```
-### Unweighted Unifrac  A
+### Weighted Unifrac  A
 ```
-unzip core_metrics_results_10000A/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifracA  
+unzip core_metrics_results_10000A/weighted_unifrac_pcoa_results.qza -d export/weighted_unifracA  
 ```
 
 ### Jaccard  B
 ```
 unzip core_metrics_results_10000B/jaccard_pcoa_results.qza -d export/jaccardB  
 ```
-### Unweighted Unifrac  B
+### Weighted Unifrac  B
 ```
-unzip core_metrics_results_10000B/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifracB  
+unzip core_metrics_results_10000B/weighted_unifrac_pcoa_results.qza -d export/weighted_unifracB  
 ```
 
 ### Export
@@ -585,7 +585,7 @@ cd export
 mkdir beta_divA
 
 # define beta metrics  
-metrics=("jaccardA" "unweighted_unifracA")  
+metrics=("jaccardA" "weighted_unifracA")  
   
 # copy their txt files into beta_div/  
 for metric in "${metrics[@]}"; do  
@@ -599,7 +599,7 @@ cd export
 mkdir beta_divB
 
 # define beta metrics  
-metrics=("jaccardB" "unweighted_unifracB")  
+metrics=("jaccardB" "weighted_unifracB")  
   
 # copy their txt files into beta_div/  
 for metric in "${metrics[@]}"; do  

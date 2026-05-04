@@ -410,110 +410,6 @@ qiime diversity core-metrics-phylogenetic \
 --output-dir core_metrics_results_10000
 ```
 
-## Visualize alpha diversity plots
-
-**Observed features:** this is an alpha diversity metric that counts the number of **_present_ features** in your community.
-```
-qiime diversity alpha-group-significance \
---i-alpha-diversity core_metrics_results_15000/observed_features_vector.qza \
---m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization core_metrics_results_15000/observed_features_statistics.qzv
-```
-- not significant (NS)
-
-**Faith's Phylogenetic Diversity (pd):** this is an alpha diversity metric that uses **phylogenetic information plus richness** (presence/absence of an organism) to determine alpha diversity.
-```
-qiime diversity alpha-group-significance \
---i-alpha-diversity core_metrics_results_15000/faith_pd_vector.qza \
---m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization core_metrics_results_15000/faiths_pd_statistics.qzv
-```
-- NS
-
-For continuous covariates that we think could be associated with alpha diversity, we can use the alpha-correlation visualizer.
-```
-qiime diversity alpha-correlation \
---i-alpha-diversity core_metrics_results_15000/faith_pd_vector.qza \
---m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization core_metrics_results_15000/faith_pd_correlation_statistics.qzv
-```
-- Spearman 
-- VID NS
-- Hour NS
-- ORP NS
-- pH NS
-- DO p=0.0027
-  
-**Shannon's Diversity:** this is an alpha diversity metric that uses **richness** (presence/absence of an organism) _and_ **evenness** (organism relative abundance), but does **not** use phylogeny.
-```
-qiime diversity alpha-group-significance \
---i-alpha-diversity core_metrics_results_15000/shannon_vector.qza \
---m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization core_metrics_results_15000/shannon_statistics.qzv
-```
-- Treatment p=0.0648
-- Date p=0.00648
-- Period p=0.00648
-- Time p=0.687
-
-## Longitudinal
-
-```
-# make a longitudinal directory  
-  
-mkdir longitudinal  
-  
-cd longitudinal  
-  
-# construct a volatility plot  
-  
-qiime longitudinal volatility \
---m-metadata-file ../metadata/metadata_fixed2.txt \
---m-metadata-file ../core_metrics_results_15000/weighted_unifrac_pcoa_results.qza \
---p-state-column Hour \
---p-individual-id-column VID \
---p-default-group-column 'Treatment' \
---p-default-metric 'Axis 2' \
---o-visualization pc_vol_sample_type.qzv
-```
-
-```
-# evaluate using first distances  
-  
-qiime longitudinal first-distances \
---i-distance-matrix ../core-metrics-results/weighted_unifrac_distance_matrix.qza \
---m-metadata-file ../metadata/metadata.txt \
---p-state-column add_0c \
---p-individual-id-column host_subject_id_sample_type \
---p-baseline 0 \
---o-first-distances from_first_wunifrac.qza
-```
-
-```
-# visualize volatility  
-  
-qiime longitudinal volatility \
---m-metadata-file ../metadata/metadata.txt \
---m-metadata-file from_first_wunifrac.qza \
---p-state-column add_0c \
---p-individual-id-column host_subject_id \
---p-default-metric Distance \
---p-default-group-column 'sample_type' \
---o-visualization from_first_wunifrac_vol.qzv
-```
-
-```
-# run LME   
-  
-qiime longitudinal linear-mixed-effects \
---m-metadata-file ../metadata/metadata.txt \
---m-metadata-file from_first_wunifrac.qza \
---p-state-column add_0c \
---p-individual-id-column host_subject_id \
---p-formula "Distance ~ add_0c + facility + sample_type" \
---o-visualization from_first_wunifrac_lme_formula.qzv
-```
-
 ## Exporting Qiime2 data
 ```
 # move to project directory
@@ -636,12 +532,78 @@ qiime feature-table filter-samples \
   --o-filtered-table dada2/table_nomitochloro_nocontrol_sequenceB.qza
 ```
 
-
+### CoreMetrics
 ```
 qiime diversity core-metrics-phylogenetic \
---i-table dada2/table_nomitochloro_nocontrol.qza \
+--i-table dada2/table_nomitochloro_nocontrol_sequenceA.qza \
 --i-phylogeny tree/tree_gg2.qza \
 --m-metadata-file metadata/metadata_v3.txt \
 --p-sampling-depth 10000 \
---output-dir core_metrics_results_10000
+--output-dir core_metrics_results_10000A
+```
+
+```
+qiime diversity core-metrics-phylogenetic \
+--i-table dada2/table_nomitochloro_nocontrol_sequenceB.qza \
+--i-phylogeny tree/tree_gg2.qza \
+--m-metadata-file metadata/metadata_v3.txt \
+--p-sampling-depth 10000 \
+--output-dir core_metrics_results_10000B
+```
+
+## Exporting Qiime2 data
+```
+# move to project directory
+
+cd ../
+
+mkdir export 
+```
+
+### Jaccard  
+```
+unzip core_metrics_results_10000A/jaccard_pcoa_results.qza -d export/jaccardA  
+```
+### Unweighted Unifrac  
+```
+unzip core_metrics_results_10000A/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifracA  
+```
+
+### Jaccard  
+```
+unzip core_metrics_results_10000B/jaccard_pcoa_results.qza -d export/jaccardB  
+```
+### Unweighted Unifrac  
+```
+unzip core_metrics_results_10000B/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifracB  
+```
+
+### Export
+
+```
+
+# define beta metrics  
+metrics=("bray_curtis" "jaccard" "unweighted_unifrac" "weighted_unifrac")  
+  
+# copy their txt files into beta_div/  
+for metric in "${metrics[@]}"; do  
+ cp $metric/*/data/ordination.txt beta_div/${metric}.txt  
+done
+```
+
+on your computer use terminal and navigate to 04_code 
+
+```
+for f in *_div.zip; do  
+ unzip "$f" -d "${f%.zip}"  
+done
+```
+
+```
+cd /scratch/alpine/$USER/project/dada2
+
+qiime feature-table transpose \--i-table table_nomitochloro_gg2.qza \--o-transposed-feature-table table_nomitochloro_transposed.qza
+
+qiime metadata tabulate \--m-input-file table_nomitochloro_transposed.qza \--m-input-file oxy_seqs_dada2_filtered300.qza \--m-input-file ../taxonomy/taxonomy_gg2.qza \--o-visualization tabulated_results.qzv
+
 ```

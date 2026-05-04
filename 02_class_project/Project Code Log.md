@@ -619,3 +619,29 @@ qiime metadata tabulate \--m-input-file table_nomitochloro_transposed.qza \--m-i
 - Period p=0.01131
 
 ### Faiths Model
+
+## Filter by Sequence (A vs B)
+05/04/26
+```
+qiime feature-table filter-samples \
+  --i-table dada2/table_nomitochloro_nocontrol.qza \
+  --m-metadata-file metadata/metadata_v3.txt \
+  --p-where "[Sequence] = 'A'" \
+  --o-filtered-table dada2/table_nomitochloro_nocontrol_sequenceA.qza
+  
+  qiime feature-table filter-samples \
+  --i-table dada2/table_nomitochloro_nocontrol.qza \
+  --m-metadata-file metadata/metadata_v3.txt \
+  --p-where "[Sequence] = 'B'" \
+  --o-filtered-table dada2/table_nomitochloro_nocontrol_sequenceB.qza
+```
+
+
+```
+qiime diversity core-metrics-phylogenetic \
+--i-table dada2/table_nomitochloro_nocontrol.qza \
+--i-phylogeny tree/tree_gg2.qza \
+--m-metadata-file metadata/metadata_v3.txt \
+--p-sampling-depth 10000 \
+--output-dir core_metrics_results_10000
+```

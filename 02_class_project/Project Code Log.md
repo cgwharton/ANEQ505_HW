@@ -557,7 +557,6 @@ qiime diversity core-metrics-phylogenetic \
 
 cd ../
 
-mkdir export 
 ```
 
 ### Jaccard  
@@ -581,13 +580,30 @@ unzip core_metrics_results_10000B/unweighted_unifrac_pcoa_results.qza -d export/
 ### Export
 
 ```
+cd export 
+
+mkdir beta_divA
 
 # define beta metrics  
-metrics=("bray_curtis" "jaccard" "unweighted_unifrac" "weighted_unifrac")  
+metrics=("jaccardA" "unweighted_unifracA")  
   
 # copy their txt files into beta_div/  
 for metric in "${metrics[@]}"; do  
- cp $metric/*/data/ordination.txt beta_div/${metric}.txt  
+ cp $metric/*/data/ordination.txt beta_divA/${metric}.txt  
+done
+```
+
+```
+cd export 
+
+mkdir beta_divB
+
+# define beta metrics  
+metrics=("jaccardB" "unweighted_unifracB")  
+  
+# copy their txt files into beta_div/  
+for metric in "${metrics[@]}"; do  
+ cp $metric/*/data/ordination.txt beta_divB/${metric}.txt  
 done
 ```
 

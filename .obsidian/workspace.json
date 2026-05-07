@@ -8,58 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "d72b42c3756d7da4",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_notes/Week 9- 3.27.26.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Week 9- 3.27.26"
-            }
-          },
-          {
-            "id": "1dbf166f039fdfc9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01_homework/homework_4.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "homework_4"
-            }
-          },
-          {
-            "id": "2dcf41a41482426b",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "05_notes/Week 9- 3.27.26.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Week 9- 3.27.26"
-            }
-          },
-          {
-            "id": "a7d517242592e961",
-            "type": "leaf",
-            "state": {
-              "type": "empty",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "New tab"
-            }
-          },
-          {
             "id": "1d15c70280031c58",
             "type": "leaf",
             "state": {
@@ -73,8 +21,7 @@
               "title": "Project Code Log"
             }
           }
-        ],
-        "currentTab": 4
+        ]
       }
     ],
     "direction": "vertical"
@@ -252,12 +199,12 @@
   },
   "active": "1d15c70280031c58",
   "lastOpenFiles": [
-    "r_decomp_tutorial/04_code/decomp_stats_figures copy.Rmd",
     "05_notes/Week 9- 3.27.26.md",
+    "02_class_project/Project Code Log.md",
     "01_homework/homework_4.md",
+    "r_decomp_tutorial/04_code/decomp_stats_figures copy.Rmd",
     "05_notes/Week 6- 2.27.26.md",
     "05_notes/Week 5- 2.20.26.md",
-    "02_class_project/Project Code Log.md",
     "01_homework/homework_2_answers.md",
     "01_homework/homework_3_answers.md",
     "01_homework/homework_1 answers.md",
@@ -276,7 +223,6 @@
     "Users/catiewharton",
     "Users",
     "demux_oxycow.qzv",
-    "Unconfirmed 329570.crdownload",
     "05_notes/Example_Obsidian_Note.md",
     "05_notes/Week 7- 3.6.26.md",
     "05_notes/1.30.2026.md",

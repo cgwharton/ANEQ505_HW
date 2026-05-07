@@ -290,7 +290,7 @@ qiime feature-table summarize \
 --o-visualization oxy_table_dada2_filtered300.qzv
 
 ```
-
+- NOW 
 ## Classify taxonomy using GreenGenes2
 
 ### First get the Greengenes2 database:

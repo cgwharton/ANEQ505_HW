@@ -494,14 +494,51 @@ qiime diversity core-metrics-phylogenetic \
 --o-visualization rarefied_tableB.qzv
  ```
 
-## Alpha group significance
-
+### Visualize alpha diversity plots
+#### Shannon
 ```
 qiime diversity alpha-group-significance \
---i-alpha-diversity core-metrics-results/observed_features_vector.qza \
+--i-alpha-diversity core_metrics_results_10000/shannon_vector.qza \
 --m-metadata-file metadata/metadata_fixed2.txt \
---o-visualization core-metrics-results/observed_features_statistics.qzv
+--o-visualization core_metrics_results_10000/shannon_vector.qzv
 ```
+#### Faiths 
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results_10000/faith_pd_vector.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization core_metrics_results_10000/faiths_pd_statistics.qzv
+
+```
+
+Lets look by group as well . . .
+
+#### ShannonAB
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results_10000A/shannon_vector.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization core_metrics_results_10000A/shannon_vectorA.qzv
+
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results_10000B/shannon_vector.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization core_metrics_results_10000B/shannon_vectorB.qzv
+```
+#### FaithsAB
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results_10000A/faith_pd_vector.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization core_metrics_results_10000A/faiths_pd_statisticsA.qzv
+
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core_metrics_results_10000B/faith_pd_vector.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization core_metrics_results_10000B/faiths_pd_statisticsB.qzv
+
+```
+
 ## Exporting Qiime2 data
 
 ```

@@ -323,6 +323,29 @@ qiime metadata tabulate \
 --o-visualization taxonomy_gg2.qzv
 ```
 
+### Check Controls 
+ filter samples
+```
+qiime feature-table filter-samples \
+--i-table ../dada2/oxy_table_dada2_.qza \
+--m-metadata-file ../metadata/metadata_v3.txt \
+--p-where "[Treatment]='ext_control'" \
+--o-filtered-table ../dada2/table_controls.qza
+```
+create taxa plot 
+```
+qiime taxa barplot \
+--i-table ../dada2/table_controls.qza \
+--i-taxonomy ../taxonomy/taxonomy_gg2.qza \
+--m-metadata-file ../metadata/metadata.txt \
+--o-visualization taxa_barplot_controls.qzv
+```
+Why do we check controls?
+- Contamination
+- Workflow validation
+Why include positive controls?
+- Positive controls contain known combinations and quantities of microbiomes. This allows you to confirm whether your DNA extraction and library preparation protocol was successful and is suitable for identifying a variety of different organisms.
+
 ### Filter out mitochondria/chloroplasts/sp004296775
 ```
 qiime taxa filter-table \

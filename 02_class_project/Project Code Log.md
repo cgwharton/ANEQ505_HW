@@ -365,7 +365,6 @@ qiime taxa filter-table \
 --o-visualization table_nomitochloro_gg2.qzv
  ```
 
- 
 ### Visualize the taxa bar plot
 ```
 qiime taxa barplot \
@@ -476,6 +475,33 @@ qiime diversity core-metrics-phylogenetic \
 --output-dir core_metrics_results_10000B
 ```
 
+  Check Stats
+ ```
+ # be in core_metrics_results_10000A
+ 
+ qiime feature-table summarize \
+--i-table rarefied_table.qza \
+--m-sample-metadata-file ../metadata/metadata_fixed2.txt \
+--o-visualization rarefied_table.qzv
+ ```
+ 
+ ```
+ # be in core_metrics_results_10000B
+ 
+ qiime feature-table summarize \
+--i-table rarefied_table.qza \
+--m-sample-metadata-file ../metadata/metadata_fixed2.txt \
+--o-visualization rarefied_tableB.qzv
+ ```
+
+## Alpha group significance
+
+```
+qiime diversity alpha-group-significance \
+--i-alpha-diversity core-metrics-results/observed_features_vector.qza \
+--m-metadata-file metadata/metadata_fixed2.txt \
+--o-visualization core-metrics-results/observed_features_statistics.qzv
+```
 ## Exporting Qiime2 data
 
 ```

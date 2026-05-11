@@ -298,7 +298,6 @@ qiime feature-table summarize \
 --o-visualization oxy_table_dada2_filtered300.qzv
 
 ```
-- NOW 
 ## Classify taxonomy using GreenGenes2
 
 ### First get the Greengenes2 database:
@@ -441,18 +440,44 @@ qiime diversity alpha-rarefaction \
 --p-min-depth 10 \
 --p-max-depth 10000
 ```
-## Run Core Metrics 
 
+## Filter by Sequence (A vs B)
+05/04/26
+```
+qiime feature-table filter-samples \
+  --i-table dada2/table_nomitochloro_nocontrol.qza \
+  --m-metadata-file metadata/metadata_v3.txt \
+  --p-where "[Sequence] = 'A'" \
+  --o-filtered-table dada2/table_nomitochloro_nocontrol_sequenceA.qza
+  
+  qiime feature-table filter-samples \
+  --i-table dada2/table_nomitochloro_nocontrol.qza \
+  --m-metadata-file metadata/metadata_v3.txt \
+  --p-where "[Sequence] = 'B'" \
+  --o-filtered-table dada2/table_nomitochloro_nocontrol_sequenceB.qza
+```
+
+## CoreMetrics
 ```
 qiime diversity core-metrics-phylogenetic \
---i-table dada2/table_nomitochloro_nocontrol.qza \
+--i-table dada2/table_nomitochloro_nocontrol_sequenceA.qza \
 --i-phylogeny tree/tree_gg2.qza \
 --m-metadata-file metadata/metadata_v3.txt \
 --p-sampling-depth 10000 \
---output-dir core_metrics_results_10000
+--output-dir core_metrics_results_10000A
+```
+
+```
+qiime diversity core-metrics-phylogenetic \
+--i-table dada2/table_nomitochloro_nocontrol_sequenceB.qza \
+--i-phylogeny tree/tree_gg2.qza \
+--m-metadata-file metadata/metadata_v3.txt \
+--p-sampling-depth 10000 \
+--output-dir core_metrics_results_10000B
 ```
 
 ## Exporting Qiime2 data
+
 ```
 # move to project directory
 
@@ -464,38 +489,55 @@ mkdir export
 ```
 unzip core_metrics_results_10000/shannon_vector.qza -d export/shannon
 ```
-
-move back to project directory if not there
-### Observed Features  
-```
-unzip core_metrics_results_10000/observed_features_vector.qza -d export/observed_features  
-```
 ### Faith's PD  
 ```
 unzip core_metrics_results_10000/faith_pd_vector.qza -d export/faith_pd 
 ``` 
-### Pielou's evenness  
+### Jaccard  A
 ```
-unzip core_metrics_results_10000/evenness_vector.qza -d export/evenness
+unzip core_metrics_results_10000A/jaccard_pcoa_results.qza -d export/jaccardA  
 ```
-### Bray Curtis  
+### Weighted Unifrac  A
 ```
-unzip core_metrics_results_10000/bray_curtis_pcoa_results.qza -d export/bray_curtis  
+unzip core_metrics_results_10000A/weighted_unifrac_pcoa_results.qza -d export/weighted_unifracA  
 ```
-### Jaccard  
+### Jaccard  B
 ```
-unzip core_metrics_results_10000/jaccard_pcoa_results.qza -d export/jaccard  
+unzip core_metrics_results_10000B/jaccard_pcoa_results.qza -d export/jaccardB  
 ```
-### Unweighted Unifrac  
+### Weighted Unifrac  B
 ```
-unzip core_metrics_results_10000/unweighted_unifrac_pcoa_results.qza -d export/unweighted_unifrac  
+unzip core_metrics_results_10000B/weighted_unifrac_pcoa_results.qza -d export/weighted_unifracB  
 ```
-### Weighted Unifrac  
+### Export
+
 ```
-unzip core_metrics_results_10000/weighted_unifrac_pcoa_results.qza -d export/weighted_unifrac
+cd export 
+
+mkdir beta_divA
+
+# define beta metrics  
+metrics=("jaccardA" "weighted_unifracA")  
+  
+# copy their txt files into beta_div/  
+for metric in "${metrics[@]}"; do  
+ cp $metric/*/data/ordination.txt beta_divA/${metric}.txt  
+done
 ```
 
-### Export
+```
+cd export 
+
+mkdir beta_divB
+
+# define beta metrics  
+metrics=("jaccardB" "weighted_unifracB")  
+  
+# copy their txt files into beta_div/  
+for metric in "${metrics[@]}"; do  
+ cp $metric/*/data/ordination.txt beta_divB/${metric}.txt  
+done
+```
  
 ```
 cd export 
@@ -503,23 +545,11 @@ cd export
 mkdir alpha_div
 
 # define alpha metrics  
-metrics=("shannon" "evenness" "faith_pd" "observed_features")  
+metrics=("shannon" "faith_pd")  
   
 # copy their tsv files into alpha_div/  
 for metric in "${metrics[@]}"; do  
  cp $metric/*/data/alpha-diversity.tsv alpha_div/${metric}.tsv  
-done
-```
-
-```
-mkdir beta_div
-
-# define beta metrics  
-metrics=("bray_curtis" "jaccard" "unweighted_unifrac" "weighted_unifrac")  
-  
-# copy their txt files into beta_div/  
-for metric in "${metrics[@]}"; do  
- cp $metric/*/data/ordination.txt beta_div/${metric}.txt  
 done
 ```
 
@@ -558,93 +588,3 @@ qiime metadata tabulate \--m-input-file table_nomitochloro_transposed.qza \--m-i
 
 ### Faiths Model
 
-## Filter by Sequence (A vs B)
-05/04/26
-```
-qiime feature-table filter-samples \
-  --i-table dada2/table_nomitochloro_nocontrol.qza \
-  --m-metadata-file metadata/metadata_v3.txt \
-  --p-where "[Sequence] = 'A'" \
-  --o-filtered-table dada2/table_nomitochloro_nocontrol_sequenceA.qza
-  
-  qiime feature-table filter-samples \
-  --i-table dada2/table_nomitochloro_nocontrol.qza \
-  --m-metadata-file metadata/metadata_v3.txt \
-  --p-where "[Sequence] = 'B'" \
-  --o-filtered-table dada2/table_nomitochloro_nocontrol_sequenceB.qza
-```
-
-### CoreMetrics
-```
-qiime diversity core-metrics-phylogenetic \
---i-table dada2/table_nomitochloro_nocontrol_sequenceA.qza \
---i-phylogeny tree/tree_gg2.qza \
---m-metadata-file metadata/metadata_v3.txt \
---p-sampling-depth 10000 \
---output-dir core_metrics_results_10000A
-```
-
-```
-qiime diversity core-metrics-phylogenetic \
---i-table dada2/table_nomitochloro_nocontrol_sequenceB.qza \
---i-phylogeny tree/tree_gg2.qza \
---m-metadata-file metadata/metadata_v3.txt \
---p-sampling-depth 10000 \
---output-dir core_metrics_results_10000B
-```
-
-## Exporting Qiime2 data
-```
-# move to project directory
-
-cd ../
-
-```
-
-### Jaccard  A
-```
-unzip core_metrics_results_10000A/jaccard_pcoa_results.qza -d export/jaccardA  
-```
-### Weighted Unifrac  A
-```
-unzip core_metrics_results_10000A/weighted_unifrac_pcoa_results.qza -d export/weighted_unifracA  
-```
-
-### Jaccard  B
-```
-unzip core_metrics_results_10000B/jaccard_pcoa_results.qza -d export/jaccardB  
-```
-### Weighted Unifrac  B
-```
-unzip core_metrics_results_10000B/weighted_unifrac_pcoa_results.qza -d export/weighted_unifracB  
-```
-
-### Export
-
-```
-cd export 
-
-mkdir beta_divA
-
-# define beta metrics  
-metrics=("jaccardA" "weighted_unifracA")  
-  
-# copy their txt files into beta_div/  
-for metric in "${metrics[@]}"; do  
- cp $metric/*/data/ordination.txt beta_divA/${metric}.txt  
-done
-```
-
-```
-cd export 
-
-mkdir beta_divB
-
-# define beta metrics  
-metrics=("jaccardB" "weighted_unifracB")  
-  
-# copy their txt files into beta_div/  
-for metric in "${metrics[@]}"; do  
- cp $metric/*/data/ordination.txt beta_divB/${metric}.txt  
-done
-```

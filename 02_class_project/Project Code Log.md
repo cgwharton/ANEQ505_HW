@@ -180,7 +180,15 @@ Memory Efficiency: 8.28% of 45.00 GiB (3.75 GiB/core)
 	Reverse reads median quality score for 251 was 13
 		Trim at 0 bp
 		Truncate at 251 bp
-		
+	Demultiplexed sequence counts summary
+		||forward reads|reverse reads|
+		|---|---|---|
+		|Minimum|34|34|
+		|Median|33743.0|33743.0|
+		|Mean|33354.324022|33354.324022|
+		|Maximum|95144|95144|
+		|Total|5970424|5970424|
+	Per-sample sequence counts : forward and reverse = 179
 
 ## Denoising
 ```

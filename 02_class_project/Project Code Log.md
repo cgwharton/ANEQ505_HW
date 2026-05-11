@@ -333,6 +333,7 @@ qiime taxa filter-table \
 --o-filtered-table ../dada2/table_nomitochloro_gg2.qza
 ```
 
+
 ### Visualize the taxa bar plot
 ```
 qiime taxa barplot \

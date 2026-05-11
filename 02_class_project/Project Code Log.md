@@ -358,17 +358,15 @@ qiime taxa filter-table \
 
  Check Stats
  ```
+ # be in dada2  
+ 
  qiime feature-table summarize \
---i-table oxy_table_dada2_filtered300.qza \
+--i-table table_nomitochloro_gg2.qza \
 --m-sample-metadata-file ../metadata/metadata_fixed2.txt \
---o-visualization oxy_table_dada2_filtered300.qzv
+--o-visualization table_nomitochloro_gg2.qzv
  ```
-qiime feature-table filter-features \
---i-table cow_table_dada2.qza \
---m-metadata-file oxy_seqs_dada2_filtered300.qza \
---o-filtered-table oxy_table_dada2_filtered300.qza
-  
 
+ 
 ### Visualize the taxa bar plot
 ```
 qiime taxa barplot \

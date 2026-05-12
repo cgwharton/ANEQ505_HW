@@ -512,7 +512,6 @@ qiime diversity alpha-group-significance \
 ```
 
 Lets look by group as well . . .
-
 #### ShannonAB
 ```
 qiime diversity alpha-group-significance \
@@ -539,6 +538,31 @@ qiime diversity alpha-group-significance \
 
 ```
 
+Shannon ALL
+- Date/Period 
+	- p = 0.0216
+- Treatment 
+	- p = 0.0488
+	- H = 3.8796643657462937
+	- q = 0.048874
+- Hour
+	- p = 0.8596
+
+Shannon A
+- Date/Period 
+	- p = 0.086
+- Treatment 
+	- p = 0.1195 
+- Hour
+	- p = 0.718 
+
+Shannon B
+- Date/Period 
+	- p = 0.0343 
+- Treatment 
+	- p = 0.280 
+- Hour
+	- p = 0.458 
 ## Exporting Qiime2 data
 
 ```

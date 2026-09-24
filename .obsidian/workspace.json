@@ -120,8 +120,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 200,
-    "collapsed": true
+    "width": 200
   },
   "right": {
     "id": "223c8da97886a9ca",
@@ -240,9 +239,12 @@
   },
   "active": "1d15c70280031c58",
   "lastOpenFiles": [
+    "02_class_project/Project Code Log 1.md",
+    "02_class_project/Project Code Log.md",
+    "01_homework/homework_1.md",
+    "05_notes/Week 3- 2.6.26.md",
     "01_homework/homework_3.md",
     "01_homework/homework_2.md",
-    "02_class_project/Project Code Log.md",
     "05_notes/Week 6- 2.27.26.md",
     "05_notes/Week 5- 2.20.26.md",
     "05_notes/Week 4- 2.13.26.md",
@@ -252,14 +254,11 @@
     "01_homework/homework_2_answers.md",
     "01_homework/homework_3_answers.md",
     "01_homework/homework_1 answers.md",
-    "02_class_project/Project Code Log 1.md",
     "05_notes/example_worflow.md",
-    "01_homework/homework_1.md",
     "cow_table.qzv",
     "Unconfirmed 144171.crdownload",
     "cow_dada2_stats.qzv",
     "Unconfirmed 870250.crdownload",
-    "05_notes/Week 3- 2.6.26.md",
     "Users/catiewharton/ANEQ_505/ANEQ505_HW/demux_oxycow.qzv.md",
     "Users/catiewharton/ANEQ_505/ANEQ505_HW",
     "Users/catiewharton/ANEQ_505",
